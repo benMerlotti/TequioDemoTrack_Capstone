@@ -13,3 +13,12 @@ export const createCustomer = (newCustomer) => {
           body: JSON.stringify(newCustomer)
     }).then((res) => res.json());
 }
+
+export const deleteCustomer = (id) => {
+    return fetch(`${_apiUrl}/${id}/delete`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        }
+    });
+}

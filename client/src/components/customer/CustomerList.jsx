@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getCustomers } from "../../managers/customerManager";
+import { deleteCustomer, getCustomers } from "../../managers/customerManager";
 import { Button, Table } from "reactstrap";
 import { Link } from "react-router-dom";
 
