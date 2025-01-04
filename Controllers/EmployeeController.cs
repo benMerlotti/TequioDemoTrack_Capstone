@@ -1,6 +1,9 @@
+using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using TequioDemoTrack.Data;
+using TequioDemoTrack.Models;
+using TequioDemoTrack.Models.DTOs;
 
 [ApiController]
 [Route("api/[controller]")]
@@ -21,5 +24,27 @@ public class EmployeeController : ControllerBase
         return Ok(_dbContext
         .Employees
         .ToList());
+    }
+
+    [HttpPost]
+    // [Authorize]
+    public IActionResult CreateEmployee(IMapper mapper, CreateEmployeeDTO employee)
+    {
+        var newEmployee = mapper.Map<Employee>(employee);
+        _dbContext.Employees.Add(newEmployee);
+        _dbContext.SaveChanges();
+
+        return Created($"/api/Purchase/{newEmployee.Id}", newEmployee);
+    }
+
+    [HttpDelete("{id}/delete")]
+    // [Authorize]
+    public IActionResult DeleteEmployee(int id)
+    {
+        var foundEmployee = _dbContext.Employees.FirstOrDefault(e => e.Id == id);
+        _dbContext.Employees.Remove(foundEmployee);
+        _dbContext.SaveChanges();
+
+        return NoContent();
     }
 }

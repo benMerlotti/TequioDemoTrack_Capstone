@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import { getEmployees } from "../../managers/employeeManager";
+import { deleteEmployee, getEmployees } from "../../managers/employeeManager";
 import { Link } from "react-router-dom";
-import { Table } from "reactstrap";
+import { Button, Table } from "reactstrap";
 
 export const EmployeeList = () => {
   const [employees, setEmployees] = useState([]);
@@ -9,6 +9,12 @@ export const EmployeeList = () => {
   useEffect(() => {
     getEmployees().then(setEmployees);
   }, []);
+
+  const handleDelete = (id) => {
+    deleteEmployee(id).then(() => {
+      getEmployees().then(setEmployees);
+    });
+  };
   return (
     <>
       <h2>Employees</h2>
@@ -30,6 +36,11 @@ export const EmployeeList = () => {
               <td>{e.email}</td>
               <td>
                 <Link to={`${e.id}`}>Details</Link>
+              </td>
+              <td>
+                <Button onClick={() => handleDelete(e.id)} color="danger">
+                  Delete
+                </Button>
               </td>
             </tr>
           ))}

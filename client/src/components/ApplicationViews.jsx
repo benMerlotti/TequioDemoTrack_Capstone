@@ -8,6 +8,7 @@ import { ProductList } from "./product/ProductList";
 import { PurchaseList } from "./purchase/PurchaseList";
 import { CreatePurchase } from "./purchase/CreatePurchase";
 import { CreateCustomer } from "./customer/CreateCustomer";
+import { CreateEmployee } from "./employee/CreateEmployee";
 
 // eslint-disable-next-line react/prop-types
 export default function ApplicationViews({ loggedInUser, setLoggedInUser }) {
@@ -35,6 +36,10 @@ export default function ApplicationViews({ loggedInUser, setLoggedInUser }) {
         <Route
           path="employees"
           element={<EmployeeList setLoggedInUser={setLoggedInUser} />}
+        />
+        <Route
+          path="employees/add-employee"
+          element={<CreateEmployee setLoggedInUser={setLoggedInUser} />}
         />
         <Route
           path="customers"
