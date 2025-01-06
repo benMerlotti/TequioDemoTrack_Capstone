@@ -12,15 +12,15 @@ export const PurchaseList = () => {
   return (
     <>
       <h2>Purchases</h2>
-      <Link to="add-purchase">New Purchase</Link>
+      <Link to="/new-purchase">New Purchase</Link>
       <Table>
         <thead>
           <tr>
             <th>Id</th>
             <th>Buyer</th>
-            <th>Product</th>
             <th>Price</th>
             <th>Date</th>
+            <th></th>
           </tr>
         </thead>
         <tbody>
@@ -28,9 +28,11 @@ export const PurchaseList = () => {
             <tr key={p.id}>
               <th scope="row">{`${p.id}`}</th>
               <td>{p.customer?.name}</td>
-              <td>{p.product?.name}</td>
               <td>$$$</td>
-              <td>{p.purchaseDate}</td>
+              <td>{new Date(p.purchaseDate).toLocaleDateString()}</td>
+              <td>
+                <Link to={`${p.id}`}>Details</Link>
+              </td>
             </tr>
           ))}
         </tbody>

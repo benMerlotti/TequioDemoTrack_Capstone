@@ -10,18 +10,15 @@ public class Customer
     public string Email { get; set; } = string.Empty;
     [Required]
     public string Address { get; set; } = string.Empty;
-    [Required]
     public int AgeGroupId { get; set; }
     public AgeGroup AgeGroup { get; set; } = null!;
-    [Required]
     public int GenderId { get; set; }
     public Gender Gender { get; set; } = null!;
-    [Required]
     public int RaceId { get; set; }
     public Race Race { get; set; } = null!;
-    [Required]
     public int LocationId { get; set; }
     public Location Location { get; set; } = null!;
 
-    public ICollection<CustomerProductEmployee> Purchases { get; set; } = new List<CustomerProductEmployee>();
+    public ICollection<Purchase> Purchases { get; set; } = new List<Purchase>();
 }
+

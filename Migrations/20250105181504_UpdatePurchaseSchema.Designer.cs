@@ -12,8 +12,8 @@ using TequioDemoTrack.Data;
 namespace TequioDemoTrack.Migrations
 {
     [DbContext(typeof(TequioDemoTrackDbContext))]
-    [Migration("20250102191950_AddSeedData")]
-    partial class AddSeedData
+    [Migration("20250105181504_UpdatePurchaseSchema")]
+    partial class UpdatePurchaseSchema
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -24,272 +24,6 @@ namespace TequioDemoTrack.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
-
-            modelBuilder.Entity("AgeGroup", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Group")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("AgeGroups");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Group = "18-24"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Group = "25-34"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Group = "35-44"
-                        });
-                });
-
-            modelBuilder.Entity("Customer", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Address")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<int>("AgeGroupId")
-                        .HasColumnType("integer");
-
-                    b.Property<string>("Email")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<int>("GenderId")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("LocationId")
-                        .HasColumnType("integer");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<int>("RaceId")
-                        .HasColumnType("integer");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("AgeGroupId");
-
-                    b.HasIndex("GenderId");
-
-                    b.HasIndex("LocationId");
-
-                    b.HasIndex("RaceId");
-
-                    b.ToTable("Customers");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Address = "789 Lime Ave, Miami",
-                            AgeGroupId = 2,
-                            Email = "john.doe@example.com",
-                            GenderId = 1,
-                            LocationId = 3,
-                            Name = "John Doe",
-                            RaceId = 3
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Address = "321 Salt Blvd, Los Angeles",
-                            AgeGroupId = 1,
-                            Email = "jane.smith@example.com",
-                            GenderId = 2,
-                            LocationId = 2,
-                            Name = "Jane Smith",
-                            RaceId = 2
-                        });
-                });
-
-            modelBuilder.Entity("CustomerProductEmployee", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("CustomerId")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("EmployeeId")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("ProductId")
-                        .HasColumnType("integer");
-
-                    b.Property<DateTime>("PurchaseDate")
-                        .HasColumnType("timestamp without time zone");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CustomerId");
-
-                    b.HasIndex("EmployeeId");
-
-                    b.HasIndex("ProductId");
-
-                    b.ToTable("CustomerProductEmployees");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            CustomerId = 1,
-                            EmployeeId = 1,
-                            ProductId = 2,
-                            PurchaseDate = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
-                        },
-                        new
-                        {
-                            Id = 2,
-                            CustomerId = 2,
-                            EmployeeId = 2,
-                            ProductId = 1,
-                            PurchaseDate = new DateTime(2024, 2, 15, 0, 0, 0, 0, DateTimeKind.Unspecified)
-                        });
-                });
-
-            modelBuilder.Entity("Employee", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Address")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("Email")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("boolean");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Employees");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Address = "123 Agave St, Mexico City",
-                            Email = "juan.perez@example.com",
-                            IsActive = true,
-                            Name = "Juan Perez"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Address = "456 Tequila Rd, Guadalajara",
-                            Email = "maria.lopez@example.com",
-                            IsActive = true,
-                            Name = "Maria Lopez"
-                        });
-                });
-
-            modelBuilder.Entity("Gender", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("GenderValue")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Genders");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            GenderValue = "Male"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            GenderValue = "Female"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            GenderValue = "Non-binary"
-                        });
-                });
-
-            modelBuilder.Entity("Location", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("LocationValue")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Locations");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            LocationValue = "New York"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            LocationValue = "Los Angeles"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            LocationValue = "Chicago"
-                        });
-                });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
                 {
@@ -418,13 +152,13 @@ namespace TequioDemoTrack.Migrations
                         {
                             Id = "dbc40bc6-0829-4ac5-a3ed-180f5e916a5f",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "93a3b49b-1ed2-4b64-9625-f144efdbca80",
+                            ConcurrencyStamp = "81c4e71f-2591-4536-8782-8ec5321e3b53",
                             Email = "admina@strator.comx",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
-                            PasswordHash = "AQAAAAIAAYagAAAAECZVcqOgVo5XBSLwo3kqHIA8nMySaO7gXMZ3ZAV2GH5MFM/+XndcUa2wh7Cb6WMagw==",
+                            PasswordHash = "AQAAAAIAAYagAAAAENu23XtZdSGOPfQFLbVp0UfSLCpiGD/b6UvmSGHKmeFyUH7xmsYxFM5Z5iMWBqHhVg==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "a3733d85-2d97-4b4c-933b-c1040a9d91ed",
+                            SecurityStamp = "edb1d575-fd97-4b34-abba-79bdc2712c50",
                             TwoFactorEnabled = false,
                             UserName = "Administrator"
                         });
@@ -518,7 +252,224 @@ namespace TequioDemoTrack.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("Product", b =>
+            modelBuilder.Entity("TequioDemoTrack.Models.AgeGroup", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Group")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("AgeGroups");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Group = "18-24"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Group = "25-34"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Group = "35-44"
+                        });
+                });
+
+            modelBuilder.Entity("TequioDemoTrack.Models.Customer", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Address")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<int>("AgeGroupId")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<int>("GenderId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("LocationId")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<int>("RaceId")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AgeGroupId");
+
+                    b.HasIndex("GenderId");
+
+                    b.HasIndex("LocationId");
+
+                    b.HasIndex("RaceId");
+
+                    b.ToTable("Customers");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Address = "789 Lime Ave, Miami",
+                            AgeGroupId = 2,
+                            Email = "john.doe@example.com",
+                            GenderId = 1,
+                            LocationId = 3,
+                            Name = "John Doe",
+                            RaceId = 3
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Address = "321 Salt Blvd, Los Angeles",
+                            AgeGroupId = 1,
+                            Email = "jane.smith@example.com",
+                            GenderId = 2,
+                            LocationId = 2,
+                            Name = "Jane Smith",
+                            RaceId = 2
+                        });
+                });
+
+            modelBuilder.Entity("TequioDemoTrack.Models.Employee", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Address")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Employees");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Address = "123 Agave St, Mexico City",
+                            Email = "juan.perez@example.com",
+                            IsActive = true,
+                            Name = "Juan Perez"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Address = "456 Tequila Rd, Guadalajara",
+                            Email = "maria.lopez@example.com",
+                            IsActive = true,
+                            Name = "Maria Lopez"
+                        });
+                });
+
+            modelBuilder.Entity("TequioDemoTrack.Models.Gender", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("GenderValue")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Genders");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            GenderValue = "Male"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            GenderValue = "Female"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            GenderValue = "Non-binary"
+                        });
+                });
+
+            modelBuilder.Entity("TequioDemoTrack.Models.Location", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("LocationValue")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Locations");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            LocationValue = "New York"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            LocationValue = "Los Angeles"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            LocationValue = "Chicago"
+                        });
+                });
+
+            modelBuilder.Entity("TequioDemoTrack.Models.Product", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -530,6 +481,9 @@ namespace TequioDemoTrack.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<decimal>("Price")
+                        .HasColumnType("numeric");
+
                     b.HasKey("Id");
 
                     b.ToTable("Products");
@@ -538,21 +492,92 @@ namespace TequioDemoTrack.Migrations
                         new
                         {
                             Id = 1,
-                            Name = "Tequila Blanco"
+                            Name = "Tequila Blanco",
+                            Price = 25.00m
                         },
                         new
                         {
                             Id = 2,
-                            Name = "Tequila Reposado"
+                            Name = "Tequila Reposado",
+                            Price = 30.00m
                         },
                         new
                         {
                             Id = 3,
-                            Name = "Tequila Añejo"
+                            Name = "Tequila Añejo",
+                            Price = 40.00m
                         });
                 });
 
-            modelBuilder.Entity("Race", b =>
+            modelBuilder.Entity("TequioDemoTrack.Models.Purchase", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("CustomerId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("EmployeeId")
+                        .HasColumnType("integer");
+
+                    b.Property<DateTime>("PurchaseDate")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CustomerId");
+
+                    b.HasIndex("EmployeeId");
+
+                    b.ToTable("Purchases");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CustomerId = 1,
+                            EmployeeId = 1,
+                            PurchaseDate = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 2,
+                            CustomerId = 2,
+                            EmployeeId = 2,
+                            PurchaseDate = new DateTime(2024, 2, 15, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        });
+                });
+
+            modelBuilder.Entity("TequioDemoTrack.Models.PurchaseProduct", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("PurchaseId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProductId");
+
+                    b.HasIndex("PurchaseId");
+
+                    b.ToTable("PurchaseProducts");
+                });
+
+            modelBuilder.Entity("TequioDemoTrack.Models.Race", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -632,68 +657,6 @@ namespace TequioDemoTrack.Migrations
                         });
                 });
 
-            modelBuilder.Entity("Customer", b =>
-                {
-                    b.HasOne("AgeGroup", "AgeGroup")
-                        .WithMany("Customers")
-                        .HasForeignKey("AgeGroupId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Gender", "Gender")
-                        .WithMany("Customers")
-                        .HasForeignKey("GenderId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Location", "Location")
-                        .WithMany("Customers")
-                        .HasForeignKey("LocationId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Race", "Race")
-                        .WithMany("Customers")
-                        .HasForeignKey("RaceId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("AgeGroup");
-
-                    b.Navigation("Gender");
-
-                    b.Navigation("Location");
-
-                    b.Navigation("Race");
-                });
-
-            modelBuilder.Entity("CustomerProductEmployee", b =>
-                {
-                    b.HasOne("Customer", "Customer")
-                        .WithMany("Purchases")
-                        .HasForeignKey("CustomerId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Employee", "Employee")
-                        .WithMany("CustomerProductEmployees")
-                        .HasForeignKey("EmployeeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Product", "Product")
-                        .WithMany("CustomerProductEmployees")
-                        .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Customer");
-
-                    b.Navigation("Employee");
-
-                    b.Navigation("Product");
-                });
-
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -745,6 +708,79 @@ namespace TequioDemoTrack.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("TequioDemoTrack.Models.Customer", b =>
+                {
+                    b.HasOne("TequioDemoTrack.Models.AgeGroup", "AgeGroup")
+                        .WithMany("Customers")
+                        .HasForeignKey("AgeGroupId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("TequioDemoTrack.Models.Gender", "Gender")
+                        .WithMany("Customers")
+                        .HasForeignKey("GenderId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("TequioDemoTrack.Models.Location", "Location")
+                        .WithMany("Customers")
+                        .HasForeignKey("LocationId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("TequioDemoTrack.Models.Race", "Race")
+                        .WithMany("Customers")
+                        .HasForeignKey("RaceId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("AgeGroup");
+
+                    b.Navigation("Gender");
+
+                    b.Navigation("Location");
+
+                    b.Navigation("Race");
+                });
+
+            modelBuilder.Entity("TequioDemoTrack.Models.Purchase", b =>
+                {
+                    b.HasOne("TequioDemoTrack.Models.Customer", "Customer")
+                        .WithMany("Purchases")
+                        .HasForeignKey("CustomerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("TequioDemoTrack.Models.Employee", "Employee")
+                        .WithMany("Purchases")
+                        .HasForeignKey("EmployeeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Customer");
+
+                    b.Navigation("Employee");
+                });
+
+            modelBuilder.Entity("TequioDemoTrack.Models.PurchaseProduct", b =>
+                {
+                    b.HasOne("TequioDemoTrack.Models.Product", "Product")
+                        .WithMany("PurchaseProducts")
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("TequioDemoTrack.Models.Purchase", "Purchase")
+                        .WithMany("PurchaseProducts")
+                        .HasForeignKey("PurchaseId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Product");
+
+                    b.Navigation("Purchase");
+                });
+
             modelBuilder.Entity("TequioDemoTrack.Models.UserProfile", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "IdentityUser")
@@ -756,37 +792,42 @@ namespace TequioDemoTrack.Migrations
                     b.Navigation("IdentityUser");
                 });
 
-            modelBuilder.Entity("AgeGroup", b =>
+            modelBuilder.Entity("TequioDemoTrack.Models.AgeGroup", b =>
                 {
                     b.Navigation("Customers");
                 });
 
-            modelBuilder.Entity("Customer", b =>
+            modelBuilder.Entity("TequioDemoTrack.Models.Customer", b =>
                 {
                     b.Navigation("Purchases");
                 });
 
-            modelBuilder.Entity("Employee", b =>
+            modelBuilder.Entity("TequioDemoTrack.Models.Employee", b =>
                 {
-                    b.Navigation("CustomerProductEmployees");
+                    b.Navigation("Purchases");
                 });
 
-            modelBuilder.Entity("Gender", b =>
-                {
-                    b.Navigation("Customers");
-                });
-
-            modelBuilder.Entity("Location", b =>
+            modelBuilder.Entity("TequioDemoTrack.Models.Gender", b =>
                 {
                     b.Navigation("Customers");
                 });
 
-            modelBuilder.Entity("Product", b =>
+            modelBuilder.Entity("TequioDemoTrack.Models.Location", b =>
                 {
-                    b.Navigation("CustomerProductEmployees");
+                    b.Navigation("Customers");
                 });
 
-            modelBuilder.Entity("Race", b =>
+            modelBuilder.Entity("TequioDemoTrack.Models.Product", b =>
+                {
+                    b.Navigation("PurchaseProducts");
+                });
+
+            modelBuilder.Entity("TequioDemoTrack.Models.Purchase", b =>
+                {
+                    b.Navigation("PurchaseProducts");
+                });
+
+            modelBuilder.Entity("TequioDemoTrack.Models.Race", b =>
                 {
                     b.Navigation("Customers");
                 });

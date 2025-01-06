@@ -11,7 +11,8 @@ public class TequioDemoTrackDbContext : IdentityDbContext<IdentityUser>
     public DbSet<Customer> Customers { get; set; }
     public DbSet<Employee> Employees { get; set; }
     public DbSet<Product> Products { get; set; }
-    public DbSet<CustomerProductEmployee> CustomerProductEmployees { get; set; }
+    public DbSet<Purchase> Purchases { get; set; }
+    public DbSet<PurchaseProduct> PurchaseProducts { get; set; }
     public DbSet<AgeGroup> AgeGroups { get; set; }
     public DbSet<Gender> Genders { get; set; }
     public DbSet<Location> Locations { get; set; }
@@ -86,10 +87,11 @@ public class TequioDemoTrackDbContext : IdentityDbContext<IdentityUser>
 
         // Seed data for Product
         modelBuilder.Entity<Product>().HasData(
-            new Product { Id = 1, Name = "Tequila Blanco" },
-            new Product { Id = 2, Name = "Tequila Reposado" },
-            new Product { Id = 3, Name = "Tequila Añejo" }
-        );
+            new Product { Id = 1, Name = "Tequila Blanco", Price = 25.00m },
+            new Product { Id = 2, Name = "Tequila Reposado", Price = 30.00m },
+            new Product { Id = 3, Name = "Tequila Añejo", Price = 40.00m }
+  );
+
 
         // Seed data for Employee
         modelBuilder.Entity<Employee>().HasData(
@@ -103,10 +105,15 @@ public class TequioDemoTrackDbContext : IdentityDbContext<IdentityUser>
             new Customer { Id = 2, Name = "Jane Smith", Email = "jane.smith@example.com", Address = "321 Salt Blvd, Los Angeles", AgeGroupId = 1, GenderId = 2, RaceId = 2, LocationId = 2 }
         );
 
-        // Seed data for CustomerProductEmployee (Join Table)
-        modelBuilder.Entity<CustomerProductEmployee>().HasData(
-            new CustomerProductEmployee { Id = 1, CustomerId = 1, ProductId = 2, EmployeeId = 1, PurchaseDate = new DateTime(2024, 1, 1) },
-            new CustomerProductEmployee { Id = 2, CustomerId = 2, ProductId = 1, EmployeeId = 2, PurchaseDate = new DateTime(2024, 2, 15) }
+        // Seed data for Purchases
+        modelBuilder.Entity<Purchase>().HasData(
+            new Purchase { Id = 1, CustomerId = 1, EmployeeId = 1, PurchaseDate = new DateTime(2024, 1, 1) },
+            new Purchase { Id = 2, CustomerId = 2, EmployeeId = 2, PurchaseDate = new DateTime(2024, 2, 15) }
+        );
+
+        modelBuilder.Entity<PurchaseProduct>().HasData(
+            new PurchaseProduct { Id = 1, PurchaseId = 1, ProductId = 2, Quantity = 1 },
+            new PurchaseProduct { Id = 2, PurchaseId = 2, ProductId = 3, Quantity = 1 }
         );
 
 

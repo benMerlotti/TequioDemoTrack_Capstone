@@ -9,6 +9,8 @@ import { PurchaseList } from "./purchase/PurchaseList";
 import { CreatePurchase } from "./purchase/CreatePurchase";
 import { CreateCustomer } from "./customer/CreateCustomer";
 import { CreateEmployee } from "./employee/CreateEmployee";
+import { CustomerDetails } from "./customer/CustomerDetails";
+import { EmployeeDetails } from "./employee/EmployeeDetails";
 
 // eslint-disable-next-line react/prop-types
 export default function ApplicationViews({ loggedInUser, setLoggedInUser }) {
@@ -27,7 +29,12 @@ export default function ApplicationViews({ loggedInUser, setLoggedInUser }) {
         />
         <Route
           path="new-purchase"
-          element={<CreatePurchase setLoggedInUser={setLoggedInUser} />}
+          element={
+            <CreatePurchase
+              setLoggedInUser={setLoggedInUser}
+              loggedInUser={loggedInUser}
+            />
+          }
         />
         <Route
           path="products"
@@ -38,12 +45,20 @@ export default function ApplicationViews({ loggedInUser, setLoggedInUser }) {
           element={<EmployeeList setLoggedInUser={setLoggedInUser} />}
         />
         <Route
+          path="employees/:id"
+          element={<EmployeeDetails setLoggedInUser={setLoggedInUser} />}
+        />
+        <Route
           path="employees/add-employee"
           element={<CreateEmployee setLoggedInUser={setLoggedInUser} />}
         />
         <Route
           path="customers"
           element={<CustomerList setLoggedInUser={setLoggedInUser} />}
+        />
+        <Route
+          path="customers/:id"
+          element={<CustomerDetails setLoggedInUser={setLoggedInUser} />}
         />
         <Route
           path="customers/add-customer"

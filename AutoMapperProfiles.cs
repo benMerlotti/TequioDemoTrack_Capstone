@@ -9,20 +9,30 @@ public class AutoMapperProfiles : Profile
 
         CreateMap<UserProfile, UserProfileDTO>();
         CreateMap<UserProfileDTO, UserProfile>();
+
         CreateMap<Customer, CustomerDTO>();
         CreateMap<CustomerDTO, Customer>();
+
         CreateMap<Customer, CreateCustomerDTO>();
         CreateMap<CreateCustomerDTO, Customer>();
+
         CreateMap<Employee, EmployeeDTO>();
         CreateMap<EmployeeDTO, Employee>();
+
         CreateMap<Employee, CreateEmployeeDTO>();
         CreateMap<CreateEmployeeDTO, Employee>();
+
         CreateMap<Product, ProductDTO>();
         CreateMap<ProductDTO, Product>();
-        CreateMap<CustomerProductEmployee, CustomerProductEmployeeDTO>();
-        CreateMap<CustomerProductEmployeeDTO, CustomerProductEmployee>();
-        CreateMap<PurchaseDTO, CustomerProductEmployee>();
-        CreateMap<CustomerProductEmployee, PurchaseDTO>();
 
+        CreateMap<Purchase, PurchaseDTO>();
+        CreateMap<PurchaseDTO, Purchase>();
+        CreateMap<Purchase, CreatePurchaseDTO>();
+        CreateMap<CreatePurchaseDTO, Purchase>();
+
+        CreateMap<PurchaseProduct, PurchaseProductDTO>();
+        CreateMap<PurchaseProductDTO, PurchaseProduct>();
+        CreateMap<PurchaseProduct, CreatePurchaseProductDTO>();
+        CreateMap<CreatePurchaseProductDTO, PurchaseProduct>();
     }
 }

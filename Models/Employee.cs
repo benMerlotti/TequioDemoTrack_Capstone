@@ -6,5 +6,7 @@ public class Employee
     public string Email { get; set; } = string.Empty;
     public string Address { get; set; } = string.Empty;
     public bool IsActive { get; set; }
-    public ICollection<CustomerProductEmployee> CustomerProductEmployees { get; set; } = new List<CustomerProductEmployee>();
+
+    public ICollection<Purchase> Purchases { get; set; } = new List<Purchase>();
 }
+

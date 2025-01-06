@@ -1,6 +1,7 @@
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using TequioDemoTrack.Data;
 using TequioDemoTrack.Models;
 using TequioDemoTrack.Models.DTOs;
@@ -24,6 +25,18 @@ public class EmployeeController : ControllerBase
         return Ok(_dbContext
         .Employees
         .ToList());
+    }
+
+    [HttpGet("{id}")]
+    // [Authorize]
+    public IActionResult GetCustomerById(int id)
+    {
+        Employee foundEmployee = _dbContext
+        .Employees
+        .Include(e => e.Purchases)
+        .ThenInclude(p => p.PurchaseProducts)
+        .FirstOrDefault(e => e.Id == id);
+        return Ok(foundEmployee);
     }
 
     [HttpPost]

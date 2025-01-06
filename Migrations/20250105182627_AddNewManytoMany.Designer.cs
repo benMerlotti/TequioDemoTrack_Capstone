@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using TequioDemoTrack.Data;
@@ -11,9 +12,11 @@ using TequioDemoTrack.Data;
 namespace TequioDemoTrack.Migrations
 {
     [DbContext(typeof(TequioDemoTrackDbContext))]
-    partial class TequioDemoTrackDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250105182627_AddNewManytoMany")]
+    partial class AddNewManytoMany
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -149,13 +152,13 @@ namespace TequioDemoTrack.Migrations
                         {
                             Id = "dbc40bc6-0829-4ac5-a3ed-180f5e916a5f",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "97714cfa-176b-4179-8d77-b243891260cc",
+                            ConcurrencyStamp = "b0e4c711-6f83-4c87-892b-3445348768b5",
                             Email = "admina@strator.comx",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
-                            PasswordHash = "AQAAAAIAAYagAAAAEHyUNQ/OuF/CyCCoFqLloMbffc6UZPi4RHgyvJWeTdKsM9ZN98yNSTYDidBxnKYcTQ==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEEacBp7HRiWQ/FeHA+gvZpuG+ueDWt7NjIN0xPYKLHJIuI9lvknjRVPFut1w/Naf8Q==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "35e68d2b-40eb-4091-b113-d1794dc677b8",
+                            SecurityStamp = "e069b8a6-95a9-4e84-8401-7ff06918cf7b",
                             TwoFactorEnabled = false,
                             UserName = "Administrator"
                         });
@@ -247,6 +250,33 @@ namespace TequioDemoTrack.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens", (string)null);
+                });
+
+            modelBuilder.Entity("ProductPurchase", b =>
+                {
+                    b.Property<int>("ProductsId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("PurchasesId")
+                        .HasColumnType("integer");
+
+                    b.HasKey("ProductsId", "PurchasesId");
+
+                    b.HasIndex("PurchasesId");
+
+                    b.ToTable("ProductPurchase");
+
+                    b.HasData(
+                        new
+                        {
+                            ProductsId = 2,
+                            PurchasesId = 1
+                        },
+                        new
+                        {
+                            ProductsId = 1,
+                            PurchasesId = 2
+                        });
                 });
 
             modelBuilder.Entity("TequioDemoTrack.Models.AgeGroup", b =>
@@ -572,22 +602,6 @@ namespace TequioDemoTrack.Migrations
                     b.HasIndex("PurchaseId");
 
                     b.ToTable("PurchaseProducts");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            ProductId = 2,
-                            PurchaseId = 1,
-                            Quantity = 1
-                        },
-                        new
-                        {
-                            Id = 2,
-                            ProductId = 3,
-                            PurchaseId = 2,
-                            Quantity = 1
-                        });
                 });
 
             modelBuilder.Entity("TequioDemoTrack.Models.Race", b =>
@@ -721,6 +735,21 @@ namespace TequioDemoTrack.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("ProductPurchase", b =>
+                {
+                    b.HasOne("TequioDemoTrack.Models.Product", null)
+                        .WithMany()
+                        .HasForeignKey("ProductsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("TequioDemoTrack.Models.Purchase", null)
+                        .WithMany()
+                        .HasForeignKey("PurchasesId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("TequioDemoTrack.Models.Customer", b =>
                 {
                     b.HasOne("TequioDemoTrack.Models.AgeGroup", "AgeGroup")
@@ -778,13 +807,13 @@ namespace TequioDemoTrack.Migrations
             modelBuilder.Entity("TequioDemoTrack.Models.PurchaseProduct", b =>
                 {
                     b.HasOne("TequioDemoTrack.Models.Product", "Product")
-                        .WithMany("PurchaseProducts")
+                        .WithMany()
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("TequioDemoTrack.Models.Purchase", "Purchase")
-                        .WithMany("PurchaseProducts")
+                        .WithMany()
                         .HasForeignKey("PurchaseId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -828,16 +857,6 @@ namespace TequioDemoTrack.Migrations
             modelBuilder.Entity("TequioDemoTrack.Models.Location", b =>
                 {
                     b.Navigation("Customers");
-                });
-
-            modelBuilder.Entity("TequioDemoTrack.Models.Product", b =>
-                {
-                    b.Navigation("PurchaseProducts");
-                });
-
-            modelBuilder.Entity("TequioDemoTrack.Models.Purchase", b =>
-                {
-                    b.Navigation("PurchaseProducts");
                 });
 
             modelBuilder.Entity("TequioDemoTrack.Models.Race", b =>

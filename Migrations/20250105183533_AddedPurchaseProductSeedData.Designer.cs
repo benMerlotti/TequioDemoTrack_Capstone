@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using TequioDemoTrack.Data;
@@ -11,9 +12,11 @@ using TequioDemoTrack.Data;
 namespace TequioDemoTrack.Migrations
 {
     [DbContext(typeof(TequioDemoTrackDbContext))]
-    partial class TequioDemoTrackDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250105183533_AddedPurchaseProductSeedData")]
+    partial class AddedPurchaseProductSeedData
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -149,13 +152,13 @@ namespace TequioDemoTrack.Migrations
                         {
                             Id = "dbc40bc6-0829-4ac5-a3ed-180f5e916a5f",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "97714cfa-176b-4179-8d77-b243891260cc",
+                            ConcurrencyStamp = "bda2fe4f-487f-40b7-83c4-86cf416921b3",
                             Email = "admina@strator.comx",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
-                            PasswordHash = "AQAAAAIAAYagAAAAEHyUNQ/OuF/CyCCoFqLloMbffc6UZPi4RHgyvJWeTdKsM9ZN98yNSTYDidBxnKYcTQ==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEF1g82hnUpXeRDWHSNPBX/CDJnkGNEj9FOph0XsudN4wo1Y4cjl5w01NeymTmT8pTw==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "35e68d2b-40eb-4091-b113-d1794dc677b8",
+                            SecurityStamp = "bab414c0-1121-4fa5-99a5-a19469245047",
                             TwoFactorEnabled = false,
                             UserName = "Administrator"
                         });

@@ -3,5 +3,7 @@ public class ProductDTO
 {
     public int Id { get; set; }
     public string Name { get; set; } = string.Empty;
-    public ICollection<CustomerProductEmployeeDTO> CustomerProductEmployees { get; set; } = new List<CustomerProductEmployeeDTO>();
+    public decimal Price { get; set; }
+    public ICollection<PurchaseProductDTO> PurchaseProducts { get; set; } = new List<PurchaseProductDTO>();
+
 }

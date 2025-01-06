@@ -27,6 +27,24 @@ public class CustomerController : ControllerBase
         .Include(c => c.Purchases)
         .ToList());
     }
+
+    [HttpGet("{id}")]
+    // [Authorize]
+    public IActionResult GetCustomerById(int id)
+    {
+        Customer foundCustomer = _dbContext
+        .Customers
+        .Include(c => c.AgeGroup)
+        .Include(c => c.Location)
+        .Include(c => c.Race)
+        .Include(c => c.Gender)
+        .Include(c => c.Purchases)
+        .ThenInclude(p => p.PurchaseProducts)
+        .FirstOrDefault(c => c.Id == id);
+        return Ok(foundCustomer);
+    }
+
+
     [HttpPost]
     // [Authorize]
     public IActionResult CreateCustomer(IMapper mapper, CreateCustomerDTO customer)

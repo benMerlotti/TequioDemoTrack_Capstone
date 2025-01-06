@@ -6,7 +6,7 @@ public class EmployeeDTO
     public string Email { get; set; } = string.Empty;
     public string Address { get; set; } = string.Empty;
     public bool IsActive { get; set; }
-    public ICollection<CustomerProductEmployeeDTO> CustomerProductEmployees { get; set; } = new List<CustomerProductEmployeeDTO>();
+    public ICollection<PurchaseDTO> Purchases { get; set; } = new List<PurchaseDTO>();
 }
 
 public class CreateEmployeeDTO

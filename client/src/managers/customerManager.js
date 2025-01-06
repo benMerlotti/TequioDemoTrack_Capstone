@@ -4,6 +4,10 @@ export const getCustomers = () => {
     return fetch(`${_apiUrl}`).then((r) => r.json())
 }
 
+export const getCustomerById = (id) => {
+    return fetch(`${_apiUrl}/${id}`).then((r) => r.json())
+}
+
 export const createCustomer = (newCustomer) => {
     return fetch(`${_apiUrl}`, {
         method: "POST",

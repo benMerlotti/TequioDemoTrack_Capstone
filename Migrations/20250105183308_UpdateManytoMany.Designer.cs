@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using TequioDemoTrack.Data;
@@ -11,9 +12,11 @@ using TequioDemoTrack.Data;
 namespace TequioDemoTrack.Migrations
 {
     [DbContext(typeof(TequioDemoTrackDbContext))]
-    partial class TequioDemoTrackDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250105183308_UpdateManytoMany")]
+    partial class UpdateManytoMany
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -149,13 +152,13 @@ namespace TequioDemoTrack.Migrations
                         {
                             Id = "dbc40bc6-0829-4ac5-a3ed-180f5e916a5f",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "97714cfa-176b-4179-8d77-b243891260cc",
+                            ConcurrencyStamp = "c1176d10-b318-44e0-8ed8-fb0800dde53c",
                             Email = "admina@strator.comx",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
-                            PasswordHash = "AQAAAAIAAYagAAAAEHyUNQ/OuF/CyCCoFqLloMbffc6UZPi4RHgyvJWeTdKsM9ZN98yNSTYDidBxnKYcTQ==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEAwTQDdQZKUx6o0G0jSlGpq8kpBxq7xIxdAsNbPd0bWo3vwDZzjRUsnohFMLLdPCnA==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "35e68d2b-40eb-4091-b113-d1794dc677b8",
+                            SecurityStamp = "c56b4c38-67d0-4ce2-a0d6-a256f9f6f74d",
                             TwoFactorEnabled = false,
                             UserName = "Administrator"
                         });
@@ -572,22 +575,6 @@ namespace TequioDemoTrack.Migrations
                     b.HasIndex("PurchaseId");
 
                     b.ToTable("PurchaseProducts");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            ProductId = 2,
-                            PurchaseId = 1,
-                            Quantity = 1
-                        },
-                        new
-                        {
-                            Id = 2,
-                            ProductId = 3,
-                            PurchaseId = 2,
-                            Quantity = 1
-                        });
                 });
 
             modelBuilder.Entity("TequioDemoTrack.Models.Race", b =>

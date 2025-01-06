@@ -14,7 +14,7 @@ public class CustomerDTO
     public int LocationId { get; set; }
     public LocationDTO Location { get; set; } = null!;
 
-    public ICollection<CustomerProductEmployeeDTO> Purchases { get; set; } = new List<CustomerProductEmployeeDTO>();
+    public ICollection<PurchaseDTO> Purchases { get; set; } = new List<PurchaseDTO>();
 }
 public class CreateCustomerDTO
 {
