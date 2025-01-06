@@ -25,7 +25,7 @@ export const editCustomer = (id, newCustomer) => {
             "Content-Type": "application/json",
           },
           body: JSON.stringify(newCustomer)
-    }).then((res) => res.json());
+    });
 }
 
 export const deleteCustomer = (id) => {
