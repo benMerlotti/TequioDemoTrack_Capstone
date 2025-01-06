@@ -47,7 +47,7 @@ public class EmployeeController : ControllerBase
         _dbContext.Employees.Add(newEmployee);
         _dbContext.SaveChanges();
 
-        return Created($"/api/Purchase/{newEmployee.Id}", newEmployee);
+        return Created($"/api/Employee/{newEmployee.Id}", newEmployee);
     }
 
     [HttpDelete("{id}/delete")]

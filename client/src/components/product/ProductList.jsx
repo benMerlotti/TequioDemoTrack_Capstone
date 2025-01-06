@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import { getProducts } from "../../managers/productManager";
+import { deleteProduct, getProducts } from "../../managers/productManager";
 import { Link } from "react-router-dom";
-import { Table } from "reactstrap";
+import { Button, Table } from "reactstrap";
 
 export const ProductList = () => {
   const [products, setProducts] = useState([]);
@@ -9,15 +9,22 @@ export const ProductList = () => {
   useEffect(() => {
     getProducts().then(setProducts);
   }, []);
+
+  const handleDelete = (id) => {
+    deleteProduct(id).then(() => {
+      getProducts().then(setProducts);
+    });
+  };
   return (
     <>
-      <h2>Customers</h2>
+      <h2>Products</h2>
       <Link to="add-product">Add Product</Link>
       <Table>
         <thead>
           <tr>
             <th>Id</th>
             <th>Name</th>
+            <th></th>
             <th></th>
           </tr>
         </thead>
@@ -28,6 +35,11 @@ export const ProductList = () => {
               <td>{p.name}</td>
               <td>
                 <Link to={`${p.id}`}>Details</Link>
+              </td>
+              <td>
+                <Button onClick={() => handleDelete(p.id)} color="danger">
+                  Delete
+                </Button>
               </td>
             </tr>
           ))}

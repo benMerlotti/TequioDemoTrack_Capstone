@@ -53,7 +53,7 @@ public class CustomerController : ControllerBase
         _dbContext.Customers.Add(newCustomer);
         _dbContext.SaveChanges();
 
-        return Created($"/api/Purchase/{newCustomer.Id}", newCustomer);
+        return Created($"/api/Customer/{newCustomer.Id}", newCustomer);
     }
 
     [HttpDelete("{id}/delete")]
