@@ -60,4 +60,19 @@ public class EmployeeController : ControllerBase
 
         return NoContent();
     }
+
+    [HttpPut("{id}/edit")]
+    // [Authorize]
+    public IActionResult EditCustomer(int id, CreateEmployeeDTO employee)
+    {
+        var foundEmployee = _dbContext.Customers.FirstOrDefault(e => e.Id == id);
+
+        foundEmployee.Name = employee.Name;
+        foundEmployee.Email = employee.Email;
+        foundEmployee.Address = employee.Address;
+
+        _dbContext.SaveChanges();
+
+        return NoContent();
+    }
 }
