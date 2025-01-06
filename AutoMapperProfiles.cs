@@ -24,6 +24,8 @@ public class AutoMapperProfiles : Profile
 
         CreateMap<Product, ProductDTO>();
         CreateMap<ProductDTO, Product>();
+        CreateMap<Product, CreateProductDTO>();
+        CreateMap<CreateProductDTO, Product>();
 
         CreateMap<Purchase, PurchaseDTO>();
         CreateMap<PurchaseDTO, Purchase>();
