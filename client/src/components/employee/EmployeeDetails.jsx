@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { Table, Spinner, Container, Row, Col } from "reactstrap";
 import { getEmployeeById } from "../../managers/employeeManager";
 
@@ -25,6 +25,7 @@ export const EmployeeDetails = () => {
       <Row>
         <Col>
           <h2>{employee.name}</h2>
+          <Link to="edit">Edit Employee</Link>
           <Table bordered>
             <tbody>
               <tr>
