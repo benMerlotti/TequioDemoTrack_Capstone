@@ -66,4 +66,23 @@ public class CustomerController : ControllerBase
 
         return NoContent();
     }
+
+    [HttpPut("{id}/edit")]
+    // [Authorize]
+    public IActionResult EditCustomer(int id, CreateCustomerDTO customer)
+    {
+        var foundCustomer = _dbContext.Customers.FirstOrDefault(c => c.Id == id);
+
+        foundCustomer.Name = customer.Name;
+        foundCustomer.Email = customer.Email;
+        foundCustomer.Address = customer.Address;
+        foundCustomer.AgeGroupId = customer.AgeGroupId;
+        foundCustomer.GenderId = customer.GenderId;
+        foundCustomer.RaceId = customer.RaceId;
+        foundCustomer.LocationId = customer.LocationId;
+
+        _dbContext.SaveChanges();
+
+        return NoContent();
+    }
 }
