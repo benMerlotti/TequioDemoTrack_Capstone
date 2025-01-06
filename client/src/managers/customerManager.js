@@ -18,6 +18,16 @@ export const createCustomer = (newCustomer) => {
     }).then((res) => res.json());
 }
 
+export const editCustomer = (id, newCustomer) => {
+    return fetch(`${_apiUrl}/${id}/edit`, {
+        method: "PUT",
+        headers:{
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(newCustomer)
+    }).then((res) => res.json());
+}
+
 export const deleteCustomer = (id) => {
     return fetch(`${_apiUrl}/${id}/delete`, {
         method: "DELETE",
