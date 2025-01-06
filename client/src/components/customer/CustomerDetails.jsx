@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { getCustomerById } from "../../managers/customerManager";
 import { Table, Spinner, Container, Row, Col } from "reactstrap";
 
@@ -25,6 +25,7 @@ export const CustomerDetails = () => {
       <Row>
         <Col>
           <h2>{customer.name}</h2>
+          <Link to="edit">Edit Customer</Link>
           <Table bordered>
             <tbody>
               <tr>
