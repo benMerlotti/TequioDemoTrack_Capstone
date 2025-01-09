@@ -20,7 +20,7 @@ export default function NavBar({ loggedInUser, setLoggedInUser }) {
 
   return (
     <div>
-      <Navbar color="light" light fixed="true" expand="lg">
+      <Navbar color="light" light fixed="top" expand="lg">
         <NavbarBrand className="mr-auto" tag={RRNavLink} to="/">
           Tequio Demo Tracker
         </NavbarBrand>
@@ -52,6 +52,11 @@ export default function NavBar({ loggedInUser, setLoggedInUser }) {
                 <NavItem onClick={() => setOpen(false)}>
                   <NavLink tag={RRNavLink} to="/purchases">
                     All Purchases
+                  </NavLink>
+                </NavItem>
+                <NavItem onClick={() => setOpen(false)}>
+                  <NavLink tag={RRNavLink} to="/insights">
+                    Insights
                   </NavLink>
                 </NavItem>
               </Nav>

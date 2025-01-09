@@ -12,8 +12,8 @@ using TequioDemoTrack.Data;
 namespace TequioDemoTrack.Migrations
 {
     [DbContext(typeof(TequioDemoTrackDbContext))]
-    [Migration("20250105192909_UpdatedDatabase")]
-    partial class UpdatedDatabase
+    [Migration("20250108052441_Initial")]
+    partial class Initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -152,13 +152,13 @@ namespace TequioDemoTrack.Migrations
                         {
                             Id = "dbc40bc6-0829-4ac5-a3ed-180f5e916a5f",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "97714cfa-176b-4179-8d77-b243891260cc",
+                            ConcurrencyStamp = "9a41e958-ec02-4392-8e9d-8a847995b3ff",
                             Email = "admina@strator.comx",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
-                            PasswordHash = "AQAAAAIAAYagAAAAEHyUNQ/OuF/CyCCoFqLloMbffc6UZPi4RHgyvJWeTdKsM9ZN98yNSTYDidBxnKYcTQ==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEDpYFP258FYc4ISTwnYTCBTomw+TW3r9T91tqyn3SVNGKeCw6A07GoLhE7RTpSQw+w==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "35e68d2b-40eb-4091-b113-d1794dc677b8",
+                            SecurityStamp = "08b8eb8e-4953-4001-8fc4-85d8520a89a0",
                             TwoFactorEnabled = false,
                             UserName = "Administrator"
                         });

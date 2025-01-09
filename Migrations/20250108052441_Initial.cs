@@ -9,7 +9,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace TequioDemoTrack.Migrations
 {
     /// <inheritdoc />
-    public partial class UpdatePurchaseSchema : Migration
+    public partial class Initial : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -378,7 +378,7 @@ namespace TequioDemoTrack.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "dbc40bc6-0829-4ac5-a3ed-180f5e916a5f", 0, "81c4e71f-2591-4536-8782-8ec5321e3b53", "admina@strator.comx", false, false, null, null, null, "AQAAAAIAAYagAAAAENu23XtZdSGOPfQFLbVp0UfSLCpiGD/b6UvmSGHKmeFyUH7xmsYxFM5Z5iMWBqHhVg==", null, false, "edb1d575-fd97-4b34-abba-79bdc2712c50", false, "Administrator" });
+                values: new object[] { "dbc40bc6-0829-4ac5-a3ed-180f5e916a5f", 0, "9a41e958-ec02-4392-8e9d-8a847995b3ff", "admina@strator.comx", false, false, null, null, null, "AQAAAAIAAYagAAAAEDpYFP258FYc4ISTwnYTCBTomw+TW3r9T91tqyn3SVNGKeCw6A07GoLhE7RTpSQw+w==", null, false, "08b8eb8e-4953-4001-8fc4-85d8520a89a0", false, "Administrator" });
 
             migrationBuilder.InsertData(
                 table: "Employees",
@@ -456,6 +456,15 @@ namespace TequioDemoTrack.Migrations
                 {
                     { 1, 1, 1, new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
                     { 2, 2, 2, new DateTime(2024, 2, 15, 0, 0, 0, 0, DateTimeKind.Unspecified) }
+                });
+
+            migrationBuilder.InsertData(
+                table: "PurchaseProducts",
+                columns: new[] { "Id", "ProductId", "PurchaseId", "Quantity" },
+                values: new object[,]
+                {
+                    { 1, 2, 1, 1 },
+                    { 2, 3, 2, 1 }
                 });
 
             migrationBuilder.CreateIndex(

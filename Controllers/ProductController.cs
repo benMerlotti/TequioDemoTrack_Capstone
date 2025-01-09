@@ -26,6 +26,16 @@ public class ProductController : ControllerBase
         .ToList());
     }
 
+    [HttpGet("{id}")]
+    // [Authorize]
+    public IActionResult GetProductById(int id)
+    {
+        Product foundProduct = _dbContext
+        .Products
+        .FirstOrDefault(p => p.Id == id);
+        return Ok(foundProduct);
+    }
+
     [HttpPost]
     // [Authorize]
     public IActionResult CreateProduct(IMapper mapper, CreateProductDTO product)
@@ -35,6 +45,20 @@ public class ProductController : ControllerBase
         _dbContext.SaveChanges();
 
         return Created($"/api/Product/{newProduct.Id}", newProduct);
+    }
+
+    [HttpPut("{id}/edit")]
+    // [Authorize]
+    public IActionResult EditProduct(int id, ProductDTO product)
+    {
+        var foundProduct = _dbContext.Products.FirstOrDefault(e => e.Id == id);
+
+        foundProduct.Name = product.Name;
+        foundProduct.Price = product.Price;
+
+        _dbContext.SaveChanges();
+
+        return NoContent();
     }
 
     [HttpDelete("{id}/delete")]

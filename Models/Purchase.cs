@@ -9,6 +9,11 @@ public class Purchase
     public Employee Employee { get; set; } = null!;
 
     public ICollection<PurchaseProduct> PurchaseProducts { get; set; } = new List<PurchaseProduct>();
+
+    public decimal TotalPrice => PurchaseProducts
+    .Where(pp => pp != null && pp.Product != null) // Filter out null values
+    .Sum(pp => pp.Product.Price * pp.Quantity);
+
 }
 
 

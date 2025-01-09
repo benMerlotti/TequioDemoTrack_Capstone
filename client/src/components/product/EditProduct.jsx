@@ -1,70 +1,57 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { Button, FormGroup, Input, Label } from "reactstrap";
-import { editEmployee, getEmployeeById } from "../../managers/employeeManager";
+import { editProduct, getProductById } from "../../managers/productManager";
 
-export const EditEmployee = () => {
+export const EditProduct = () => {
   const { id } = useParams();
   const navigate = useNavigate();
-  const [employee, setEmployee] = useState({
+  const [product, setProduct] = useState({
     name: "",
-    email: "",
-    address: "",
+    price: 0,
   });
   const [errors, setErrors] = useState("");
 
   useEffect(() => {
-    getEmployeeById(id).then(setEmployee);
+    getProductById(id).then(setProduct);
   }, [id]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    editEmployee(id, employee).then((res) => {
+    editProduct(id, product).then((res) => {
       if (res.errors) {
         setErrors(res.errors);
       } else {
-        navigate("/employees");
+        navigate("/products");
       }
     });
   };
   return (
     <>
-      <h2>Edit Employee</h2>
+      <h2>Edit Product</h2>
       <form onSubmit={handleSubmit}>
         <FormGroup>
           <Label>Name</Label>
           <Input
             type="text"
-            value={employee.name}
+            value={product.name}
             onChange={(e) => {
-              const employeeCopy = { ...employee };
-              employeeCopy.name = e.target.value;
-              setEmployee(employeeCopy);
+              const productCopy = { ...product };
+              productCopy.name = e.target.value;
+              setProduct(productCopy);
             }}
           />
         </FormGroup>
         <FormGroup>
-          <Label>Email</Label>
+          <Label>Price</Label>
           <Input
             type="text"
-            value={employee.email}
+            value={product.price}
             onChange={(e) => {
-              const employeeCopy = { ...employee };
-              employeeCopy.email = e.target.value;
-              setEmployee(employeeCopy);
-            }}
-          />
-        </FormGroup>
-        <FormGroup>
-          <Label>Address</Label>
-          <Input
-            type="text"
-            value={employee.address}
-            onChange={(e) => {
-              const employeeCopy = { ...employee };
-              employeeCopy.address = e.target.value;
-              setEmployee(employeeCopy);
+              const productCopy = { ...product };
+              productCopy.price = e.target.value;
+              setProduct(productCopy);
             }}
           />
         </FormGroup>

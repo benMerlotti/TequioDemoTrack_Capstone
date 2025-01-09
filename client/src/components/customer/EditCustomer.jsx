@@ -65,7 +65,7 @@ export const EditCustomer = () => {
 
   return (
     <>
-      <h2>Add Customer</h2>
+      <h2>Edit Customer</h2>
       <form onSubmit={handleSubmit}>
         <FormGroup>
           <Label>Name</Label>

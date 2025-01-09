@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import { Table, Spinner, Container, Row, Col } from "reactstrap";
 import { getEmployeeById } from "../../managers/employeeManager";
+import { Table, Spinner, Container, Row, Col, Button } from "reactstrap";
 
 export const EmployeeDetails = () => {
   const [employee, setEmployee] = useState(null);
@@ -25,7 +25,11 @@ export const EmployeeDetails = () => {
       <Row>
         <Col>
           <h2>{employee.name}</h2>
-          <Link to="edit">Edit Employee</Link>
+          <Link to="edit">
+            <Button color="primary" className="mb-3">
+              Edit Employee
+            </Button>
+          </Link>
           <Table bordered>
             <tbody>
               <tr>

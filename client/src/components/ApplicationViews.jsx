@@ -14,6 +14,9 @@ import { EmployeeDetails } from "./employee/EmployeeDetails";
 import { EditCustomer } from "./customer/EditCustomer";
 import { EditEmployee } from "./employee/EditEmployee";
 import { CreateProduct } from "./product/CreateProduct";
+import { ProductDetails } from "./product/ProductDetails";
+import { EditProduct } from "./product/EditProduct";
+import { CustomerDemographics } from "./insights/CustomerDemographics";
 
 // eslint-disable-next-line react/prop-types
 export default function ApplicationViews({ loggedInUser, setLoggedInUser }) {
@@ -26,12 +29,16 @@ export default function ApplicationViews({ loggedInUser, setLoggedInUser }) {
             <AuthorizedRoute loggedInUser={loggedInUser}></AuthorizedRoute>
           }
         />
+      </Route>
+      <Route path="purchases">
         <Route
-          path="purchases"
+          index
           element={<PurchaseList setLoggedInUser={setLoggedInUser} />}
         />
+      </Route>
+      <Route path="new-purchase">
         <Route
-          path="new-purchase"
+          index
           element={
             <CreatePurchase
               setLoggedInUser={setLoggedInUser}
@@ -39,55 +46,72 @@ export default function ApplicationViews({ loggedInUser, setLoggedInUser }) {
             />
           }
         />
+      </Route>
+      <Route path="products">
         <Route
-          path="products"
+          index
           element={<ProductList setLoggedInUser={setLoggedInUser} />}
         />
         <Route
-          path="products/add-product"
-          element={<CreateProduct setLoggedInUser={setLoggedInUser} />}
+          path=":id"
+          element={<ProductDetails setLoggedInUser={setLoggedInUser} />}
         />
         <Route
-          path="employees"
+          path=":id/edit"
+          element={<EditProduct setLoggedInUser={setLoggedInUser} />}
+        />
+        <Route
+          path="add-product"
+          element={<CreateProduct setLoggedInUser={setLoggedInUser} />}
+        />
+      </Route>
+      <Route path="employees">
+        <Route
+          index
           element={<EmployeeList setLoggedInUser={setLoggedInUser} />}
         />
         <Route
-          path="employees/:id"
+          path=":id"
           element={<EmployeeDetails setLoggedInUser={setLoggedInUser} />}
         />
         <Route
-          path="employees/:id/edit"
+          path=":id/edit"
           element={<EditEmployee setLoggedInUser={setLoggedInUser} />}
         />
         <Route
-          path="employees/add-employee"
+          path="add-employee"
           element={<CreateEmployee setLoggedInUser={setLoggedInUser} />}
         />
+      </Route>
+      <Route path="customers">
         <Route
-          path="customers"
+          index
           element={<CustomerList setLoggedInUser={setLoggedInUser} />}
         />
         <Route
-          path="customers/:id"
+          path=":id"
           element={<CustomerDetails setLoggedInUser={setLoggedInUser} />}
         />
         <Route
-          path="customers/:id/edit"
+          path=":id/edit"
           element={<EditCustomer setLoggedInUser={setLoggedInUser} />}
         />
         <Route
-          path="customers/add-customer"
+          path="add-customer"
           element={<CreateCustomer setLoggedInUser={setLoggedInUser} />}
         />
-        <Route
-          path="login"
-          element={<Login setLoggedInUser={setLoggedInUser} />}
-        />
-        <Route
-          path="register"
-          element={<Register setLoggedInUser={setLoggedInUser} />}
-        />
       </Route>
+      <Route path="insights">
+        <Route index element={<CustomerDemographics />} />
+      </Route>
+      <Route
+        path="login"
+        element={<Login setLoggedInUser={setLoggedInUser} />}
+      />
+      <Route
+        path="register"
+        element={<Register setLoggedInUser={setLoggedInUser} />}
+      />
       <Route path="*" element={<p>Whoops, nothing here...</p>} />
     </Routes>
   );
