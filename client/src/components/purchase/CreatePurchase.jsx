@@ -1,28 +1,33 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { FormGroup, Label, Input, Button } from "reactstrap";
+import {
+  FormGroup,
+  Label,
+  Input,
+  Button,
+  Row,
+  Col,
+  Card,
+  CardBody,
+  Container,
+} from "reactstrap";
 import { getProducts } from "../../managers/productManager";
 import { getCustomers } from "../../managers/customerManager";
 import { createPurchase } from "../../managers/purchaseManager";
 
-// eslint-disable-next-line react/prop-types
 export const CreatePurchase = ({ loggedInUser }) => {
   const navigate = useNavigate();
   const [products, setProducts] = useState([]);
   const [customers, setCustomers] = useState([]);
   const [newPurchase, setNewPurchase] = useState({
     customerId: 0,
-    // eslint-disable-next-line react/prop-types
     employeeId: loggedInUser.id,
-    purchaseProducts: [], // To store products and quantities
+    purchaseProducts: [],
   });
   const [errors, setErrors] = useState("");
 
   useEffect(() => {
     getProducts().then(setProducts);
-  }, []);
-
-  useEffect(() => {
     getCustomers().then(setCustomers);
   }, []);
 
@@ -47,7 +52,6 @@ export const CreatePurchase = ({ loggedInUser }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
     createPurchase(newPurchase).then((res) => {
       if (res.errors) {
         setErrors(res.errors);
@@ -58,73 +62,102 @@ export const CreatePurchase = ({ loggedInUser }) => {
   };
 
   return (
-    <>
-      <h2>New Purchase</h2>
-      <form onSubmit={handleSubmit}>
-        <FormGroup>
-          <Label>Customer</Label>
-          <Input
-            type="select"
-            value={newPurchase.customerId}
-            onChange={(e) => {
-              const purchaseCopy = { ...newPurchase };
-              purchaseCopy.customerId = parseInt(e.target.value);
-              setNewPurchase(purchaseCopy);
-            }}
-          >
-            <option value={0}>Choose a Customer</option>
-            {customers.map((c) => (
-              <option key={c.id} value={c.id}>{`${c.name}`}</option>
+    <Container className="mt-5">
+      <Card>
+        <CardBody>
+          <h2 className="fw-bold mb-4">New Purchase</h2>
+          <form onSubmit={handleSubmit}>
+            <Row className="mb-4">
+              <Col md={12}>
+                {" "}
+                {/* Changed from md={6} to md={8} */}
+                <FormGroup>
+                  <Label for="customer">Customer</Label>
+                  <Input
+                    id="customer"
+                    type="select"
+                    value={newPurchase.customerId}
+                    onChange={(e) =>
+                      setNewPurchase({
+                        ...newPurchase,
+                        customerId: parseInt(e.target.value),
+                      })
+                    }
+                  >
+                    <option value={0}>Choose a Customer</option>
+                    {customers.map((c) => (
+                      <option key={c.id} value={c.id}>
+                        {c.name}
+                      </option>
+                    ))}
+                  </Input>
+                </FormGroup>
+              </Col>
+            </Row>
+
+            {newPurchase.purchaseProducts.map((productPurchase, index) => (
+              <Row key={index} className="mb-4">
+                <Col md={6}>
+                  <FormGroup>
+                    <Label for={`product-${index}`}>Product</Label>
+                    <Input
+                      id={`product-${index}`}
+                      type="select"
+                      name="productId"
+                      value={productPurchase.productId}
+                      onChange={(e) => handleProductChange(index, e)}
+                    >
+                      <option value={0}>Choose a Product</option>
+                      {products.map((p) => (
+                        <option key={p.id} value={p.id}>
+                          {p.name}
+                        </option>
+                      ))}
+                    </Input>
+                  </FormGroup>
+                </Col>
+                <Col md={4}>
+                  <FormGroup>
+                    <Label for={`quantity-${index}`}>Quantity</Label>
+                    <Input
+                      id={`quantity-${index}`}
+                      type="number"
+                      name="quantity"
+                      value={productPurchase.quantity}
+                      onChange={(e) => handleProductChange(index, e)}
+                      min="1"
+                    />
+                  </FormGroup>
+                </Col>
+              </Row>
             ))}
-          </Input>
-        </FormGroup>
 
-        {newPurchase.purchaseProducts.map((productPurchase, index) => (
-          <div key={index}>
-            <FormGroup>
-              <Label>Product</Label>
-              <Input
-                type="select"
-                name="productId"
-                value={productPurchase.productId}
-                onChange={(e) => handleProductChange(index, e)}
+            <div className="d-flex mb-4">
+              <Button
+                type="button"
+                color="secondary"
+                onClick={handleAddProduct}
+                className="me-3"
               >
-                <option value={0}>Choose a Product</option>
-                {products.map((p) => (
-                  <option key={p.id} value={p.id}>{`${p.name}`}</option>
+                + Add Product
+              </Button>
+              <Button type="submit" color="primary">
+                Submit
+              </Button>
+            </div>
+
+            {errors && (
+              <div style={{ color: "red" }}>
+                {Object.keys(errors).map((key) => (
+                  <p key={key}>
+                    {key}: {errors[key].join(",")}
+                  </p>
                 ))}
-              </Input>
-            </FormGroup>
-
-            <FormGroup>
-              <Label>Quantity</Label>
-              <Input
-                type="number"
-                name="quantity"
-                value={productPurchase.quantity}
-                onChange={(e) => handleProductChange(index, e)}
-                min="1"
-              />
-            </FormGroup>
-          </div>
-        ))}
-
-        <Button type="button" color="secondary" onClick={handleAddProduct}>
-          Add Product
-        </Button>
-
-        <Button type="submit" color="primary">
-          Submit
-        </Button>
-
-        <div style={{ color: "red" }}>
-          {Object.keys(errors).map((key) => (
-            <p key={key}>
-              {key}: {errors[key].join(",")}
-            </p>
-          ))}
-        </div>
-      </form>
-    </>
+              </div>
+            )}
+          </form>
+        </CardBody>
+      </Card>
+    </Container>
   );
 };

@@ -10,6 +10,8 @@ public class PurchaseDTO
     public EmployeeDTO Employee { get; set; } = null!;
 
     public ICollection<PurchaseProductDTO> PurchaseProducts { get; set; } = new List<PurchaseProductDTO>();
+
+    public decimal TotalPrice => PurchaseProducts.Sum(pp => pp.Product.Price * pp.Quantity);
 }
 
 public class CreatePurchaseDTO

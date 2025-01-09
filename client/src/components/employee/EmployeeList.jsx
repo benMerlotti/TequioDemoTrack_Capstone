@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { deleteEmployee, getEmployees } from "../../managers/employeeManager";
 import { Link } from "react-router-dom";
-import { Button, Table } from "reactstrap";
+import { Button, Table, Row, Col, Card, CardBody, Container } from "reactstrap";
 
 export const EmployeeList = () => {
   const [employees, setEmployees] = useState([]);
@@ -15,37 +15,66 @@ export const EmployeeList = () => {
       getEmployees().then(setEmployees);
     });
   };
+
   return (
-    <>
-      <h2>Employees</h2>
-      <Link to="add-employee">Add Employee</Link>
-      <Table>
-        <thead>
-          <tr>
-            <th>Name</th>
-            <th>Address</th>
-            <th>Email</th>
-            <th></th>
-          </tr>
-        </thead>
-        <tbody>
-          {employees.map((e) => (
-            <tr key={e.id}>
-              <th scope="row">{`${e.name}`}</th>
-              <td>{e.address}</td>
-              <td>{e.email}</td>
-              <td>
-                <Link to={`${e.id}`}>Details</Link>
-              </td>
-              <td>
-                <Button onClick={() => handleDelete(e.id)} color="danger">
-                  Delete
+    <Container className="mt-5">
+      <Card>
+        <CardBody>
+          <Row className="mb-4">
+            <Col>
+              <h2 className="fw-bold">Employees</h2>
+              <p className="text-muted">
+                View and manage your employees. Add new employees or view
+                details below.
+              </p>
+            </Col>
+            <Col className="text-end">
+              <Link to="add-employee">
+                <Button color="primary" className="px-4">
+                  + Add Employee
                 </Button>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </Table>
-    </>
+              </Link>
+            </Col>
+          </Row>
+          <Table hover responsive bordered>
+            <thead className="table-light">
+              <tr>
+                <th>Name</th>
+                <th>Address</th>
+                <th>Email</th>
+                <th colSpan="2" className="text-center">
+                  Actions
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              {employees.map((e) => (
+                <tr key={e.id}>
+                  <td>{e.name}</td>
+                  <td>{e.address}</td>
+                  <td>{e.email}</td>
+                  <td className="text-center">
+                    <Link to={`${e.id}`}>
+                      <Button color="secondary" size="sm">
+                        Details
+                      </Button>
+                    </Link>
+                  </td>
+                  <td className="text-center">
+                    <Button
+                      color="danger"
+                      size="sm"
+                      onClick={() => handleDelete(e.id)}
+                    >
+                      Delete
+                    </Button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </Table>
+        </CardBody>
+      </Card>
+    </Container>
   );
 };
