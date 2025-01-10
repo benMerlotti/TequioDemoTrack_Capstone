@@ -37,7 +37,13 @@ export const PurchaseList = () => {
                 <th>Buyer</th>
                 <th>Price</th>
                 <th>Date</th>
-                <th className="text-center">Actions</th>
+                <th
+                  colSpan="2"
+                  className="text-center"
+                  style={{ width: "150px" }}
+                >
+                  Actions
+                </th>
               </tr>
             </thead>
             <tbody>
@@ -53,10 +59,12 @@ export const PurchaseList = () => {
                   <td>{new Date(p.purchaseDate).toLocaleDateString()}</td>
                   <td className="text-center">
                     <Link to={`${p.id}`}>
-                      <Button color="secondary" size="sm" className="me-2">
+                      <Button color="secondary" size="sm">
                         Details
                       </Button>
                     </Link>
+                  </td>
+                  <td className="text-center">
                     <Button color="danger" size="sm">
                       Delete
                     </Button>

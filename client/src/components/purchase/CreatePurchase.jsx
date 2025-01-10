@@ -19,17 +19,42 @@ export const CreatePurchase = ({ loggedInUser }) => {
   const navigate = useNavigate();
   const [products, setProducts] = useState([]);
   const [customers, setCustomers] = useState([]);
+  const [filteredCustomers, setFilteredCustomers] = useState([]);
   const [newPurchase, setNewPurchase] = useState({
     customerId: 0,
     employeeId: loggedInUser.id,
     purchaseProducts: [],
   });
+  const [searchTerm, setSearchTerm] = useState(""); // Track search term
   const [errors, setErrors] = useState("");
 
   useEffect(() => {
     getProducts().then(setProducts);
-    getCustomers().then(setCustomers);
+    getCustomers().then((data) => {
+      setCustomers(data);
+      setFilteredCustomers(data); // Initially display all customers
+    });
   }, []);
+
+  const handleSearch = (event) => {
+    const term = event.target.value;
+    setSearchTerm(term);
+
+    // Filter customers based on the search term (name)
+    const filtered = customers.filter((customer) =>
+      customer.name.toLowerCase().includes(term.toLowerCase())
+    );
+    setFilteredCustomers(filtered); // Update the filtered list of customers
+  };
+
+  const handleSelectCustomer = (customer) => {
+    setNewPurchase({
+      ...newPurchase,
+      customerId: customer.id,
+    });
+    setSearchTerm(customer.name); // Set the input field to the selected customer's name
+    setFilteredCustomers([]); // Hide the suggestion list
+  };
 
   const handleAddProduct = () => {
     setNewPurchase((prevState) => ({
@@ -69,28 +94,40 @@ export const CreatePurchase = ({ loggedInUser }) => {
           <form onSubmit={handleSubmit}>
             <Row className="mb-4">
               <Col md={12}>
-                {" "}
-                {/* Changed from md={6} to md={8} */}
                 <FormGroup>
                   <Label for="customer">Customer</Label>
                   <Input
                     id="customer"
-                    type="select"
-                    value={newPurchase.customerId}
-                    onChange={(e) =>
-                      setNewPurchase({
-                        ...newPurchase,
-                        customerId: parseInt(e.target.value),
-                      })
-                    }
-                  >
-                    <option value={0}>Choose a Customer</option>
-                    {customers.map((c) => (
-                      <option key={c.id} value={c.id}>
-                        {c.name}
-                      </option>
-                    ))}
-                  </Input>
+                    type="text"
+                    placeholder="Search for a customer"
+                    value={searchTerm}
+                    onChange={handleSearch}
+                  />
+                  {searchTerm && (
+                    <ul
+                      style={{
+                        maxHeight: "150px",
+                        overflowY: "auto",
+                        listStyle: "none",
+                        paddingLeft: 0,
+                        marginTop: "10px",
+                        border: "1px solid #ddd",
+                      }}
+                    >
+                      {filteredCustomers.map((c) => (
+                        <li
+                          key={c.id}
+                          style={{
+                            padding: "8px",
+                            cursor: "pointer",
+                          }}
+                          onClick={() => handleSelectCustomer(c)} // Update state on select
+                        >
+                          {c.name}
+                        </li>
+                      ))}
+                    </ul>
+                  )}
                 </FormGroup>
               </Col>
             </Row>
