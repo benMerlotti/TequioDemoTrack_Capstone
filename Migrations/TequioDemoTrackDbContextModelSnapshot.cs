@@ -149,13 +149,13 @@ namespace TequioDemoTrack.Migrations
                         {
                             Id = "dbc40bc6-0829-4ac5-a3ed-180f5e916a5f",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "9a41e958-ec02-4392-8e9d-8a847995b3ff",
+                            ConcurrencyStamp = "02d3e7c7-af16-416e-9f65-f894f2ec8ba7",
                             Email = "admina@strator.comx",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
-                            PasswordHash = "AQAAAAIAAYagAAAAEDpYFP258FYc4ISTwnYTCBTomw+TW3r9T91tqyn3SVNGKeCw6A07GoLhE7RTpSQw+w==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEJruN+ocVXJ8NFwikCrlgqoPS5W7a2ud6EYpogy7jJBgKCBVzy8AlYwB3IPkG3rRig==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "08b8eb8e-4953-4001-8fc4-85d8520a89a0",
+                            SecurityStamp = "5afea07d-56fc-4a4a-a3f0-296082a4db85",
                             TwoFactorEnabled = false,
                             UserName = "Administrator"
                         });
@@ -280,6 +280,21 @@ namespace TequioDemoTrack.Migrations
                         {
                             Id = 3,
                             Group = "35-44"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Group = "45-54"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Group = "55-64"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            Group = "65-74"
                         });
                 });
 
@@ -331,24 +346,222 @@ namespace TequioDemoTrack.Migrations
                         new
                         {
                             Id = 1,
-                            Address = "789 Lime Ave, Miami",
-                            AgeGroupId = 2,
+                            Address = "123 Main St, Downtown LA",
+                            AgeGroupId = 1,
                             Email = "john.doe@example.com",
                             GenderId = 1,
-                            LocationId = 3,
+                            LocationId = 1,
                             Name = "John Doe",
-                            RaceId = 3
+                            RaceId = 1
                         },
                         new
                         {
                             Id = 2,
-                            Address = "321 Salt Blvd, Los Angeles",
-                            AgeGroupId = 1,
+                            Address = "456 Elm St, Hollywood",
+                            AgeGroupId = 2,
                             Email = "jane.smith@example.com",
                             GenderId = 2,
                             LocationId = 2,
                             Name = "Jane Smith",
                             RaceId = 2
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Address = "789 Oak St, Beverly Hills",
+                            AgeGroupId = 3,
+                            Email = "mark.brown@example.com",
+                            GenderId = 1,
+                            LocationId = 3,
+                            Name = "Mark Brown",
+                            RaceId = 3
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Address = "111 Maple Ave, Santa Monica",
+                            AgeGroupId = 4,
+                            Email = "emily.davis@example.com",
+                            GenderId = 2,
+                            LocationId = 4,
+                            Name = "Emily Davis",
+                            RaceId = 4
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Address = "222 Pine St, Venice",
+                            AgeGroupId = 5,
+                            Email = "michael.wilson@example.com",
+                            GenderId = 3,
+                            LocationId = 5,
+                            Name = "Michael Wilson",
+                            RaceId = 1
+                        },
+                        new
+                        {
+                            Id = 6,
+                            Address = "333 Cedar Rd, Pasadena",
+                            AgeGroupId = 6,
+                            Email = "sarah.johnson@example.com",
+                            GenderId = 2,
+                            LocationId = 6,
+                            Name = "Sarah Johnson",
+                            RaceId = 2
+                        },
+                        new
+                        {
+                            Id = 7,
+                            Address = "444 Birch Ln, Westwood",
+                            AgeGroupId = 1,
+                            Email = "david.lee@example.com",
+                            GenderId = 3,
+                            LocationId = 7,
+                            Name = "David Lee",
+                            RaceId = 3
+                        },
+                        new
+                        {
+                            Id = 8,
+                            Address = "555 Willow Dr, Silver Lake",
+                            AgeGroupId = 2,
+                            Email = "jessica.white@example.com",
+                            GenderId = 1,
+                            LocationId = 8,
+                            Name = "Jessica White",
+                            RaceId = 4
+                        },
+                        new
+                        {
+                            Id = 9,
+                            Address = "666 Vine St, Echo Park",
+                            AgeGroupId = 3,
+                            Email = "james.miller@example.com",
+                            GenderId = 3,
+                            LocationId = 9,
+                            Name = "James Miller",
+                            RaceId = 1
+                        },
+                        new
+                        {
+                            Id = 10,
+                            Address = "777 Redwood St, Culver City",
+                            AgeGroupId = 4,
+                            Email = "laura.moore@example.com",
+                            GenderId = 2,
+                            LocationId = 10,
+                            Name = "Laura Moore",
+                            RaceId = 2
+                        },
+                        new
+                        {
+                            Id = 11,
+                            Address = "888 Laurel St, Downtown LA",
+                            AgeGroupId = 5,
+                            Email = "robert.clark@example.com",
+                            GenderId = 1,
+                            LocationId = 1,
+                            Name = "Robert Clark",
+                            RaceId = 3
+                        },
+                        new
+                        {
+                            Id = 12,
+                            Address = "999 Cherry Ave, Hollywood",
+                            AgeGroupId = 6,
+                            Email = "linda.martinez@example.com",
+                            GenderId = 2,
+                            LocationId = 2,
+                            Name = "Linda Martinez",
+                            RaceId = 4
+                        },
+                        new
+                        {
+                            Id = 13,
+                            Address = "123 Cypress Ln, Beverly Hills",
+                            AgeGroupId = 1,
+                            Email = "charles.garcia@example.com",
+                            GenderId = 3,
+                            LocationId = 3,
+                            Name = "Charles Garcia",
+                            RaceId = 1
+                        },
+                        new
+                        {
+                            Id = 14,
+                            Address = "456 Magnolia Blvd, Santa Monica",
+                            AgeGroupId = 2,
+                            Email = "sophia.rodriguez@example.com",
+                            GenderId = 1,
+                            LocationId = 4,
+                            Name = "Sophia Rodriguez",
+                            RaceId = 2
+                        },
+                        new
+                        {
+                            Id = 15,
+                            Address = "789 Dogwood St, Venice",
+                            AgeGroupId = 3,
+                            Email = "daniel.hall@example.com",
+                            GenderId = 3,
+                            LocationId = 5,
+                            Name = "Daniel Hall",
+                            RaceId = 3
+                        },
+                        new
+                        {
+                            Id = 16,
+                            Address = "111 Fir St, Pasadena",
+                            AgeGroupId = 4,
+                            Email = "olivia.lopez@example.com",
+                            GenderId = 2,
+                            LocationId = 6,
+                            Name = "Olivia Lopez",
+                            RaceId = 4
+                        },
+                        new
+                        {
+                            Id = 17,
+                            Address = "222 Ash St, Westwood",
+                            AgeGroupId = 5,
+                            Email = "paul.hernandez@example.com",
+                            GenderId = 1,
+                            LocationId = 7,
+                            Name = "Paul Hernandez",
+                            RaceId = 1
+                        },
+                        new
+                        {
+                            Id = 18,
+                            Address = "333 Palm Ave, Silver Lake",
+                            AgeGroupId = 6,
+                            Email = "anna.king@example.com",
+                            GenderId = 2,
+                            LocationId = 8,
+                            Name = "Anna King",
+                            RaceId = 2
+                        },
+                        new
+                        {
+                            Id = 19,
+                            Address = "444 Fir Ln, Echo Park",
+                            AgeGroupId = 1,
+                            Email = "steven.wright@example.com",
+                            GenderId = 3,
+                            LocationId = 9,
+                            Name = "Steven Wright",
+                            RaceId = 3
+                        },
+                        new
+                        {
+                            Id = 20,
+                            Address = "555 Oak Blvd, Culver City",
+                            AgeGroupId = 2,
+                            Email = "megan.scott@example.com",
+                            GenderId = 1,
+                            LocationId = 10,
+                            Name = "Megan Scott",
+                            RaceId = 4
                         });
                 });
 
@@ -452,17 +665,52 @@ namespace TequioDemoTrack.Migrations
                         new
                         {
                             Id = 1,
-                            LocationValue = "New York"
+                            LocationValue = "Downtown LA"
                         },
                         new
                         {
                             Id = 2,
-                            LocationValue = "Los Angeles"
+                            LocationValue = "Hollywood"
                         },
                         new
                         {
                             Id = 3,
-                            LocationValue = "Chicago"
+                            LocationValue = "Beverly Hills"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            LocationValue = "Santa Monica"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            LocationValue = "Venice"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            LocationValue = "Pasadena"
+                        },
+                        new
+                        {
+                            Id = 7,
+                            LocationValue = "Westwood"
+                        },
+                        new
+                        {
+                            Id = 8,
+                            LocationValue = "Silver Lake"
+                        },
+                        new
+                        {
+                            Id = 9,
+                            LocationValue = "Echo Park"
+                        },
+                        new
+                        {
+                            Id = 10,
+                            LocationValue = "Culver City"
                         });
                 });
 

@@ -60,7 +60,10 @@ public class TequioDemoTrackDbContext : IdentityDbContext<IdentityUser>
         modelBuilder.Entity<AgeGroup>().HasData(
         new AgeGroup { Id = 1, Group = "18-24" },
         new AgeGroup { Id = 2, Group = "25-34" },
-        new AgeGroup { Id = 3, Group = "35-44" }
+        new AgeGroup { Id = 3, Group = "35-44" },
+        new AgeGroup { Id = 4, Group = "45-54" },
+        new AgeGroup { Id = 5, Group = "55-64" },
+        new AgeGroup { Id = 6, Group = "65-74" }
     );
 
         // Seed data for Gender
@@ -80,10 +83,18 @@ public class TequioDemoTrackDbContext : IdentityDbContext<IdentityUser>
 
         // Seed data for Location
         modelBuilder.Entity<Location>().HasData(
-            new Location { Id = 1, LocationValue = "New York" },
-            new Location { Id = 2, LocationValue = "Los Angeles" },
-            new Location { Id = 3, LocationValue = "Chicago" }
-        );
+     new Location { Id = 1, LocationValue = "Downtown LA" },
+     new Location { Id = 2, LocationValue = "Hollywood" },
+     new Location { Id = 3, LocationValue = "Beverly Hills" },
+     new Location { Id = 4, LocationValue = "Santa Monica" },
+     new Location { Id = 5, LocationValue = "Venice" },
+     new Location { Id = 6, LocationValue = "Pasadena" },
+     new Location { Id = 7, LocationValue = "Westwood" },
+     new Location { Id = 8, LocationValue = "Silver Lake" },
+     new Location { Id = 9, LocationValue = "Echo Park" },
+     new Location { Id = 10, LocationValue = "Culver City" }
+ );
+
 
         // Seed data for Product
         modelBuilder.Entity<Product>().HasData(
@@ -101,27 +112,28 @@ public class TequioDemoTrackDbContext : IdentityDbContext<IdentityUser>
 
         // Seed data for Customer
         modelBuilder.Entity<Customer>().HasData(
-        new Customer { Id = 1, Name = "John Doe", Email = "john.doe@example.com", Address = "789 Lime Ave, Miami", AgeGroupId = 2, GenderId = 1, RaceId = 3, LocationId = 3 },
-        new Customer { Id = 2, Name = "Jane Smith", Email = "jane.smith@example.com", Address = "321 Salt Blvd, Los Angeles", AgeGroupId = 1, GenderId = 2, RaceId = 2, LocationId = 2 },
-        new Customer { Id = 3, Name = "Mark Brown", Email = "mark.brown@example.com", Address = "456 Oak St, New York", AgeGroupId = 3, GenderId = 1, RaceId = 1, LocationId = 1 },
-        new Customer { Id = 4, Name = "Emily Davis", Email = "emily.davis@example.com", Address = "123 Pine Rd, Chicago", AgeGroupId = 2, GenderId = 2, RaceId = 4, LocationId = 4 },
-        new Customer { Id = 5, Name = "Michael Wilson", Email = "michael.wilson@example.com", Address = "876 Birch Ln, Houston", AgeGroupId = 4, GenderId = 1, RaceId = 2, LocationId = 5 },
-        new Customer { Id = 6, Name = "Sarah Johnson", Email = "sarah.johnson@example.com", Address = "789 Maple Ave, Seattle", AgeGroupId = 1, GenderId = 2, RaceId = 5, LocationId = 6 },
-        new Customer { Id = 7, Name = "David Lee", Email = "david.lee@example.com", Address = "654 Cedar St, San Francisco", AgeGroupId = 3, GenderId = 1, RaceId = 3, LocationId = 7 },
-        new Customer { Id = 8, Name = "Jessica White", Email = "jessica.white@example.com", Address = "951 Elm St, Austin", AgeGroupId = 2, GenderId = 2, RaceId = 1, LocationId = 8 },
-        new Customer { Id = 9, Name = "James Miller", Email = "james.miller@example.com", Address = "321 Willow St, Denver", AgeGroupId = 4, GenderId = 1, RaceId = 4, LocationId = 9 },
-        new Customer { Id = 10, Name = "Laura Moore", Email = "laura.moore@example.com", Address = "222 Spruce Ln, Portland", AgeGroupId = 3, GenderId = 2, RaceId = 5, LocationId = 10 },
-        new Customer { Id = 11, Name = "Robert Clark", Email = "robert.clark@example.com", Address = "987 Redwood St, Boston", AgeGroupId = 1, GenderId = 1, RaceId = 2, LocationId = 11 },
-        new Customer { Id = 12, Name = "Linda Martinez", Email = "linda.martinez@example.com", Address = "123 Cherry Ave, Phoenix", AgeGroupId = 2, GenderId = 2, RaceId = 3, LocationId = 12 },
-        new Customer { Id = 13, Name = "Charles Garcia", Email = "charles.garcia@example.com", Address = "321 Palm Blvd, Orlando", AgeGroupId = 4, GenderId = 1, RaceId = 1, LocationId = 13 },
-        new Customer { Id = 14, Name = "Sophia Rodriguez", Email = "sophia.rodriguez@example.com", Address = "555 Vine Rd, Dallas", AgeGroupId = 3, GenderId = 2, RaceId = 4, LocationId = 14 },
-        new Customer { Id = 15, Name = "Daniel Hall", Email = "daniel.hall@example.com", Address = "876 Magnolia Ln, Atlanta", AgeGroupId = 1, GenderId = 1, RaceId = 5, LocationId = 15 },
-        new Customer { Id = 16, Name = "Olivia Lopez", Email = "olivia.lopez@example.com", Address = "654 Ash St, San Diego", AgeGroupId = 2, GenderId = 2, RaceId = 2, LocationId = 16 },
-        new Customer { Id = 17, Name = "Paul Hernandez", Email = "paul.hernandez@example.com", Address = "111 Fir St, Sacramento", AgeGroupId = 4, GenderId = 1, RaceId = 3, LocationId = 17 },
-        new Customer { Id = 18, Name = "Anna King", Email = "anna.king@example.com", Address = "543 Cypress Ln, Nashville", AgeGroupId = 3, GenderId = 2, RaceId = 4, LocationId = 18 },
-        new Customer { Id = 19, Name = "Steven Wright", Email = "steven.wright@example.com", Address = "321 Laurel Rd, Charlotte", AgeGroupId = 1, GenderId = 1, RaceId = 1, LocationId = 19 },
-        new Customer { Id = 20, Name = "Megan Scott", Email = "megan.scott@example.com", Address = "987 Dogwood St, Detroit", AgeGroupId = 2, GenderId = 2, RaceId = 5, LocationId = 20 }
+    new Customer { Id = 1, Name = "John Doe", Email = "john.doe@example.com", Address = "123 Main St, Downtown LA", AgeGroupId = 1, GenderId = 1, RaceId = 1, LocationId = 1 },
+    new Customer { Id = 2, Name = "Jane Smith", Email = "jane.smith@example.com", Address = "456 Elm St, Hollywood", AgeGroupId = 2, GenderId = 2, RaceId = 2, LocationId = 2 },
+    new Customer { Id = 3, Name = "Mark Brown", Email = "mark.brown@example.com", Address = "789 Oak St, Beverly Hills", AgeGroupId = 3, GenderId = 1, RaceId = 3, LocationId = 3 },
+    new Customer { Id = 4, Name = "Emily Davis", Email = "emily.davis@example.com", Address = "111 Maple Ave, Santa Monica", AgeGroupId = 4, GenderId = 2, RaceId = 4, LocationId = 4 },
+    new Customer { Id = 5, Name = "Michael Wilson", Email = "michael.wilson@example.com", Address = "222 Pine St, Venice", AgeGroupId = 5, GenderId = 3, RaceId = 1, LocationId = 5 },
+    new Customer { Id = 6, Name = "Sarah Johnson", Email = "sarah.johnson@example.com", Address = "333 Cedar Rd, Pasadena", AgeGroupId = 6, GenderId = 2, RaceId = 2, LocationId = 6 },
+    new Customer { Id = 7, Name = "David Lee", Email = "david.lee@example.com", Address = "444 Birch Ln, Westwood", AgeGroupId = 1, GenderId = 3, RaceId = 3, LocationId = 7 },
+    new Customer { Id = 8, Name = "Jessica White", Email = "jessica.white@example.com", Address = "555 Willow Dr, Silver Lake", AgeGroupId = 2, GenderId = 1, RaceId = 4, LocationId = 8 },
+    new Customer { Id = 9, Name = "James Miller", Email = "james.miller@example.com", Address = "666 Vine St, Echo Park", AgeGroupId = 3, GenderId = 3, RaceId = 1, LocationId = 9 },
+    new Customer { Id = 10, Name = "Laura Moore", Email = "laura.moore@example.com", Address = "777 Redwood St, Culver City", AgeGroupId = 4, GenderId = 2, RaceId = 2, LocationId = 10 },
+    new Customer { Id = 11, Name = "Robert Clark", Email = "robert.clark@example.com", Address = "888 Laurel St, Downtown LA", AgeGroupId = 5, GenderId = 1, RaceId = 3, LocationId = 1 },
+    new Customer { Id = 12, Name = "Linda Martinez", Email = "linda.martinez@example.com", Address = "999 Cherry Ave, Hollywood", AgeGroupId = 6, GenderId = 2, RaceId = 4, LocationId = 2 },
+    new Customer { Id = 13, Name = "Charles Garcia", Email = "charles.garcia@example.com", Address = "123 Cypress Ln, Beverly Hills", AgeGroupId = 1, GenderId = 3, RaceId = 1, LocationId = 3 },
+    new Customer { Id = 14, Name = "Sophia Rodriguez", Email = "sophia.rodriguez@example.com", Address = "456 Magnolia Blvd, Santa Monica", AgeGroupId = 2, GenderId = 1, RaceId = 2, LocationId = 4 },
+    new Customer { Id = 15, Name = "Daniel Hall", Email = "daniel.hall@example.com", Address = "789 Dogwood St, Venice", AgeGroupId = 3, GenderId = 3, RaceId = 3, LocationId = 5 },
+    new Customer { Id = 16, Name = "Olivia Lopez", Email = "olivia.lopez@example.com", Address = "111 Fir St, Pasadena", AgeGroupId = 4, GenderId = 2, RaceId = 4, LocationId = 6 },
+    new Customer { Id = 17, Name = "Paul Hernandez", Email = "paul.hernandez@example.com", Address = "222 Ash St, Westwood", AgeGroupId = 5, GenderId = 1, RaceId = 1, LocationId = 7 },
+    new Customer { Id = 18, Name = "Anna King", Email = "anna.king@example.com", Address = "333 Palm Ave, Silver Lake", AgeGroupId = 6, GenderId = 2, RaceId = 2, LocationId = 8 },
+    new Customer { Id = 19, Name = "Steven Wright", Email = "steven.wright@example.com", Address = "444 Fir Ln, Echo Park", AgeGroupId = 1, GenderId = 3, RaceId = 3, LocationId = 9 },
+    new Customer { Id = 20, Name = "Megan Scott", Email = "megan.scott@example.com", Address = "555 Oak Blvd, Culver City", AgeGroupId = 2, GenderId = 1, RaceId = 4, LocationId = 10 }
 );
+
 
 
         // Seed data for Purchases

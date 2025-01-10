@@ -9,7 +9,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace TequioDemoTrack.Migrations
 {
     /// <inheritdoc />
-    public partial class Initial : Migration
+    public partial class intialMigration : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -367,7 +367,10 @@ namespace TequioDemoTrack.Migrations
                 {
                     { 1, "18-24" },
                     { 2, "25-34" },
-                    { 3, "35-44" }
+                    { 3, "35-44" },
+                    { 4, "45-54" },
+                    { 5, "55-64" },
+                    { 6, "65-74" }
                 });
 
             migrationBuilder.InsertData(
@@ -378,7 +381,7 @@ namespace TequioDemoTrack.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "dbc40bc6-0829-4ac5-a3ed-180f5e916a5f", 0, "9a41e958-ec02-4392-8e9d-8a847995b3ff", "admina@strator.comx", false, false, null, null, null, "AQAAAAIAAYagAAAAEDpYFP258FYc4ISTwnYTCBTomw+TW3r9T91tqyn3SVNGKeCw6A07GoLhE7RTpSQw+w==", null, false, "08b8eb8e-4953-4001-8fc4-85d8520a89a0", false, "Administrator" });
+                values: new object[] { "dbc40bc6-0829-4ac5-a3ed-180f5e916a5f", 0, "02d3e7c7-af16-416e-9f65-f894f2ec8ba7", "admina@strator.comx", false, false, null, null, null, "AQAAAAIAAYagAAAAEJruN+ocVXJ8NFwikCrlgqoPS5W7a2ud6EYpogy7jJBgKCBVzy8AlYwB3IPkG3rRig==", null, false, "5afea07d-56fc-4a4a-a3f0-296082a4db85", false, "Administrator" });
 
             migrationBuilder.InsertData(
                 table: "Employees",
@@ -404,9 +407,16 @@ namespace TequioDemoTrack.Migrations
                 columns: new[] { "Id", "LocationValue" },
                 values: new object[,]
                 {
-                    { 1, "New York" },
-                    { 2, "Los Angeles" },
-                    { 3, "Chicago" }
+                    { 1, "Downtown LA" },
+                    { 2, "Hollywood" },
+                    { 3, "Beverly Hills" },
+                    { 4, "Santa Monica" },
+                    { 5, "Venice" },
+                    { 6, "Pasadena" },
+                    { 7, "Westwood" },
+                    { 8, "Silver Lake" },
+                    { 9, "Echo Park" },
+                    { 10, "Culver City" }
                 });
 
             migrationBuilder.InsertData(
@@ -440,8 +450,26 @@ namespace TequioDemoTrack.Migrations
                 columns: new[] { "Id", "Address", "AgeGroupId", "Email", "GenderId", "LocationId", "Name", "RaceId" },
                 values: new object[,]
                 {
-                    { 1, "789 Lime Ave, Miami", 2, "john.doe@example.com", 1, 3, "John Doe", 3 },
-                    { 2, "321 Salt Blvd, Los Angeles", 1, "jane.smith@example.com", 2, 2, "Jane Smith", 2 }
+                    { 1, "123 Main St, Downtown LA", 1, "john.doe@example.com", 1, 1, "John Doe", 1 },
+                    { 2, "456 Elm St, Hollywood", 2, "jane.smith@example.com", 2, 2, "Jane Smith", 2 },
+                    { 3, "789 Oak St, Beverly Hills", 3, "mark.brown@example.com", 1, 3, "Mark Brown", 3 },
+                    { 4, "111 Maple Ave, Santa Monica", 4, "emily.davis@example.com", 2, 4, "Emily Davis", 4 },
+                    { 5, "222 Pine St, Venice", 5, "michael.wilson@example.com", 3, 5, "Michael Wilson", 1 },
+                    { 6, "333 Cedar Rd, Pasadena", 6, "sarah.johnson@example.com", 2, 6, "Sarah Johnson", 2 },
+                    { 7, "444 Birch Ln, Westwood", 1, "david.lee@example.com", 3, 7, "David Lee", 3 },
+                    { 8, "555 Willow Dr, Silver Lake", 2, "jessica.white@example.com", 1, 8, "Jessica White", 4 },
+                    { 9, "666 Vine St, Echo Park", 3, "james.miller@example.com", 3, 9, "James Miller", 1 },
+                    { 10, "777 Redwood St, Culver City", 4, "laura.moore@example.com", 2, 10, "Laura Moore", 2 },
+                    { 11, "888 Laurel St, Downtown LA", 5, "robert.clark@example.com", 1, 1, "Robert Clark", 3 },
+                    { 12, "999 Cherry Ave, Hollywood", 6, "linda.martinez@example.com", 2, 2, "Linda Martinez", 4 },
+                    { 13, "123 Cypress Ln, Beverly Hills", 1, "charles.garcia@example.com", 3, 3, "Charles Garcia", 1 },
+                    { 14, "456 Magnolia Blvd, Santa Monica", 2, "sophia.rodriguez@example.com", 1, 4, "Sophia Rodriguez", 2 },
+                    { 15, "789 Dogwood St, Venice", 3, "daniel.hall@example.com", 3, 5, "Daniel Hall", 3 },
+                    { 16, "111 Fir St, Pasadena", 4, "olivia.lopez@example.com", 2, 6, "Olivia Lopez", 4 },
+                    { 17, "222 Ash St, Westwood", 5, "paul.hernandez@example.com", 1, 7, "Paul Hernandez", 1 },
+                    { 18, "333 Palm Ave, Silver Lake", 6, "anna.king@example.com", 2, 8, "Anna King", 2 },
+                    { 19, "444 Fir Ln, Echo Park", 1, "steven.wright@example.com", 3, 9, "Steven Wright", 3 },
+                    { 20, "555 Oak Blvd, Culver City", 2, "megan.scott@example.com", 1, 10, "Megan Scott", 4 }
                 });
 
             migrationBuilder.InsertData(
