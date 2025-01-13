@@ -36,5 +36,7 @@ public class AutoMapperProfiles : Profile
         CreateMap<PurchaseProductDTO, PurchaseProduct>();
         CreateMap<PurchaseProduct, CreatePurchaseProductDTO>();
         CreateMap<CreatePurchaseProductDTO, PurchaseProduct>();
+        CreateMap<PurchaseProduct, UpdatePurchaseProductDTO>();
+        CreateMap<UpdatePurchaseProductDTO, PurchaseProduct>();
     }
 }

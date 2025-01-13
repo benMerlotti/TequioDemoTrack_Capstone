@@ -381,7 +381,7 @@ namespace TequioDemoTrack.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "dbc40bc6-0829-4ac5-a3ed-180f5e916a5f", 0, "02d3e7c7-af16-416e-9f65-f894f2ec8ba7", "admina@strator.comx", false, false, null, null, null, "AQAAAAIAAYagAAAAEJruN+ocVXJ8NFwikCrlgqoPS5W7a2ud6EYpogy7jJBgKCBVzy8AlYwB3IPkG3rRig==", null, false, "5afea07d-56fc-4a4a-a3f0-296082a4db85", false, "Administrator" });
+                values: new object[] { "dbc40bc6-0829-4ac5-a3ed-180f5e916a5f", 0, "44d05005-8887-4078-bafd-05d187215107", "admina@strator.comx", false, false, null, null, null, "AQAAAAIAAYagAAAAELJGd0C6+DFebM8ZXg7vBRUGrhrzK4Mo9IuiZb86F6DHChO+SYBhQFzyj9cGg+mJ7g==", null, false, "b37ec5de-c37b-4d01-b492-3a359ce7a157", false, "Administrator" });
 
             migrationBuilder.InsertData(
                 table: "Employees",

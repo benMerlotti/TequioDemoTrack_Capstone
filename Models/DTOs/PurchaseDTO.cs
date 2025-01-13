@@ -21,3 +21,4 @@ public class CreatePurchaseDTO
     public ICollection<CreatePurchaseProductDTO> PurchaseProducts { get; set; } = new List<CreatePurchaseProductDTO>();
 }
 
+

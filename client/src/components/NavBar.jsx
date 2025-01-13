@@ -54,11 +54,6 @@ export default function NavBar({ loggedInUser, setLoggedInUser }) {
                     All Purchases
                   </NavLink>
                 </NavItem>
-                <NavItem onClick={() => setOpen(false)}>
-                  <NavLink tag={RRNavLink} to="/insights">
-                    Insights
-                  </NavLink>
-                </NavItem>
               </Nav>
             </Collapse>
             <Button

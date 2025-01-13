@@ -15,6 +15,7 @@ import { getProducts } from "../../managers/productManager";
 import { getCustomers } from "../../managers/customerManager";
 import { createPurchase } from "../../managers/purchaseManager";
 
+// eslint-disable-next-line react/prop-types
 export const CreatePurchase = ({ loggedInUser }) => {
   const navigate = useNavigate();
   const [products, setProducts] = useState([]);
@@ -22,6 +23,7 @@ export const CreatePurchase = ({ loggedInUser }) => {
   const [filteredCustomers, setFilteredCustomers] = useState([]);
   const [newPurchase, setNewPurchase] = useState({
     customerId: 0,
+    // eslint-disable-next-line react/prop-types
     employeeId: loggedInUser.id,
     purchaseProducts: [],
   });

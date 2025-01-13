@@ -16,7 +16,8 @@ import { EditEmployee } from "./employee/EditEmployee";
 import { CreateProduct } from "./product/CreateProduct";
 import { ProductDetails } from "./product/ProductDetails";
 import { EditProduct } from "./product/EditProduct";
-import { CustomerDemographics } from "./insights/CustomerDemographics";
+import { PurchaseDetails } from "./purchase/PurchaseDetails";
+import { EditPurchase } from "./purchase/EditPurchase";
 
 // eslint-disable-next-line react/prop-types
 export default function ApplicationViews({ loggedInUser, setLoggedInUser }) {
@@ -34,6 +35,24 @@ export default function ApplicationViews({ loggedInUser, setLoggedInUser }) {
         <Route
           index
           element={<PurchaseList setLoggedInUser={setLoggedInUser} />}
+        />
+        <Route
+          path=":id"
+          element={
+            <PurchaseDetails
+              setLoggedInUser={setLoggedInUser}
+              loggedInUser={loggedInUser}
+            />
+          }
+        />
+        <Route
+          path=":id/edit"
+          element={
+            <EditPurchase
+              setLoggedInUser={setLoggedInUser}
+              loggedInUser={loggedInUser}
+            />
+          }
         />
       </Route>
       <Route path="new-purchase">
@@ -100,9 +119,6 @@ export default function ApplicationViews({ loggedInUser, setLoggedInUser }) {
           path="add-customer"
           element={<CreateCustomer setLoggedInUser={setLoggedInUser} />}
         />
-      </Route>
-      <Route path="insights">
-        <Route index element={<CustomerDemographics />} />
       </Route>
       <Route
         path="login"

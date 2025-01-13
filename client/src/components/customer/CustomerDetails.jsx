@@ -33,7 +33,7 @@ export const CustomerDetails = () => {
     <Container className="mt-5">
       {/* Customer Details Section */}
       <Row className="mb-4 justify-content-center">
-        <Col xs={12} sm={10} md={8} lg={6} xl={12}>
+        <Col xl={12}>
           <Card>
             <CardBody>
               <h2 className="mb-3">{customer.name}</h2>
@@ -77,7 +77,7 @@ export const CustomerDetails = () => {
 
       {/* Purchases Section */}
       <Row className="justify-content-center">
-        <Col xs={12} sm={10} md={8} lg={6} xl={12}>
+        <Col xl={12}>
           <Card>
             <CardBody>
               <h3 className="mb-3">Purchases</h3>
