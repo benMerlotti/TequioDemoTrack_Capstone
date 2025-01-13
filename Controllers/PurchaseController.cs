@@ -129,4 +129,29 @@ public class PurchaseController : ControllerBase
         return Ok("Purchase updated successfully.");
     }
 
+    [HttpDelete("{id}/delete")]
+    public IActionResult DeletePurchase(int id)
+    {
+        var foundPurchase = _dbContext.Purchases
+            .Include(p => p.PurchaseProducts) // Make sure to include the related PurchaseProducts
+            .FirstOrDefault(p => p.Id == id);
+
+        if (foundPurchase == null)
+        {
+            return NotFound($"Purchase with ID {id} not found.");
+        }
+
+        // Remove all related PurchaseProducts
+        _dbContext.PurchaseProducts.RemoveRange(foundPurchase.PurchaseProducts);
+
+        // Remove the Purchase
+        _dbContext.Purchases.Remove(foundPurchase);
+
+        // Save changes to the database
+        _dbContext.SaveChanges();
+
+        return NoContent(); // No content returned, as the resource is deleted
+    }
+
 }
+

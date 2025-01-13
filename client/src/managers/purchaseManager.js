@@ -27,3 +27,12 @@ export const editPurchase = (id, updatedPurchase) => {
           body: JSON.stringify(updatedPurchase)
     });
 }
+
+export const deletePurchase = (id) => {
+    return fetch(`${_apiUrl}/${id}/delete`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        }
+    });
+}

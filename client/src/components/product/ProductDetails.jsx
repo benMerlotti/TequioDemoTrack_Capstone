@@ -52,15 +52,6 @@ export const ProductDetails = () => {
           </Table>
         </Col>
       </Row>
-
-      {/* Optional section for purchases or related data */}
-      {/* You can add another section if needed, like how purchases relate to the product */}
-      <Row className="mt-4">
-        <Col>
-          <h3>Purchase History</h3>
-          {/* You can implement a similar table or remove this if not needed */}
-        </Col>
-      </Row>
     </Container>
   );
 };

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Table, Button, Row, Col, Card, CardBody, Container } from "reactstrap";
-import { getPurchases } from "../../managers/purchaseManager";
+import { deletePurchase, getPurchases } from "../../managers/purchaseManager";
 
 export const PurchaseList = () => {
   const [purchases, setPurchases] = useState([]);
@@ -9,6 +9,12 @@ export const PurchaseList = () => {
   useEffect(() => {
     getPurchases().then(setPurchases);
   }, []);
+
+  const handleDelete = (id) => {
+    deletePurchase(id).then(() => {
+      getPurchases().then(setPurchases);
+    });
+  };
 
   return (
     <Container className="mt-5">
@@ -65,7 +71,11 @@ export const PurchaseList = () => {
                     </Link>
                   </td>
                   <td className="text-center">
-                    <Button color="danger" size="sm">
+                    <Button
+                      onClick={() => handleDelete(p.id)}
+                      color="danger"
+                      size="sm"
+                    >
                       Delete
                     </Button>
                   </td>
