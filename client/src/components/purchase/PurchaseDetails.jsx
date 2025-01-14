@@ -40,8 +40,8 @@ export const PurchaseDetails = () => {
               <Table bordered>
                 <tbody>
                   <tr>
-                    <th>Customer Name</th>
-                    <td>{purchase.customer.name}</td>
+                    <th style={{ width: "200px" }}>Customer Name</th>
+                    <td style={{ width: "400px" }}>{purchase.customer.name}</td>
                   </tr>
                   <tr>
                     <th>Email</th>

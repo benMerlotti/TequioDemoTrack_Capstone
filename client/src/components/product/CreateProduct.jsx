@@ -1,6 +1,14 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Button, FormGroup, Input, Label } from "reactstrap";
+import {
+  Button,
+  Card,
+  Container,
+  FormGroup,
+  Input,
+  Label,
+  Row,
+} from "reactstrap";
 import { createProduct } from "../../managers/productManager";
 
 export const CreateProduct = () => {
@@ -40,42 +48,46 @@ export const CreateProduct = () => {
   };
 
   return (
-    <>
-      <h2>Add Product</h2>
-      <form onSubmit={handleSubmit}>
-        <FormGroup>
-          <Label>Name</Label>
-          <Input
-            type="text"
-            value={newProduct.name}
-            onChange={(e) => {
-              const productCopy = { ...newProduct };
-              productCopy.name = e.target.value;
-              setNewProduct(productCopy);
-            }}
-            placeholder="Enter name"
-          />
-        </FormGroup>
-        <FormGroup>
-          <Label>Price</Label>
-          <Input
-            type="text"
-            value={newProduct.price}
-            onChange={handlePriceChange}
-            placeholder="Enter price (e.g., 19.99)"
-          />
-        </FormGroup>
-        <Button type="submit" color="primary">
-          Submit
-        </Button>
-        <div style={{ color: "red" }}>
-          {Object.keys(errors).map((key) => (
-            <p key={key}>
-              {key}: {errors[key].join(",")}
-            </p>
-          ))}
-        </div>
-      </form>
-    </>
+    <Container>
+      <Card>
+        <h2>Add Product</h2>
+        <form onSubmit={handleSubmit}>
+          <Row>
+            <FormGroup>
+              <Label>Name</Label>
+              <Input
+                type="text"
+                value={newProduct.name}
+                onChange={(e) => {
+                  const productCopy = { ...newProduct };
+                  productCopy.name = e.target.value;
+                  setNewProduct(productCopy);
+                }}
+                placeholder="Enter name"
+              />
+            </FormGroup>
+            <FormGroup>
+              <Label>Price</Label>
+              <Input
+                type="text"
+                value={newProduct.price}
+                onChange={handlePriceChange}
+                placeholder="Enter price (e.g., 19.99)"
+              />
+            </FormGroup>
+          </Row>
+          <Button type="submit" color="primary">
+            Submit
+          </Button>
+          <div style={{ color: "red" }}>
+            {Object.keys(errors).map((key) => (
+              <p key={key}>
+                {key}: {errors[key].join(",")}
+              </p>
+            ))}
+          </div>
+        </form>
+      </Card>
+    </Container>
   );
 };

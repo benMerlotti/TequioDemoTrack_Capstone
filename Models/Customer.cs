@@ -19,7 +19,6 @@ public class Customer
     public Race Race { get; set; } = null!;
     public int LocationId { get; set; }
     public Location Location { get; set; } = null!;
-    [JsonIgnore]
     public ICollection<Purchase> Purchases { get; set; } = new List<Purchase>();
 }
 

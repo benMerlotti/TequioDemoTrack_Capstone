@@ -129,7 +129,7 @@ export const PurchaseList = () => {
             >
               <thead className="table-light">
                 <tr>
-                  <th>Id</th>
+                  <th style={{ width: "100px" }}>Id</th>
                   <th>Buyer</th>
                   <th>Price</th>
                   <th>Date</th>

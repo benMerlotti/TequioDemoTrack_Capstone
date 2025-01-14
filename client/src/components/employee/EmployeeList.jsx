@@ -36,13 +36,22 @@ export const EmployeeList = () => {
               </Link>
             </Col>
           </Row>
-          <Table hover responsive bordered>
+          <Table
+            hover
+            responsive
+            bordered
+            style={{ tableLayout: "fixed", width: "100%" }}
+          >
             <thead className="table-light">
               <tr>
-                <th>Name</th>
+                <th style={{ width: "200px" }}>Name</th>
                 <th>Address</th>
                 <th>Email</th>
-                <th colSpan="2" className="text-center">
+                <th
+                  colSpan="2"
+                  className="text-center"
+                  style={{ width: "200px" }}
+                >
                   Actions
                 </th>
               </tr>

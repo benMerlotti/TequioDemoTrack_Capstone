@@ -84,13 +84,13 @@ export const CustomerList = () => {
             >
               <thead className="table-light">
                 <tr>
-                  <th>Name</th>
+                  <th style={{ width: "200px" }}>Name</th>
                   <th>Address</th>
                   <th>Email</th>
                   <th
                     colSpan="2"
                     className="text-center"
-                    style={{ width: "150px" }}
+                    style={{ width: "200px" }}
                   >
                     Actions
                   </th>
