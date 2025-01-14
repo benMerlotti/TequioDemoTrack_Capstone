@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { deleteEmployee, getEmployees } from "../../managers/employeeManager";
 import { Link } from "react-router-dom";
-import { Button, Table, Row, Col, Card, CardBody, Container } from "reactstrap";
+import { Button, Row, Col, Card, CardBody, Container } from "reactstrap";
 
 export const EmployeeList = () => {
   const [employees, setEmployees] = useState([]);
@@ -36,13 +36,8 @@ export const EmployeeList = () => {
               </Link>
             </Col>
           </Row>
-          <Table
-            hover
-            responsive
-            bordered
-            style={{ tableLayout: "fixed", width: "100%" }}
-          >
-            <thead className="table-light">
+          <table style={{ tableLayout: "fixed", width: "100%" }}>
+            <thead>
               <tr>
                 <th style={{ width: "200px" }}>Name</th>
                 <th>Address</th>
@@ -81,7 +76,7 @@ export const EmployeeList = () => {
                 </tr>
               ))}
             </tbody>
-          </Table>
+          </table>
         </CardBody>
       </Card>
     </Container>

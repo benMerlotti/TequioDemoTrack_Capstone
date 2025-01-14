@@ -36,12 +36,16 @@ export const ProductList = () => {
               </Link>
             </Col>
           </Row>
-          <Table hover responsive bordered>
-            <thead className="table-light">
+          <table style={{ tableLayout: "fixed", width: "100%" }}>
+            <thead>
               <tr>
-                <th>Id</th>
+                <th style={{ width: "100px" }}>Id</th>
                 <th>Name</th>
-                <th colSpan="2" className="text-center">
+                <th
+                  colSpan="2"
+                  className="text-center"
+                  style={{ width: "150px" }}
+                >
                   Actions
                 </th>
               </tr>
@@ -70,7 +74,7 @@ export const ProductList = () => {
                 </tr>
               ))}
             </tbody>
-          </Table>
+          </table>
         </CardBody>
       </Card>
     </Container>

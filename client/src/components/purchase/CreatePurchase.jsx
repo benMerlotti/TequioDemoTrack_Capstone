@@ -90,7 +90,7 @@ export const CreatePurchase = ({ loggedInUser }) => {
   return (
     <Container className="mt-5">
       <Card>
-        <CardBody style={{ width: "800px" }}>
+        <CardBody style={{ minWidth: "500px" }}>
           <h2 className="fw-bold mb-4">New Purchase</h2>
           <form onSubmit={handleSubmit}>
             <Row className="mb-4">

@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { deleteCustomer, getCustomers } from "../../managers/customerManager";
 import {
   Button,
-  Table,
   Row,
   Col,
   Card,
@@ -72,14 +71,12 @@ export const CustomerList = () => {
               onChange={handleSearch}
             />
           </FormGroup>
-          <div style={{ maxHeight: "400px", overflowY: "auto" }}>
-            <Table
-              hover
-              responsive
-              bordered
-              style={{ tableLayout: "fixed", width: "100%" }}
-            >
-              <thead className="table-light">
+          <div
+            style={{ maxHeight: "400px", overflowY: "auto" }}
+            className="dark-theme"
+          >
+            <table style={{ tableLayout: "fixed", width: "100%" }}>
+              <thead>
                 <tr>
                   <th style={{ width: "200px" }}>Name</th>
                   <th>Address</th>
@@ -118,7 +115,7 @@ export const CustomerList = () => {
                   </tr>
                 ))}
               </tbody>
-            </Table>
+            </table>
           </div>
         </CardBody>
       </Card>

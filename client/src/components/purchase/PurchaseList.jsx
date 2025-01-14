@@ -120,26 +120,39 @@ export const PurchaseList = () => {
               </Button>
             </Col>
           </Row>
-          <div style={{ maxHeight: "400px", overflowY: "auto" }}>
-            <Table
-              hover
-              responsive
-              bordered
-              style={{ tableLayout: "fixed", width: "100%" }}
-            >
-              <thead className="table-light">
+          <table style={{ tableLayout: "fixed", width: "100%" }}>
+            <thead>
+              <tr>
+                <th style={{ width: "100px" }}>Id</th>
+                <th>Buyer</th>
+                <th>Price</th>
+                <th>Date</th>
+                <th
+                  colSpan="2"
+                  className="text-center"
+                  style={{ width: "150px" }}
+                >
+                  Actions
+                </th>
+              </tr>
+            </thead>
+          </table>
+          <div
+            style={{ maxHeight: "400px", overflowY: "auto" }}
+            className="mt-1"
+          >
+            <table style={{ tableLayout: "fixed", width: "100%" }}>
+              <thead>
                 <tr>
-                  <th style={{ width: "100px" }}>Id</th>
-                  <th>Buyer</th>
-                  <th>Price</th>
-                  <th>Date</th>
+                  <th style={{ width: "100px" }}></th>
+                  <th></th>
+                  <th></th>
+                  <th></th>
                   <th
                     colSpan="2"
                     className="text-center"
                     style={{ width: "150px" }}
-                  >
-                    Actions
-                  </th>
+                  ></th>
                 </tr>
               </thead>
               <tbody>
@@ -172,7 +185,7 @@ export const PurchaseList = () => {
                   </tr>
                 ))}
               </tbody>
-            </Table>
+            </table>
           </div>
         </CardBody>
       </Card>
