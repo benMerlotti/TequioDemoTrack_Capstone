@@ -5,6 +5,7 @@ using TequioDemoTrack.Data;
 [ApiController]
 [Route("api/[controller]")]
 
+
 public class RaceController : ControllerBase
 {
     private TequioDemoTrackDbContext _dbContext;
@@ -15,7 +16,7 @@ public class RaceController : ControllerBase
     }
 
     [HttpGet]
-    // [Authorize]
+    [Authorize]
     public IActionResult Get()
     {
         return Ok(_dbContext

@@ -18,7 +18,7 @@ public class ProductController : ControllerBase
     }
 
     [HttpGet]
-    // [Authorize]
+    [Authorize]
     public IActionResult Get()
     {
         return Ok(_dbContext
@@ -27,7 +27,7 @@ public class ProductController : ControllerBase
     }
 
     [HttpGet("{id}")]
-    // [Authorize]
+    [Authorize]
     public IActionResult GetProductById(int id)
     {
         Product foundProduct = _dbContext
@@ -37,7 +37,7 @@ public class ProductController : ControllerBase
     }
 
     [HttpPost]
-    // [Authorize]
+    [Authorize]
     public IActionResult CreateProduct(IMapper mapper, CreateProductDTO product)
     {
         var newProduct = mapper.Map<Product>(product);
@@ -48,7 +48,7 @@ public class ProductController : ControllerBase
     }
 
     [HttpPut("{id}/edit")]
-    // [Authorize]
+    [Authorize]
     public IActionResult EditProduct(int id, ProductDTO product)
     {
         var foundProduct = _dbContext.Products.FirstOrDefault(e => e.Id == id);
@@ -62,7 +62,7 @@ public class ProductController : ControllerBase
     }
 
     [HttpDelete("{id}/delete")]
-    // [Authorize]
+    [Authorize]
     public IActionResult DeleteProduct(int id)
     {
         var foundProduct = _dbContext.Products.FirstOrDefault(p => p.Id == id);

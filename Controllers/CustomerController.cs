@@ -19,7 +19,7 @@ public class CustomerController : ControllerBase
     }
 
     [HttpGet]
-    // [Authorize]
+    [Authorize]
     public IActionResult Get()
     {
         return Ok(_dbContext
@@ -29,7 +29,7 @@ public class CustomerController : ControllerBase
     }
 
     [HttpGet("{id}")]
-    // [Authorize]
+    [Authorize]
     public IActionResult GetCustomerById(int id)
     {
         Customer foundCustomer = _dbContext
@@ -46,7 +46,7 @@ public class CustomerController : ControllerBase
 
 
     [HttpPost]
-    // [Authorize]
+    [Authorize]
     public IActionResult CreateCustomer(IMapper mapper, CreateCustomerDTO customer)
     {
         var newCustomer = mapper.Map<Customer>(customer);
@@ -57,7 +57,7 @@ public class CustomerController : ControllerBase
     }
 
     [HttpDelete("{id}/delete")]
-    // [Authorize]
+    [Authorize]
     public IActionResult DeleteCustomer(int id)
     {
         var foundCustomer = _dbContext.Customers.FirstOrDefault(c => c.Id == id);
@@ -68,7 +68,7 @@ public class CustomerController : ControllerBase
     }
 
     [HttpPut("{id}/edit")]
-    // [Authorize]
+    [Authorize]
     public IActionResult EditCustomer(int id, CreateCustomerDTO customer)
     {
         var foundCustomer = _dbContext.Customers.FirstOrDefault(c => c.Id == id);

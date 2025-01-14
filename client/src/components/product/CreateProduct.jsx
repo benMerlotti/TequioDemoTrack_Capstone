@@ -21,7 +21,6 @@ export const CreateProduct = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Ensure price is a decimal with two digits precision
     const price = parseFloat(newProduct.price).toFixed(2);
     setNewProduct((prevProduct) => ({
       ...prevProduct,

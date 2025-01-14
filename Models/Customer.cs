@@ -12,7 +12,7 @@ public class Customer
     [Required]
     public string Address { get; set; } = string.Empty;
     public int AgeGroupId { get; set; }
-    public AgeGroup AgeGroup { get; set; } = null!;
+    public AgeGroup AgeGroup { get; set; }
     public int GenderId { get; set; }
     public Gender Gender { get; set; } = null!;
     public int RaceId { get; set; }

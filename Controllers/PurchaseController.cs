@@ -19,6 +19,7 @@ public class PurchaseController : ControllerBase
     }
 
     [HttpGet]
+    [Authorize]
     public IActionResult GetPurchases()
     {
         var purchases = _dbContext.Purchases
@@ -32,6 +33,7 @@ public class PurchaseController : ControllerBase
     }
 
     [HttpGet("{id}")]
+    [Authorize]
     public IActionResult GetPurchasesById(int id)
     {
         var purchase = _dbContext.Purchases
@@ -45,6 +47,7 @@ public class PurchaseController : ControllerBase
 
 
     [HttpPost]
+    [Authorize]
     public IActionResult CreatePurchase([FromBody] CreatePurchaseDTO model)
     {
         // Validate input
@@ -102,6 +105,7 @@ public class PurchaseController : ControllerBase
     }
 
     [HttpPut("{id}/edit")]
+    [Authorize]
     public IActionResult EditPurchase(IMapper _mapper, int id, [FromBody] List<UpdatePurchaseProductDTO> purchaseProducts)
     {
         Purchase foundPurchase = _dbContext.Purchases
@@ -130,6 +134,7 @@ public class PurchaseController : ControllerBase
     }
 
     [HttpDelete("{id}/delete")]
+    [Authorize]
     public IActionResult DeletePurchase(int id)
     {
         var foundPurchase = _dbContext.Purchases

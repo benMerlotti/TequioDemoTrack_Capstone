@@ -27,14 +27,14 @@ export const CreatePurchase = ({ loggedInUser }) => {
     employeeId: loggedInUser.id,
     purchaseProducts: [],
   });
-  const [searchTerm, setSearchTerm] = useState(""); // Track search term
+  const [searchTerm, setSearchTerm] = useState("");
   const [errors, setErrors] = useState("");
 
   useEffect(() => {
     getProducts().then(setProducts);
     getCustomers().then((data) => {
       setCustomers(data);
-      setFilteredCustomers(data); // Initially display all customers
+      setFilteredCustomers(data);
     });
   }, []);
 
@@ -42,11 +42,10 @@ export const CreatePurchase = ({ loggedInUser }) => {
     const term = event.target.value;
     setSearchTerm(term);
 
-    // Filter customers based on the search term (name)
     const filtered = customers.filter((customer) =>
       customer.name.toLowerCase().includes(term.toLowerCase())
     );
-    setFilteredCustomers(filtered); // Update the filtered list of customers
+    setFilteredCustomers(filtered);
   };
 
   const handleSelectCustomer = (customer) => {
@@ -54,8 +53,8 @@ export const CreatePurchase = ({ loggedInUser }) => {
       ...newPurchase,
       customerId: customer.id,
     });
-    setSearchTerm(customer.name); // Set the input field to the selected customer's name
-    setFilteredCustomers([]); // Hide the suggestion list
+    setSearchTerm(customer.name);
+    setFilteredCustomers([]);
   };
 
   const handleAddProduct = () => {
@@ -123,7 +122,7 @@ export const CreatePurchase = ({ loggedInUser }) => {
                             padding: "8px",
                             cursor: "pointer",
                           }}
-                          onClick={() => handleSelectCustomer(c)} // Update state on select
+                          onClick={() => handleSelectCustomer(c)}
                         >
                           {c.name}
                         </li>

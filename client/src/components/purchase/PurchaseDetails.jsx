@@ -31,7 +31,6 @@ export const PurchaseDetails = () => {
 
   return (
     <Container className="mt-5">
-      {/* Purchase Details Section */}
       <Row className="mb-4 justify-content-center">
         <Col xl={12}>
           <Card>
@@ -76,7 +75,6 @@ export const PurchaseDetails = () => {
         </Col>
       </Row>
 
-      {/* Products Section */}
       <Row className="justify-content-center">
         <Col xl={12}>
           <Card>

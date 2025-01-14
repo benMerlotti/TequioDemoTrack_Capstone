@@ -19,7 +19,7 @@ public class EmployeeController : ControllerBase
     }
 
     [HttpGet]
-    // [Authorize]
+    [Authorize]
     public IActionResult Get()
     {
         return Ok(_dbContext
@@ -28,7 +28,7 @@ public class EmployeeController : ControllerBase
     }
 
     [HttpGet("{id}")]
-    // [Authorize]
+    [Authorize]
     public IActionResult GetCustomerById(int id)
     {
         Employee foundEmployee = _dbContext
@@ -40,7 +40,7 @@ public class EmployeeController : ControllerBase
     }
 
     [HttpPost]
-    // [Authorize]
+    [Authorize]
     public IActionResult CreateEmployee(IMapper mapper, CreateEmployeeDTO employee)
     {
         var newEmployee = mapper.Map<Employee>(employee);
@@ -51,7 +51,7 @@ public class EmployeeController : ControllerBase
     }
 
     [HttpDelete("{id}/delete")]
-    // [Authorize]
+    [Authorize]
     public IActionResult DeleteEmployee(int id)
     {
         var foundEmployee = _dbContext.Employees.FirstOrDefault(e => e.Id == id);
@@ -62,7 +62,7 @@ public class EmployeeController : ControllerBase
     }
 
     [HttpPut("{id}/edit")]
-    // [Authorize]
+    [Authorize]
     public IActionResult EditCustomer(int id, CreateEmployeeDTO employee)
     {
         var foundEmployee = _dbContext.Employees.FirstOrDefault(e => e.Id == id);

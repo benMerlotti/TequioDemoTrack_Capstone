@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using TequioDemoTrack.Data;
 
 [ApiController]
@@ -20,6 +21,7 @@ public class AgeGroupController : ControllerBase
     {
         return Ok(_dbContext
         .AgeGroups
+        .Include(a => a.Customers)
         .ToList());
     }
 }

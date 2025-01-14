@@ -53,13 +53,13 @@ export const EditCustomer = () => {
       const res = await editCustomer(id, customer);
 
       if (res.errors) {
-        setErrors(res.errors); // Handle validation errors
+        setErrors(res.errors);
       } else {
-        navigate("/customers"); // Navigate only after successful edit
+        navigate("/customers");
       }
     } catch (err) {
       console.error("Failed to edit customer:", err);
-      setErrors(err); // Handle unexpected errors
+      setErrors(err);
     }
   };
 

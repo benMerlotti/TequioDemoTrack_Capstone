@@ -16,32 +16,30 @@ import { Link } from "react-router-dom";
 export const CustomerList = () => {
   const [customers, setCustomers] = useState([]);
   const [filteredCustomers, setFilteredCustomers] = useState([]);
-  const [searchTerm, setSearchTerm] = useState(""); // Step 1: Track search term
+  const [searchTerm, setSearchTerm] = useState("");
 
   useEffect(() => {
     getCustomers().then((data) => {
       setCustomers(data);
-      setFilteredCustomers(data); // Initially display all customers
+      setFilteredCustomers(data);
     });
   }, []);
 
-  // Handle the search functionality
   const handleSearch = (event) => {
     const term = event.target.value;
     setSearchTerm(term);
 
-    // Filter customers based on name matching the search term
     const filtered = customers.filter((customer) =>
       customer.name.toLowerCase().includes(term.toLowerCase())
     );
-    setFilteredCustomers(filtered); // Step 2: Update filtered list
+    setFilteredCustomers(filtered);
   };
 
   const handleDelete = (id) => {
     deleteCustomer(id).then(() => {
       getCustomers().then((data) => {
         setCustomers(data);
-        setFilteredCustomers(data); // Reapply search filter after deletion if needed
+        setFilteredCustomers(data);
       });
     });
   };
@@ -66,13 +64,12 @@ export const CustomerList = () => {
               </Link>
             </Col>
           </Row>
-          {/* Step 3: Input field for search */}
           <FormGroup>
             <Input
               type="text"
               placeholder="Search Customers"
               value={searchTerm}
-              onChange={handleSearch} // Step 4: Call handleSearch on change
+              onChange={handleSearch}
             />
           </FormGroup>
           <div style={{ maxHeight: "400px", overflowY: "auto" }}>

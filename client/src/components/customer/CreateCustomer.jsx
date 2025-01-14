@@ -68,7 +68,6 @@ export const CreateCustomer = () => {
         <h2 className="fw-bold text-center mt-4">Add Customer</h2>
         <form onSubmit={handleSubmit} className="p-4">
           <Row>
-            {/* Name and Email */}
             <Col md={6}>
               <FormGroup>
                 <Label>Name</Label>
@@ -100,7 +99,6 @@ export const CreateCustomer = () => {
           </Row>
 
           <Row>
-            {/* Address */}
             <Col md={12}>
               <FormGroup>
                 <Label>Address</Label>
@@ -118,7 +116,6 @@ export const CreateCustomer = () => {
           </Row>
 
           <Row>
-            {/* Age Group and Gender */}
             <Col md={6}>
               <FormGroup>
                 <Label>Age Group</Label>
@@ -164,7 +161,6 @@ export const CreateCustomer = () => {
           </Row>
 
           <Row>
-            {/* Race and Location */}
             <Col md={6}>
               <FormGroup>
                 <Label>Race</Label>

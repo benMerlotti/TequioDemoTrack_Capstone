@@ -12,12 +12,10 @@ export const EditPurchase = () => {
   const [errors, setErrors] = useState("");
 
   useEffect(() => {
-    // Fetch the current purchase's products
     getPurchaseById(id).then((purchase) =>
       setPurchaseProducts(purchase.purchaseProducts)
     );
 
-    // Fetch all available products for the dropdown
     getProducts().then((products) => setAllProducts(products));
   }, [id]);
 
@@ -34,10 +32,7 @@ export const EditPurchase = () => {
   };
 
   const handleAddProduct = () => {
-    setPurchaseProducts([
-      ...purchaseProducts,
-      { productId: "", quantity: 1 }, // Default values for new product
-    ]);
+    setPurchaseProducts([...purchaseProducts, { productId: "", quantity: 1 }]);
   };
 
   const handleDeleteProduct = (index) => {
@@ -63,7 +58,7 @@ export const EditPurchase = () => {
       <form onSubmit={handleSubmit}>
         {purchaseProducts.map((product, index) => (
           <div
-            key={index} // Use index since productId might not be unique for new entries
+            key={index}
             className="d-flex align-items-center mb-3 justify-content-between"
           >
             <div className="d-flex align-items-center">
