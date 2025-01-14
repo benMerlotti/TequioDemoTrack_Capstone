@@ -1,19 +1,61 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { Table, Button, Row, Col, Card, CardBody, Container } from "reactstrap";
+import {
+  Table,
+  Button,
+  Row,
+  Col,
+  Card,
+  CardBody,
+  Container,
+  FormGroup,
+  InputGroup,
+  InputGroupText,
+} from "reactstrap";
 import { deletePurchase, getPurchases } from "../../managers/purchaseManager";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 export const PurchaseList = () => {
   const [purchases, setPurchases] = useState([]);
+  const [filteredByDate, setFilteredByDate] = useState([]);
+  const [startDate, setStartDate] = useState("");
+  const [endDate, setEndDate] = useState("");
 
   useEffect(() => {
-    getPurchases().then(setPurchases);
+    getPurchases().then((data) => {
+      setPurchases(data);
+      setFilteredByDate(data);
+    });
   }, []);
 
   const handleDelete = (id) => {
     deletePurchase(id).then(() => {
-      getPurchases().then(setPurchases);
+      getPurchases().then((data) => {
+        setPurchases(data);
+        setFilteredByDate(data);
+      });
     });
+  };
+
+  const handleDateFilter = () => {
+    if (startDate && endDate) {
+      const filtered = purchases.filter((purchase) => {
+        const purchaseDate = new Date(purchase.purchaseDate);
+        const start = new Date(startDate);
+        const end = new Date(endDate);
+        return purchaseDate >= start && purchaseDate <= end;
+      });
+      setFilteredByDate(filtered);
+    } else {
+      setFilteredByDate(purchases);
+    }
+  };
+
+  const handleClearFilter = () => {
+    setStartDate("");
+    setEndDate("");
+    setFilteredByDate(purchases);
   };
 
   return (
@@ -36,53 +78,102 @@ export const PurchaseList = () => {
               </Link>
             </Col>
           </Row>
-          <Table hover responsive bordered>
-            <thead className="table-light">
-              <tr>
-                <th>Id</th>
-                <th>Buyer</th>
-                <th>Price</th>
-                <th>Date</th>
-                <th
-                  colSpan="2"
-                  className="text-center"
-                  style={{ width: "150px" }}
-                >
-                  Actions
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              {purchases.map((p) => (
-                <tr key={p.id}>
-                  <td>{p.id}</td>
-                  <td>
-                    <Link to={`/customers/${p.customer?.id}`}>
-                      {p.customer?.name}
-                    </Link>
-                  </td>
-                  <td>${p.totalPrice.toFixed(2)}</td>
-                  <td>{new Date(p.purchaseDate).toLocaleDateString()}</td>
-                  <td className="text-center">
-                    <Link to={`${p.id}`}>
-                      <Button color="secondary" size="sm">
-                        Details
-                      </Button>
-                    </Link>
-                  </td>
-                  <td className="text-center">
-                    <Button
-                      onClick={() => handleDelete(p.id)}
-                      color="danger"
-                      size="sm"
-                    >
-                      Delete
-                    </Button>
-                  </td>
+          <Row className="mb-4">
+            <Col md="4">
+              <FormGroup>
+                <InputGroup>
+                  <InputGroupText>Start</InputGroupText>
+                  <DatePicker
+                    selected={startDate}
+                    onChange={(date) => setStartDate(date)}
+                    placeholderText="Start Date"
+                    dateFormat="yyyy-MM-dd"
+                    className="form-control"
+                  />
+                </InputGroup>
+              </FormGroup>
+            </Col>
+            <Col md="4">
+              <FormGroup>
+                <InputGroup>
+                  <InputGroupText>End</InputGroupText>
+                  <DatePicker
+                    selected={endDate}
+                    onChange={(date) => setEndDate(date)}
+                    placeholderText="End Date"
+                    dateFormat="yyyy-MM-dd"
+                    className="form-control"
+                  />
+                </InputGroup>
+              </FormGroup>
+            </Col>
+            <Col md="4">
+              <Button
+                color="primary"
+                className="me-3"
+                onClick={handleDateFilter}
+              >
+                Filter
+              </Button>
+              <Button color="secondary" onClick={handleClearFilter}>
+                Clear Filter
+              </Button>
+            </Col>
+          </Row>
+          <div style={{ maxHeight: "400px", overflowY: "auto" }}>
+            <Table
+              hover
+              responsive
+              bordered
+              style={{ tableLayout: "fixed", width: "100%" }}
+            >
+              <thead className="table-light">
+                <tr>
+                  <th>Id</th>
+                  <th>Buyer</th>
+                  <th>Price</th>
+                  <th>Date</th>
+                  <th
+                    colSpan="2"
+                    className="text-center"
+                    style={{ width: "150px" }}
+                  >
+                    Actions
+                  </th>
                 </tr>
-              ))}
-            </tbody>
-          </Table>
+              </thead>
+              <tbody>
+                {filteredByDate.map((p) => (
+                  <tr key={p.id}>
+                    <td>{p.id}</td>
+                    <td>
+                      <Link to={`/customers/${p.customer?.id}`}>
+                        {p.customer?.name}
+                      </Link>
+                    </td>
+                    <td>${p.totalPrice.toFixed(2)}</td>
+                    <td>{new Date(p.purchaseDate).toLocaleDateString()}</td>
+                    <td className="text-center">
+                      <Link to={`${p.id}`}>
+                        <Button color="secondary" size="sm">
+                          Details
+                        </Button>
+                      </Link>
+                    </td>
+                    <td className="text-center">
+                      <Button
+                        onClick={() => handleDelete(p.id)}
+                        color="danger"
+                        size="sm"
+                      >
+                        Delete
+                      </Button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </Table>
+          </div>
         </CardBody>
       </Card>
     </Container>

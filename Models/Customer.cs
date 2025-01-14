@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 namespace TequioDemoTrack.Models;
 public class Customer
@@ -18,7 +19,7 @@ public class Customer
     public Race Race { get; set; } = null!;
     public int LocationId { get; set; }
     public Location Location { get; set; } = null!;
-
+    [JsonIgnore]
     public ICollection<Purchase> Purchases { get; set; } = new List<Purchase>();
 }
 

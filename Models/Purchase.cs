@@ -1,3 +1,5 @@
+using System.Text.Json.Serialization;
+
 namespace TequioDemoTrack.Models;
 public class Purchase
 {

@@ -149,13 +149,13 @@ namespace TequioDemoTrack.Migrations
                         {
                             Id = "dbc40bc6-0829-4ac5-a3ed-180f5e916a5f",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "44d05005-8887-4078-bafd-05d187215107",
+                            ConcurrencyStamp = "fc4b85ba-fa4b-4bf9-9f95-1f900c03cdcd",
                             Email = "admina@strator.comx",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
-                            PasswordHash = "AQAAAAIAAYagAAAAELJGd0C6+DFebM8ZXg7vBRUGrhrzK4Mo9IuiZb86F6DHChO+SYBhQFzyj9cGg+mJ7g==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEDub7rEc2aicoPaeAZEDWHKrC77xrVMaM7AIZddVFzyt3KU7EVFXgFidvQbb6z3BiA==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "b37ec5de-c37b-4d01-b492-3a359ce7a157",
+                            SecurityStamp = "e406eeeb-2711-494a-bcf8-216094d38823",
                             TwoFactorEnabled = false,
                             UserName = "Administrator"
                         });
@@ -785,14 +785,210 @@ namespace TequioDemoTrack.Migrations
                             Id = 1,
                             CustomerId = 1,
                             EmployeeId = 1,
-                            PurchaseDate = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                            PurchaseDate = new DateTime(2023, 1, 10, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
                             Id = 2,
+                            CustomerId = 3,
+                            EmployeeId = 2,
+                            PurchaseDate = new DateTime(2023, 2, 15, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 3,
+                            CustomerId = 5,
+                            EmployeeId = 1,
+                            PurchaseDate = new DateTime(2023, 3, 20, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 4,
+                            CustomerId = 7,
+                            EmployeeId = 2,
+                            PurchaseDate = new DateTime(2023, 4, 25, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 5,
+                            CustomerId = 9,
+                            EmployeeId = 1,
+                            PurchaseDate = new DateTime(2023, 5, 5, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 6,
                             CustomerId = 2,
                             EmployeeId = 2,
-                            PurchaseDate = new DateTime(2024, 2, 15, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                            PurchaseDate = new DateTime(2023, 6, 18, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 7,
+                            CustomerId = 4,
+                            EmployeeId = 1,
+                            PurchaseDate = new DateTime(2023, 7, 12, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 8,
+                            CustomerId = 6,
+                            EmployeeId = 2,
+                            PurchaseDate = new DateTime(2023, 8, 3, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 9,
+                            CustomerId = 8,
+                            EmployeeId = 1,
+                            PurchaseDate = new DateTime(2023, 9, 22, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 10,
+                            CustomerId = 10,
+                            EmployeeId = 2,
+                            PurchaseDate = new DateTime(2023, 10, 30, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 11,
+                            CustomerId = 1,
+                            EmployeeId = 1,
+                            PurchaseDate = new DateTime(2024, 1, 5, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 12,
+                            CustomerId = 3,
+                            EmployeeId = 2,
+                            PurchaseDate = new DateTime(2024, 2, 14, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 13,
+                            CustomerId = 5,
+                            EmployeeId = 1,
+                            PurchaseDate = new DateTime(2024, 3, 9, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 14,
+                            CustomerId = 7,
+                            EmployeeId = 2,
+                            PurchaseDate = new DateTime(2024, 4, 23, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 15,
+                            CustomerId = 9,
+                            EmployeeId = 1,
+                            PurchaseDate = new DateTime(2024, 5, 17, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 16,
+                            CustomerId = 2,
+                            EmployeeId = 2,
+                            PurchaseDate = new DateTime(2024, 6, 11, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 17,
+                            CustomerId = 4,
+                            EmployeeId = 1,
+                            PurchaseDate = new DateTime(2024, 7, 15, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 18,
+                            CustomerId = 6,
+                            EmployeeId = 2,
+                            PurchaseDate = new DateTime(2024, 8, 8, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 19,
+                            CustomerId = 8,
+                            EmployeeId = 1,
+                            PurchaseDate = new DateTime(2024, 9, 27, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 20,
+                            CustomerId = 10,
+                            EmployeeId = 2,
+                            PurchaseDate = new DateTime(2024, 10, 4, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 21,
+                            CustomerId = 1,
+                            EmployeeId = 1,
+                            PurchaseDate = new DateTime(2025, 1, 12, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 22,
+                            CustomerId = 3,
+                            EmployeeId = 2,
+                            PurchaseDate = new DateTime(2025, 2, 22, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 23,
+                            CustomerId = 5,
+                            EmployeeId = 1,
+                            PurchaseDate = new DateTime(2025, 3, 8, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 24,
+                            CustomerId = 7,
+                            EmployeeId = 2,
+                            PurchaseDate = new DateTime(2025, 4, 15, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 25,
+                            CustomerId = 9,
+                            EmployeeId = 1,
+                            PurchaseDate = new DateTime(2025, 5, 30, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 26,
+                            CustomerId = 2,
+                            EmployeeId = 2,
+                            PurchaseDate = new DateTime(2025, 6, 13, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 27,
+                            CustomerId = 4,
+                            EmployeeId = 1,
+                            PurchaseDate = new DateTime(2025, 7, 24, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 28,
+                            CustomerId = 6,
+                            EmployeeId = 2,
+                            PurchaseDate = new DateTime(2025, 8, 19, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 29,
+                            CustomerId = 8,
+                            EmployeeId = 1,
+                            PurchaseDate = new DateTime(2025, 9, 25, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 30,
+                            CustomerId = 10,
+                            EmployeeId = 2,
+                            PurchaseDate = new DateTime(2025, 10, 18, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         });
                 });
 
@@ -825,16 +1021,422 @@ namespace TequioDemoTrack.Migrations
                         new
                         {
                             Id = 1,
-                            ProductId = 2,
+                            ProductId = 1,
                             PurchaseId = 1,
-                            Quantity = 1
+                            Quantity = 2
                         },
                         new
                         {
                             Id = 2,
                             ProductId = 3,
+                            PurchaseId = 1,
+                            Quantity = 1
+                        },
+                        new
+                        {
+                            Id = 3,
+                            ProductId = 2,
+                            PurchaseId = 2,
+                            Quantity = 3
+                        },
+                        new
+                        {
+                            Id = 4,
+                            ProductId = 1,
                             PurchaseId = 2,
                             Quantity = 1
+                        },
+                        new
+                        {
+                            Id = 5,
+                            ProductId = 3,
+                            PurchaseId = 3,
+                            Quantity = 2
+                        },
+                        new
+                        {
+                            Id = 6,
+                            ProductId = 2,
+                            PurchaseId = 3,
+                            Quantity = 1
+                        },
+                        new
+                        {
+                            Id = 7,
+                            ProductId = 1,
+                            PurchaseId = 4,
+                            Quantity = 3
+                        },
+                        new
+                        {
+                            Id = 8,
+                            ProductId = 2,
+                            PurchaseId = 4,
+                            Quantity = 2
+                        },
+                        new
+                        {
+                            Id = 9,
+                            ProductId = 3,
+                            PurchaseId = 5,
+                            Quantity = 1
+                        },
+                        new
+                        {
+                            Id = 10,
+                            ProductId = 1,
+                            PurchaseId = 5,
+                            Quantity = 4
+                        },
+                        new
+                        {
+                            Id = 11,
+                            ProductId = 2,
+                            PurchaseId = 6,
+                            Quantity = 2
+                        },
+                        new
+                        {
+                            Id = 12,
+                            ProductId = 3,
+                            PurchaseId = 6,
+                            Quantity = 3
+                        },
+                        new
+                        {
+                            Id = 13,
+                            ProductId = 1,
+                            PurchaseId = 7,
+                            Quantity = 1
+                        },
+                        new
+                        {
+                            Id = 14,
+                            ProductId = 2,
+                            PurchaseId = 7,
+                            Quantity = 3
+                        },
+                        new
+                        {
+                            Id = 15,
+                            ProductId = 3,
+                            PurchaseId = 8,
+                            Quantity = 2
+                        },
+                        new
+                        {
+                            Id = 16,
+                            ProductId = 1,
+                            PurchaseId = 8,
+                            Quantity = 5
+                        },
+                        new
+                        {
+                            Id = 17,
+                            ProductId = 2,
+                            PurchaseId = 9,
+                            Quantity = 4
+                        },
+                        new
+                        {
+                            Id = 18,
+                            ProductId = 3,
+                            PurchaseId = 9,
+                            Quantity = 1
+                        },
+                        new
+                        {
+                            Id = 19,
+                            ProductId = 1,
+                            PurchaseId = 10,
+                            Quantity = 2
+                        },
+                        new
+                        {
+                            Id = 20,
+                            ProductId = 2,
+                            PurchaseId = 10,
+                            Quantity = 3
+                        },
+                        new
+                        {
+                            Id = 21,
+                            ProductId = 3,
+                            PurchaseId = 11,
+                            Quantity = 1
+                        },
+                        new
+                        {
+                            Id = 22,
+                            ProductId = 2,
+                            PurchaseId = 11,
+                            Quantity = 2
+                        },
+                        new
+                        {
+                            Id = 23,
+                            ProductId = 1,
+                            PurchaseId = 12,
+                            Quantity = 3
+                        },
+                        new
+                        {
+                            Id = 24,
+                            ProductId = 3,
+                            PurchaseId = 12,
+                            Quantity = 2
+                        },
+                        new
+                        {
+                            Id = 25,
+                            ProductId = 2,
+                            PurchaseId = 13,
+                            Quantity = 4
+                        },
+                        new
+                        {
+                            Id = 26,
+                            ProductId = 1,
+                            PurchaseId = 13,
+                            Quantity = 1
+                        },
+                        new
+                        {
+                            Id = 27,
+                            ProductId = 3,
+                            PurchaseId = 14,
+                            Quantity = 3
+                        },
+                        new
+                        {
+                            Id = 28,
+                            ProductId = 2,
+                            PurchaseId = 14,
+                            Quantity = 2
+                        },
+                        new
+                        {
+                            Id = 29,
+                            ProductId = 1,
+                            PurchaseId = 15,
+                            Quantity = 2
+                        },
+                        new
+                        {
+                            Id = 30,
+                            ProductId = 3,
+                            PurchaseId = 15,
+                            Quantity = 1
+                        },
+                        new
+                        {
+                            Id = 31,
+                            ProductId = 2,
+                            PurchaseId = 16,
+                            Quantity = 5
+                        },
+                        new
+                        {
+                            Id = 32,
+                            ProductId = 1,
+                            PurchaseId = 16,
+                            Quantity = 3
+                        },
+                        new
+                        {
+                            Id = 33,
+                            ProductId = 3,
+                            PurchaseId = 17,
+                            Quantity = 2
+                        },
+                        new
+                        {
+                            Id = 34,
+                            ProductId = 2,
+                            PurchaseId = 17,
+                            Quantity = 4
+                        },
+                        new
+                        {
+                            Id = 35,
+                            ProductId = 1,
+                            PurchaseId = 18,
+                            Quantity = 3
+                        },
+                        new
+                        {
+                            Id = 36,
+                            ProductId = 3,
+                            PurchaseId = 18,
+                            Quantity = 2
+                        },
+                        new
+                        {
+                            Id = 37,
+                            ProductId = 2,
+                            PurchaseId = 19,
+                            Quantity = 4
+                        },
+                        new
+                        {
+                            Id = 38,
+                            ProductId = 1,
+                            PurchaseId = 19,
+                            Quantity = 1
+                        },
+                        new
+                        {
+                            Id = 39,
+                            ProductId = 3,
+                            PurchaseId = 20,
+                            Quantity = 5
+                        },
+                        new
+                        {
+                            Id = 40,
+                            ProductId = 2,
+                            PurchaseId = 20,
+                            Quantity = 3
+                        },
+                        new
+                        {
+                            Id = 41,
+                            ProductId = 1,
+                            PurchaseId = 21,
+                            Quantity = 1
+                        },
+                        new
+                        {
+                            Id = 42,
+                            ProductId = 3,
+                            PurchaseId = 21,
+                            Quantity = 2
+                        },
+                        new
+                        {
+                            Id = 43,
+                            ProductId = 2,
+                            PurchaseId = 22,
+                            Quantity = 5
+                        },
+                        new
+                        {
+                            Id = 44,
+                            ProductId = 1,
+                            PurchaseId = 22,
+                            Quantity = 2
+                        },
+                        new
+                        {
+                            Id = 45,
+                            ProductId = 3,
+                            PurchaseId = 23,
+                            Quantity = 3
+                        },
+                        new
+                        {
+                            Id = 46,
+                            ProductId = 2,
+                            PurchaseId = 23,
+                            Quantity = 1
+                        },
+                        new
+                        {
+                            Id = 47,
+                            ProductId = 1,
+                            PurchaseId = 24,
+                            Quantity = 4
+                        },
+                        new
+                        {
+                            Id = 48,
+                            ProductId = 3,
+                            PurchaseId = 24,
+                            Quantity = 2
+                        },
+                        new
+                        {
+                            Id = 49,
+                            ProductId = 2,
+                            PurchaseId = 25,
+                            Quantity = 3
+                        },
+                        new
+                        {
+                            Id = 50,
+                            ProductId = 1,
+                            PurchaseId = 25,
+                            Quantity = 1
+                        },
+                        new
+                        {
+                            Id = 51,
+                            ProductId = 3,
+                            PurchaseId = 26,
+                            Quantity = 2
+                        },
+                        new
+                        {
+                            Id = 52,
+                            ProductId = 2,
+                            PurchaseId = 26,
+                            Quantity = 4
+                        },
+                        new
+                        {
+                            Id = 53,
+                            ProductId = 1,
+                            PurchaseId = 27,
+                            Quantity = 3
+                        },
+                        new
+                        {
+                            Id = 54,
+                            ProductId = 3,
+                            PurchaseId = 27,
+                            Quantity = 2
+                        },
+                        new
+                        {
+                            Id = 55,
+                            ProductId = 2,
+                            PurchaseId = 28,
+                            Quantity = 5
+                        },
+                        new
+                        {
+                            Id = 56,
+                            ProductId = 1,
+                            PurchaseId = 28,
+                            Quantity = 4
+                        },
+                        new
+                        {
+                            Id = 57,
+                            ProductId = 3,
+                            PurchaseId = 29,
+                            Quantity = 3
+                        },
+                        new
+                        {
+                            Id = 58,
+                            ProductId = 2,
+                            PurchaseId = 29,
+                            Quantity = 2
+                        },
+                        new
+                        {
+                            Id = 59,
+                            ProductId = 1,
+                            PurchaseId = 30,
+                            Quantity = 1
+                        },
+                        new
+                        {
+                            Id = 60,
+                            ProductId = 3,
+                            PurchaseId = 30,
+                            Quantity = 5
                         });
                 });
 
