@@ -9,7 +9,6 @@ public class TequioDemoTrackDbContext : IdentityDbContext<IdentityUser>
     private readonly IConfiguration _configuration;
     public DbSet<UserProfile> UserProfiles { get; set; }
     public DbSet<Customer> Customers { get; set; }
-    public DbSet<Employee> Employees { get; set; }
     public DbSet<Product> Products { get; set; }
     public DbSet<Purchase> Purchases { get; set; }
     public DbSet<PurchaseProduct> PurchaseProducts { get; set; }
@@ -35,27 +34,63 @@ public class TequioDemoTrackDbContext : IdentityDbContext<IdentityUser>
             NormalizedName = "admin"
         });
 
-        modelBuilder.Entity<IdentityUser>().HasData(new IdentityUser
+        modelBuilder.Entity<IdentityUser>().HasData(
+        new IdentityUser
         {
             Id = "dbc40bc6-0829-4ac5-a3ed-180f5e916a5f",
             UserName = "Administrator",
             Email = "admina@strator.comx",
             PasswordHash = new PasswordHasher<IdentityUser>().HashPassword(null, _configuration["AdminPassword"])
-        });
+        },
+        new IdentityUser
+        {
+            Id = "d7f5e876-91fe-4e0b-a2c9-e6a07500f50e",
+            UserName = "SmithJordan",
+            Email = "jordan@gmail.com",
+            PasswordHash = new PasswordHasher<IdentityUser>().HashPassword(null, _configuration["AdminPassword"])
+        },
+        new IdentityUser
+        {
+            Id = "f7b45b7d-3c74-4dfd-a8f9-20fe7b8cb062",
+            UserName = "JohnsonTaylor",
+            Email = "taylor@gmail.com",
+            PasswordHash = new PasswordHasher<IdentityUser>().HashPassword(null, _configuration["AdminPassword"])
+        }
+
+        );
 
         modelBuilder.Entity<IdentityUserRole<string>>().HasData(new IdentityUserRole<string>
         {
             RoleId = "c3aaeb97-d2ba-4a53-a521-4eea61e59b35",
             UserId = "dbc40bc6-0829-4ac5-a3ed-180f5e916a5f"
         });
-        modelBuilder.Entity<UserProfile>().HasData(new UserProfile
+        modelBuilder.Entity<UserProfile>().HasData(
+        new UserProfile
         {
             Id = 1,
             IdentityUserId = "dbc40bc6-0829-4ac5-a3ed-180f5e916a5f",
             FirstName = "Admina",
             LastName = "Strator",
             Address = "101 Main Street",
-        });
+        },
+        new UserProfile
+        {
+            Id = 2,
+            IdentityUserId = "d7f5e876-91fe-4e0b-a2c9-e6a07500f50e",
+            FirstName = "Jordan",
+            LastName = "Smith",
+            Address = "202 Oak Avenue",
+        },
+        new UserProfile
+        {
+            Id = 3,
+            IdentityUserId = "f7b45b7d-3c74-4dfd-a8f9-20fe7b8cb062",
+            FirstName = "Taylor",
+            LastName = "Johnson",
+            Address = "303 Pine Street",
+        }
+    );
+
 
         modelBuilder.Entity<AgeGroup>().HasData(
         new AgeGroup { Id = 1, Group = "18-24" },
@@ -103,13 +138,6 @@ public class TequioDemoTrackDbContext : IdentityDbContext<IdentityUser>
             new Product { Id = 3, Name = "Tequila Añejo", Price = 40.00m }
   );
 
-
-        // Seed data for Employee
-        modelBuilder.Entity<Employee>().HasData(
-            new Employee { Id = 1, Name = "Juan Perez", Email = "juan.perez@example.com", Address = "123 Agave St, Mexico City", IsActive = true },
-            new Employee { Id = 2, Name = "Maria Lopez", Email = "maria.lopez@example.com", Address = "456 Tequila Rd, Guadalajara", IsActive = true }
-        );
-
         // Seed data for Customer
         modelBuilder.Entity<Customer>().HasData(
     new Customer { Id = 1, Name = "John Doe", Email = "john.doe@example.com", Address = "123 Main St, Downtown LA", AgeGroupId = 1, GenderId = 1, RaceId = 1, LocationId = 1 },
@@ -138,36 +166,36 @@ public class TequioDemoTrackDbContext : IdentityDbContext<IdentityUser>
 
         // Seed data for Purchases
         modelBuilder.Entity<Purchase>().HasData(
-            new Purchase { Id = 1, CustomerId = 1, EmployeeId = 1, PurchaseDate = new DateTime(2023, 1, 10) },
-            new Purchase { Id = 2, CustomerId = 3, EmployeeId = 2, PurchaseDate = new DateTime(2023, 2, 15) },
-            new Purchase { Id = 3, CustomerId = 5, EmployeeId = 1, PurchaseDate = new DateTime(2023, 3, 20) },
-            new Purchase { Id = 4, CustomerId = 7, EmployeeId = 2, PurchaseDate = new DateTime(2023, 4, 25) },
-            new Purchase { Id = 5, CustomerId = 9, EmployeeId = 1, PurchaseDate = new DateTime(2023, 5, 5) },
-            new Purchase { Id = 6, CustomerId = 2, EmployeeId = 2, PurchaseDate = new DateTime(2023, 6, 18) },
-            new Purchase { Id = 7, CustomerId = 4, EmployeeId = 1, PurchaseDate = new DateTime(2023, 7, 12) },
-            new Purchase { Id = 8, CustomerId = 6, EmployeeId = 2, PurchaseDate = new DateTime(2023, 8, 3) },
-            new Purchase { Id = 9, CustomerId = 8, EmployeeId = 1, PurchaseDate = new DateTime(2023, 9, 22) },
-            new Purchase { Id = 10, CustomerId = 10, EmployeeId = 2, PurchaseDate = new DateTime(2023, 10, 30) },
-            new Purchase { Id = 11, CustomerId = 1, EmployeeId = 1, PurchaseDate = new DateTime(2024, 1, 5) },
-            new Purchase { Id = 12, CustomerId = 3, EmployeeId = 2, PurchaseDate = new DateTime(2024, 2, 14) },
-            new Purchase { Id = 13, CustomerId = 5, EmployeeId = 1, PurchaseDate = new DateTime(2024, 3, 9) },
-            new Purchase { Id = 14, CustomerId = 7, EmployeeId = 2, PurchaseDate = new DateTime(2024, 4, 23) },
-            new Purchase { Id = 15, CustomerId = 9, EmployeeId = 1, PurchaseDate = new DateTime(2024, 5, 17) },
-            new Purchase { Id = 16, CustomerId = 2, EmployeeId = 2, PurchaseDate = new DateTime(2024, 6, 11) },
-            new Purchase { Id = 17, CustomerId = 4, EmployeeId = 1, PurchaseDate = new DateTime(2024, 7, 15) },
-            new Purchase { Id = 18, CustomerId = 6, EmployeeId = 2, PurchaseDate = new DateTime(2024, 8, 8) },
-            new Purchase { Id = 19, CustomerId = 8, EmployeeId = 1, PurchaseDate = new DateTime(2024, 9, 27) },
-            new Purchase { Id = 20, CustomerId = 10, EmployeeId = 2, PurchaseDate = new DateTime(2024, 10, 4) },
-            new Purchase { Id = 21, CustomerId = 1, EmployeeId = 1, PurchaseDate = new DateTime(2025, 1, 12) },
-            new Purchase { Id = 22, CustomerId = 3, EmployeeId = 2, PurchaseDate = new DateTime(2025, 2, 22) },
-            new Purchase { Id = 23, CustomerId = 5, EmployeeId = 1, PurchaseDate = new DateTime(2025, 3, 8) },
-            new Purchase { Id = 24, CustomerId = 7, EmployeeId = 2, PurchaseDate = new DateTime(2025, 4, 15) },
-            new Purchase { Id = 25, CustomerId = 9, EmployeeId = 1, PurchaseDate = new DateTime(2025, 5, 30) },
-            new Purchase { Id = 26, CustomerId = 2, EmployeeId = 2, PurchaseDate = new DateTime(2025, 6, 13) },
-            new Purchase { Id = 27, CustomerId = 4, EmployeeId = 1, PurchaseDate = new DateTime(2025, 7, 24) },
-            new Purchase { Id = 28, CustomerId = 6, EmployeeId = 2, PurchaseDate = new DateTime(2025, 8, 19) },
-            new Purchase { Id = 29, CustomerId = 8, EmployeeId = 1, PurchaseDate = new DateTime(2025, 9, 25) },
-            new Purchase { Id = 30, CustomerId = 10, EmployeeId = 2, PurchaseDate = new DateTime(2025, 10, 18) }
+            new Purchase { Id = 1, CustomerId = 1, UserProfileId = 3, PurchaseDate = new DateTime(2023, 1, 10) },
+            new Purchase { Id = 2, CustomerId = 3, UserProfileId = 2, PurchaseDate = new DateTime(2023, 2, 15) },
+            new Purchase { Id = 3, CustomerId = 5, UserProfileId = 3, PurchaseDate = new DateTime(2023, 3, 20) },
+            new Purchase { Id = 4, CustomerId = 7, UserProfileId = 2, PurchaseDate = new DateTime(2023, 4, 25) },
+            new Purchase { Id = 5, CustomerId = 9, UserProfileId = 3, PurchaseDate = new DateTime(2023, 5, 5) },
+            new Purchase { Id = 6, CustomerId = 2, UserProfileId = 2, PurchaseDate = new DateTime(2023, 6, 18) },
+            new Purchase { Id = 7, CustomerId = 4, UserProfileId = 3, PurchaseDate = new DateTime(2023, 7, 12) },
+            new Purchase { Id = 8, CustomerId = 6, UserProfileId = 2, PurchaseDate = new DateTime(2023, 8, 3) },
+            new Purchase { Id = 9, CustomerId = 8, UserProfileId = 3, PurchaseDate = new DateTime(2023, 9, 22) },
+            new Purchase { Id = 10, CustomerId = 10, UserProfileId = 2, PurchaseDate = new DateTime(2023, 10, 30) },
+            new Purchase { Id = 11, CustomerId = 1, UserProfileId = 3, PurchaseDate = new DateTime(2024, 1, 5) },
+            new Purchase { Id = 12, CustomerId = 3, UserProfileId = 2, PurchaseDate = new DateTime(2024, 2, 14) },
+            new Purchase { Id = 13, CustomerId = 5, UserProfileId = 3, PurchaseDate = new DateTime(2024, 3, 9) },
+            new Purchase { Id = 14, CustomerId = 7, UserProfileId = 2, PurchaseDate = new DateTime(2024, 4, 23) },
+            new Purchase { Id = 15, CustomerId = 9, UserProfileId = 3, PurchaseDate = new DateTime(2024, 5, 17) },
+            new Purchase { Id = 16, CustomerId = 2, UserProfileId = 2, PurchaseDate = new DateTime(2024, 6, 11) },
+            new Purchase { Id = 17, CustomerId = 4, UserProfileId = 3, PurchaseDate = new DateTime(2024, 7, 15) },
+            new Purchase { Id = 18, CustomerId = 6, UserProfileId = 2, PurchaseDate = new DateTime(2024, 8, 8) },
+            new Purchase { Id = 19, CustomerId = 8, UserProfileId = 3, PurchaseDate = new DateTime(2024, 9, 27) },
+            new Purchase { Id = 20, CustomerId = 10, UserProfileId = 2, PurchaseDate = new DateTime(2024, 10, 4) },
+            new Purchase { Id = 21, CustomerId = 1, UserProfileId = 3, PurchaseDate = new DateTime(2025, 1, 12) },
+            new Purchase { Id = 22, CustomerId = 3, UserProfileId = 2, PurchaseDate = new DateTime(2025, 2, 22) },
+            new Purchase { Id = 23, CustomerId = 5, UserProfileId = 3, PurchaseDate = new DateTime(2025, 3, 8) },
+            new Purchase { Id = 24, CustomerId = 7, UserProfileId = 2, PurchaseDate = new DateTime(2025, 4, 15) },
+            new Purchase { Id = 25, CustomerId = 9, UserProfileId = 3, PurchaseDate = new DateTime(2025, 5, 30) },
+            new Purchase { Id = 26, CustomerId = 2, UserProfileId = 2, PurchaseDate = new DateTime(2025, 6, 13) },
+            new Purchase { Id = 27, CustomerId = 4, UserProfileId = 3, PurchaseDate = new DateTime(2025, 7, 24) },
+            new Purchase { Id = 28, CustomerId = 6, UserProfileId = 2, PurchaseDate = new DateTime(2025, 8, 19) },
+            new Purchase { Id = 29, CustomerId = 8, UserProfileId = 3, PurchaseDate = new DateTime(2025, 9, 25) },
+            new Purchase { Id = 30, CustomerId = 10, UserProfileId = 2, PurchaseDate = new DateTime(2025, 10, 18) }
 );
 
         modelBuilder.Entity<PurchaseProduct>().HasData(

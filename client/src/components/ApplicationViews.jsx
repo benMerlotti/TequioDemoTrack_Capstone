@@ -3,21 +3,22 @@ import { AuthorizedRoute } from "./auth/AuthorizedRoute";
 import Login from "./auth/Login";
 import Register from "./auth/Register";
 import { CustomerList } from "./customer/CustomerList";
-import { EmployeeList } from "./employee/EmployeeList";
 import { ProductList } from "./product/ProductList";
 import { PurchaseList } from "./purchase/PurchaseList";
 import { CreatePurchase } from "./purchase/CreatePurchase";
 import { CreateCustomer } from "./customer/CreateCustomer";
-import { CreateEmployee } from "./employee/CreateEmployee";
 import { CustomerDetails } from "./customer/CustomerDetails";
-import { EmployeeDetails } from "./employee/EmployeeDetails";
 import { EditCustomer } from "./customer/EditCustomer";
-import { EditEmployee } from "./employee/EditEmployee";
 import { CreateProduct } from "./product/CreateProduct";
 import { ProductDetails } from "./product/ProductDetails";
 import { EditProduct } from "./product/EditProduct";
 import { PurchaseDetails } from "./purchase/PurchaseDetails";
 import { EditPurchase } from "./purchase/EditPurchase";
+import { EmployeeList } from "./ambassador/AmbassadorList";
+import { EditEmployee } from "./ambassador/EditAmbassador";
+import { EmployeeDetails } from "./ambassador/AmbassadorDetails";
+import { CreateEmployee } from "./ambassador/CreateAmbassador";
+import { MyPurchaseList } from "./purchase/MyPurchaseList";
 
 // eslint-disable-next-line react/prop-types
 export default function ApplicationViews({ loggedInUser, setLoggedInUser }) {
@@ -31,10 +32,26 @@ export default function ApplicationViews({ loggedInUser, setLoggedInUser }) {
           }
         />
       </Route>
+      <Route path="my-purchases">
+        <Route
+          index
+          element={
+            <MyPurchaseList
+              setLoggedInUser={setLoggedInUser}
+              loggedInUser={loggedInUser}
+            />
+          }
+        />
+      </Route>
       <Route path="purchases">
         <Route
           index
-          element={<PurchaseList setLoggedInUser={setLoggedInUser} />}
+          element={
+            <PurchaseList
+              setLoggedInUser={setLoggedInUser}
+              loggedInUser={loggedInUser}
+            />
+          }
         />
         <Route
           path=":id"

@@ -9,7 +9,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace TequioDemoTrack.Migrations
 {
     /// <inheritdoc />
-    public partial class updatedSeedData : Migration
+    public partial class initial : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -250,6 +250,8 @@ namespace TequioDemoTrack.Migrations
                     FirstName = table.Column<string>(type: "text", nullable: false),
                     LastName = table.Column<string>(type: "text", nullable: false),
                     Address = table.Column<string>(type: "text", nullable: false),
+                    IsActive = table.Column<bool>(type: "boolean", nullable: false),
+                    StartDate = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
                     IdentityUserId = table.Column<string>(type: "text", nullable: false)
                 },
                 constraints: table =>
@@ -314,7 +316,8 @@ namespace TequioDemoTrack.Migrations
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     PurchaseDate = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
                     CustomerId = table.Column<int>(type: "integer", nullable: false),
-                    EmployeeId = table.Column<int>(type: "integer", nullable: false)
+                    UserProfileId = table.Column<int>(type: "integer", nullable: false),
+                    EmployeeId = table.Column<int>(type: "integer", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -329,6 +332,11 @@ namespace TequioDemoTrack.Migrations
                         name: "FK_Purchases_Employees_EmployeeId",
                         column: x => x.EmployeeId,
                         principalTable: "Employees",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_Purchases_UserProfiles_UserProfileId",
+                        column: x => x.UserProfileId,
+                        principalTable: "UserProfiles",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -381,7 +389,12 @@ namespace TequioDemoTrack.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "dbc40bc6-0829-4ac5-a3ed-180f5e916a5f", 0, "fc4b85ba-fa4b-4bf9-9f95-1f900c03cdcd", "admina@strator.comx", false, false, null, null, null, "AQAAAAIAAYagAAAAEDub7rEc2aicoPaeAZEDWHKrC77xrVMaM7AIZddVFzyt3KU7EVFXgFidvQbb6z3BiA==", null, false, "e406eeeb-2711-494a-bcf8-216094d38823", false, "Administrator" });
+                values: new object[,]
+                {
+                    { "d7f5e876-91fe-4e0b-a2c9-e6a07500f50e", 0, "70e43fe2-2fa0-47ab-836f-d525eaa72576", "jordan@gmail.com", false, false, null, null, null, "AQAAAAIAAYagAAAAEPNa3ubKgMXttNJEi868X/YGz5DpaCT/EPRfE6QJafsL4oQdD6fj8ND6OCPus2rpEQ==", null, false, "6b8cfcdd-ae5c-4831-9e48-6b9268013d3c", false, "SmithJordan" },
+                    { "dbc40bc6-0829-4ac5-a3ed-180f5e916a5f", 0, "b0aab420-ed1b-4395-bd06-c3925844dde0", "admina@strator.comx", false, false, null, null, null, "AQAAAAIAAYagAAAAECWStViehVsf6jmgiNDRr0XrCoujglSorqww85lirFgtGMWgFTcDICqKPprwEx5zRw==", null, false, "fa6c16fc-82cd-464a-8edc-01094b080b30", false, "Administrator" },
+                    { "f7b45b7d-3c74-4dfd-a8f9-20fe7b8cb062", 0, "68d62bc0-f5de-4673-8bab-2b111256c240", "taylor@gmail.com", false, false, null, null, null, "AQAAAAIAAYagAAAAEP3PY+mZ6Heqh+PO186kzM0J7hxY3aKKZKtkMLPIs1yz8W+kAg2Bi1YJR/3afwINsw==", null, false, "60b76812-13e2-4cd3-92ab-0a2d64cddcd0", false, "JohnsonTaylor" }
+                });
 
             migrationBuilder.InsertData(
                 table: "Employees",
@@ -474,44 +487,49 @@ namespace TequioDemoTrack.Migrations
 
             migrationBuilder.InsertData(
                 table: "UserProfiles",
-                columns: new[] { "Id", "Address", "FirstName", "IdentityUserId", "LastName" },
-                values: new object[] { 1, "101 Main Street", "Admina", "dbc40bc6-0829-4ac5-a3ed-180f5e916a5f", "Strator" });
+                columns: new[] { "Id", "Address", "FirstName", "IdentityUserId", "IsActive", "LastName", "StartDate" },
+                values: new object[,]
+                {
+                    { 1, "101 Main Street", "Admina", "dbc40bc6-0829-4ac5-a3ed-180f5e916a5f", false, "Strator", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
+                    { 2, "202 Oak Avenue", "Jordan", "d7f5e876-91fe-4e0b-a2c9-e6a07500f50e", false, "Smith", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
+                    { 3, "303 Pine Street", "Taylor", "f7b45b7d-3c74-4dfd-a8f9-20fe7b8cb062", false, "Johnson", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) }
+                });
 
             migrationBuilder.InsertData(
                 table: "Purchases",
-                columns: new[] { "Id", "CustomerId", "EmployeeId", "PurchaseDate" },
+                columns: new[] { "Id", "CustomerId", "EmployeeId", "PurchaseDate", "UserProfileId" },
                 values: new object[,]
                 {
-                    { 1, 1, 1, new DateTime(2023, 1, 10, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                    { 2, 3, 2, new DateTime(2023, 2, 15, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                    { 3, 5, 1, new DateTime(2023, 3, 20, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                    { 4, 7, 2, new DateTime(2023, 4, 25, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                    { 5, 9, 1, new DateTime(2023, 5, 5, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                    { 6, 2, 2, new DateTime(2023, 6, 18, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                    { 7, 4, 1, new DateTime(2023, 7, 12, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                    { 8, 6, 2, new DateTime(2023, 8, 3, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                    { 9, 8, 1, new DateTime(2023, 9, 22, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                    { 10, 10, 2, new DateTime(2023, 10, 30, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                    { 11, 1, 1, new DateTime(2024, 1, 5, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                    { 12, 3, 2, new DateTime(2024, 2, 14, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                    { 13, 5, 1, new DateTime(2024, 3, 9, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                    { 14, 7, 2, new DateTime(2024, 4, 23, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                    { 15, 9, 1, new DateTime(2024, 5, 17, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                    { 16, 2, 2, new DateTime(2024, 6, 11, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                    { 17, 4, 1, new DateTime(2024, 7, 15, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                    { 18, 6, 2, new DateTime(2024, 8, 8, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                    { 19, 8, 1, new DateTime(2024, 9, 27, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                    { 20, 10, 2, new DateTime(2024, 10, 4, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                    { 21, 1, 1, new DateTime(2025, 1, 12, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                    { 22, 3, 2, new DateTime(2025, 2, 22, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                    { 23, 5, 1, new DateTime(2025, 3, 8, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                    { 24, 7, 2, new DateTime(2025, 4, 15, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                    { 25, 9, 1, new DateTime(2025, 5, 30, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                    { 26, 2, 2, new DateTime(2025, 6, 13, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                    { 27, 4, 1, new DateTime(2025, 7, 24, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                    { 28, 6, 2, new DateTime(2025, 8, 19, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                    { 29, 8, 1, new DateTime(2025, 9, 25, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                    { 30, 10, 2, new DateTime(2025, 10, 18, 0, 0, 0, 0, DateTimeKind.Unspecified) }
+                    { 1, 1, null, new DateTime(2023, 1, 10, 0, 0, 0, 0, DateTimeKind.Unspecified), 3 },
+                    { 2, 3, null, new DateTime(2023, 2, 15, 0, 0, 0, 0, DateTimeKind.Unspecified), 2 },
+                    { 3, 5, null, new DateTime(2023, 3, 20, 0, 0, 0, 0, DateTimeKind.Unspecified), 3 },
+                    { 4, 7, null, new DateTime(2023, 4, 25, 0, 0, 0, 0, DateTimeKind.Unspecified), 2 },
+                    { 5, 9, null, new DateTime(2023, 5, 5, 0, 0, 0, 0, DateTimeKind.Unspecified), 3 },
+                    { 6, 2, null, new DateTime(2023, 6, 18, 0, 0, 0, 0, DateTimeKind.Unspecified), 2 },
+                    { 7, 4, null, new DateTime(2023, 7, 12, 0, 0, 0, 0, DateTimeKind.Unspecified), 3 },
+                    { 8, 6, null, new DateTime(2023, 8, 3, 0, 0, 0, 0, DateTimeKind.Unspecified), 2 },
+                    { 9, 8, null, new DateTime(2023, 9, 22, 0, 0, 0, 0, DateTimeKind.Unspecified), 3 },
+                    { 10, 10, null, new DateTime(2023, 10, 30, 0, 0, 0, 0, DateTimeKind.Unspecified), 2 },
+                    { 11, 1, null, new DateTime(2024, 1, 5, 0, 0, 0, 0, DateTimeKind.Unspecified), 3 },
+                    { 12, 3, null, new DateTime(2024, 2, 14, 0, 0, 0, 0, DateTimeKind.Unspecified), 2 },
+                    { 13, 5, null, new DateTime(2024, 3, 9, 0, 0, 0, 0, DateTimeKind.Unspecified), 3 },
+                    { 14, 7, null, new DateTime(2024, 4, 23, 0, 0, 0, 0, DateTimeKind.Unspecified), 2 },
+                    { 15, 9, null, new DateTime(2024, 5, 17, 0, 0, 0, 0, DateTimeKind.Unspecified), 3 },
+                    { 16, 2, null, new DateTime(2024, 6, 11, 0, 0, 0, 0, DateTimeKind.Unspecified), 2 },
+                    { 17, 4, null, new DateTime(2024, 7, 15, 0, 0, 0, 0, DateTimeKind.Unspecified), 3 },
+                    { 18, 6, null, new DateTime(2024, 8, 8, 0, 0, 0, 0, DateTimeKind.Unspecified), 2 },
+                    { 19, 8, null, new DateTime(2024, 9, 27, 0, 0, 0, 0, DateTimeKind.Unspecified), 3 },
+                    { 20, 10, null, new DateTime(2024, 10, 4, 0, 0, 0, 0, DateTimeKind.Unspecified), 2 },
+                    { 21, 1, null, new DateTime(2025, 1, 12, 0, 0, 0, 0, DateTimeKind.Unspecified), 3 },
+                    { 22, 3, null, new DateTime(2025, 2, 22, 0, 0, 0, 0, DateTimeKind.Unspecified), 2 },
+                    { 23, 5, null, new DateTime(2025, 3, 8, 0, 0, 0, 0, DateTimeKind.Unspecified), 3 },
+                    { 24, 7, null, new DateTime(2025, 4, 15, 0, 0, 0, 0, DateTimeKind.Unspecified), 2 },
+                    { 25, 9, null, new DateTime(2025, 5, 30, 0, 0, 0, 0, DateTimeKind.Unspecified), 3 },
+                    { 26, 2, null, new DateTime(2025, 6, 13, 0, 0, 0, 0, DateTimeKind.Unspecified), 2 },
+                    { 27, 4, null, new DateTime(2025, 7, 24, 0, 0, 0, 0, DateTimeKind.Unspecified), 3 },
+                    { 28, 6, null, new DateTime(2025, 8, 19, 0, 0, 0, 0, DateTimeKind.Unspecified), 2 },
+                    { 29, 8, null, new DateTime(2025, 9, 25, 0, 0, 0, 0, DateTimeKind.Unspecified), 3 },
+                    { 30, 10, null, new DateTime(2025, 10, 18, 0, 0, 0, 0, DateTimeKind.Unspecified), 2 }
                 });
 
             migrationBuilder.InsertData(
@@ -659,6 +677,11 @@ namespace TequioDemoTrack.Migrations
                 column: "EmployeeId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Purchases_UserProfileId",
+                table: "Purchases",
+                column: "UserProfileId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_UserProfiles_IdentityUserId",
                 table: "UserProfiles",
                 column: "IdentityUserId");
@@ -686,9 +709,6 @@ namespace TequioDemoTrack.Migrations
                 name: "PurchaseProducts");
 
             migrationBuilder.DropTable(
-                name: "UserProfiles");
-
-            migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
@@ -698,13 +718,13 @@ namespace TequioDemoTrack.Migrations
                 name: "Purchases");
 
             migrationBuilder.DropTable(
-                name: "AspNetUsers");
-
-            migrationBuilder.DropTable(
                 name: "Customers");
 
             migrationBuilder.DropTable(
                 name: "Employees");
+
+            migrationBuilder.DropTable(
+                name: "UserProfiles");
 
             migrationBuilder.DropTable(
                 name: "AgeGroups");
@@ -717,6 +737,9 @@ namespace TequioDemoTrack.Migrations
 
             migrationBuilder.DropTable(
                 name: "Races");
+
+            migrationBuilder.DropTable(
+                name: "AspNetUsers");
         }
     }
 }

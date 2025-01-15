@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import { getEmployeeById } from "../../managers/employeeManager";
 import { Table, Spinner, Container, Row, Col, Button } from "reactstrap";
+import { getEmployeeById } from "../../managers/abassadorManager";
 
 export const EmployeeDetails = () => {
   const [employee, setEmployee] = useState(null);

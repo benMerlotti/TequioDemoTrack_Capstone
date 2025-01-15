@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import {
@@ -16,7 +17,7 @@ import { deletePurchase, getPurchases } from "../../managers/purchaseManager";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
-export const PurchaseList = ({ loggedInUser }) => {
+export const MyPurchaseList = ({ loggedInUser }) => {
   const [purchases, setPurchases] = useState([]);
   const [filteredByDate, setFilteredByDate] = useState([]);
   const [startDate, setStartDate] = useState("");
@@ -24,16 +25,24 @@ export const PurchaseList = ({ loggedInUser }) => {
 
   useEffect(() => {
     getPurchases().then((data) => {
-      setPurchases(data);
-      setFilteredByDate(data);
+      // Filter purchases based on the logged-in user's ID
+      const userPurchases = data.filter(
+        (purchase) => purchase.userProfileId === loggedInUser.id
+      );
+      setPurchases(userPurchases);
+      setFilteredByDate(userPurchases);
     });
-  }, []);
+  }, [loggedInUser.id]);
 
   const handleDelete = (id) => {
     deletePurchase(id).then(() => {
       getPurchases().then((data) => {
-        setPurchases(data);
-        setFilteredByDate(data);
+        // Filter purchases again after deletion
+        const userPurchases = data.filter(
+          (purchase) => purchase.userProfile.Id === loggedInUser.id
+        );
+        setPurchases(userPurchases);
+        setFilteredByDate(userPurchases);
       });
     });
   };
@@ -64,9 +73,9 @@ export const PurchaseList = ({ loggedInUser }) => {
         <CardBody className="mx-0">
           <Row className="mb-4">
             <Col>
-              <h2 className="fw-bold">Purchases</h2>
+              <h2 className="fw-bold">Your Purchases</h2>
               <p className="text-muted">
-                View all purchase records. You can add new purchases or check
+                View your purchase records. You can add new purchases or check
                 details for each transaction.
               </p>
             </Col>
@@ -133,10 +142,7 @@ export const PurchaseList = ({ loggedInUser }) => {
                   <th className="d-none d-md-table-cell">Buyer</th>
                   <th className="d-none d-md-table-cell">Price</th>
                   <th>Date</th>
-                  <th
-                    colSpan={loggedInUser.roles?.includes("Admin") && "2"}
-                    className="text-center col-5 col-md-2"
-                  >
+                  <th colSpan="2" className="text-center col-5 col-md-2">
                     Actions
                   </th>
                 </tr>
@@ -161,17 +167,15 @@ export const PurchaseList = ({ loggedInUser }) => {
                         </Button>
                       </Link>
                     </td>
-                    {loggedInUser.roles?.includes("Admin") && (
-                      <td className="text-center">
-                        <Button
-                          onClick={() => handleDelete(p.id)}
-                          color="danger"
-                          size="sm"
-                        >
-                          Delete
-                        </Button>
-                      </td>
-                    )}
+                    <td className="text-center">
+                      <Button
+                        onClick={() => handleDelete(p.id)}
+                        color="danger"
+                        size="sm"
+                      >
+                        Delete
+                      </Button>
+                    </td>
                   </tr>
                 ))}
               </tbody>

@@ -7,8 +7,8 @@ public class Purchase
     public DateTime PurchaseDate { get; set; }
     public int CustomerId { get; set; }
     public Customer Customer { get; set; } = null!;
-    public int EmployeeId { get; set; }
-    public Employee Employee { get; set; } = null!;
+    public int UserProfileId { get; set; }
+    public UserProfile UserProfile { get; set; }
 
     public ICollection<PurchaseProduct> PurchaseProducts { get; set; } = new List<PurchaseProduct>();
 

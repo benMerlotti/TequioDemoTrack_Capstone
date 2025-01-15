@@ -52,11 +52,11 @@ export const PurchaseDetails = () => {
                   </tr>
                   <tr>
                     <th>Employee</th>
-                    <td>{purchase.employee.name}</td>
+                    <td>{purchase.userProfile.firstName}</td>
                   </tr>
                   <tr>
                     <th>Employee Email</th>
-                    <td>{purchase.employee.email}</td>
+                    <td>{purchase.userProfile.identityUser?.email}</td>
                   </tr>
                   <tr>
                     <th>Total Price</th>

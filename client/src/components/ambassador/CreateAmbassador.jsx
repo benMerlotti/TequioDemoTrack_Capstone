@@ -10,7 +10,7 @@ import {
   Label,
   Row,
 } from "reactstrap";
-import { createEmployee } from "../../managers/employeeManager";
+import { createEmployee } from "../../managers/abassadorManager";
 
 export const CreateEmployee = () => {
   const navigate = useNavigate();

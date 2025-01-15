@@ -24,7 +24,7 @@ public class PurchaseController : ControllerBase
     {
         var purchases = _dbContext.Purchases
             .Include(p => p.Customer)
-            .Include(p => p.Employee)
+            .Include(p => p.UserProfile)
             .Include(p => p.PurchaseProducts)
             .ThenInclude(pp => pp.Product)
             .ToList();
@@ -38,7 +38,7 @@ public class PurchaseController : ControllerBase
     {
         var purchase = _dbContext.Purchases
             .Include(p => p.Customer)
-            .Include(p => p.Employee)
+            .Include(p => p.UserProfile)
             .Include(p => p.PurchaseProducts)
             .ThenInclude(pp => pp.Product).FirstOrDefault(p => p.Id == id);
 
@@ -64,7 +64,7 @@ public class PurchaseController : ControllerBase
         }
 
         // Check if Employee exists
-        var employeeExists = _dbContext.Employees.Any(e => e.Id == model.EmployeeId);
+        var employeeExists = _dbContext.UserProfiles.Any(up => up.Id == model.EmployeeId);
         if (!employeeExists)
         {
             return NotFound($"Employee with ID {model.EmployeeId} not found.");
@@ -74,7 +74,7 @@ public class PurchaseController : ControllerBase
         var purchase = new Purchase
         {
             CustomerId = model.CustomerId,
-            EmployeeId = model.EmployeeId,
+            UserProfileId = model.UserProfileId,
             PurchaseDate = DateTime.UtcNow
         };
 

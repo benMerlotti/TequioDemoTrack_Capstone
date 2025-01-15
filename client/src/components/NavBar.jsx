@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { useState } from "react";
 import { NavLink as RRNavLink, useNavigate } from "react-router-dom";
 import {
@@ -58,6 +59,14 @@ export default function NavBar({ loggedInUser, setLoggedInUser }) {
                     New Purchase
                   </NavLink>
                 </NavItem>
+                {/* Only show "My Purchases" if the user is not an admin */}
+                {!isAdmin && (
+                  <NavItem onClick={() => setOpen(false)}>
+                    <NavLink tag={RRNavLink} to="/my-purchases">
+                      My Purchases
+                    </NavLink>
+                  </NavItem>
+                )}
                 <NavItem onClick={() => setOpen(false)}>
                   <NavLink tag={RRNavLink} to="/purchases">
                     All Purchases
@@ -65,20 +74,23 @@ export default function NavBar({ loggedInUser, setLoggedInUser }) {
                 </NavItem>
               </Nav>
             </Collapse>
-            <Button
-              color="primary"
-              onClick={(e) => {
-                e.preventDefault();
-                setOpen(false);
-                logout().then(() => {
-                  setLoggedInUser(null);
+            <div>
+              <span className="me-3">{loggedInUser.userName}</span>
+              <Button
+                color="primary"
+                onClick={(e) => {
+                  e.preventDefault();
                   setOpen(false);
-                  navigate("/login");
-                });
-              }}
-            >
-              Logout
-            </Button>
+                  logout().then(() => {
+                    setLoggedInUser(null);
+                    setOpen(false);
+                    navigate("/login");
+                  });
+                }}
+              >
+                Logout
+              </Button>
+            </div>
           </>
         ) : (
           <Nav navbar>

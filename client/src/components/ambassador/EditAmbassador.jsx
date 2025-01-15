@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { Button, FormGroup, Input, Label } from "reactstrap";
-import { editEmployee, getEmployeeById } from "../../managers/employeeManager";
+import { editEmployee, getEmployeeById } from "../../managers/abassadorManager";
 
 export const EditEmployee = () => {
   const { id } = useParams();

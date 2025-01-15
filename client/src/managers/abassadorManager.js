@@ -1,4 +1,4 @@
-const _apiUrl = "/api/Employee"
+const _apiUrl = "/api/Ambassador"
 
 export const getEmployees = () => {
     return fetch(`${_apiUrl}`).then((r) => r.json())

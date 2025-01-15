@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { deleteEmployee, getEmployees } from "../../managers/employeeManager";
+import { deleteEmployee, getEmployees } from "../../managers/abassadorManager";
 import { Link } from "react-router-dom";
 import { Button, Table, Row, Col, Card, CardBody, Container } from "reactstrap";
 
@@ -18,8 +18,8 @@ export const EmployeeList = () => {
 
   return (
     <Container className="mt-5">
-      <Card>
-        <CardBody>
+      <Card className="p-1">
+        <CardBody className="mx-0">
           <Row className="mb-4">
             <Col>
               <h2 className="fw-bold">Ambassadors</h2>
@@ -44,14 +44,10 @@ export const EmployeeList = () => {
           >
             <thead className="table-light">
               <tr>
-                <th style={{ width: "200px" }}>Name</th>
-                <th>Address</th>
-                <th>Email</th>
-                <th
-                  colSpan="2"
-                  className="text-center"
-                  style={{ width: "200px" }}
-                >
+                <th className="col-7 col-md-2">Name</th>
+                <th className="d-none d-md-table-cell">Address</th>
+                <th className="d-none d-md-table-cell">Email</th>
+                <th colSpan="2" className="text-center col-5 col-md-3">
                   Actions
                 </th>
               </tr>
@@ -59,9 +55,13 @@ export const EmployeeList = () => {
             <tbody>
               {employees.map((e) => (
                 <tr key={e.id}>
-                  <td>{e.name}</td>
-                  <td>{e.address}</td>
-                  <td>{e.email}</td>
+                  <td className="col-7 col-md-2">
+                    {e.firstName} {e.lastName}
+                  </td>
+                  <td className="d-none d-md-table-cell">{e.address}</td>
+                  <td className="d-none d-md-table-cell">
+                    {e.identityUser?.email}
+                  </td>
                   <td className="text-center">
                     <Link to={`${e.id}`}>
                       <Button color="secondary" size="sm">

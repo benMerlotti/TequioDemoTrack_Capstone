@@ -12,6 +12,7 @@ import {
   Input,
 } from "reactstrap";
 import { Link } from "react-router-dom";
+import "../../assets/styles/customerList.css";
 
 export const CustomerList = () => {
   const [customers, setCustomers] = useState([]);
@@ -46,8 +47,8 @@ export const CustomerList = () => {
 
   return (
     <Container className="mt-5">
-      <Card>
-        <CardBody>
+      <Card className="p-1">
+        <CardBody className="mx-0">
           <Row className="mb-4">
             <Col>
               <h2 className="fw-bold">Customers</h2>
@@ -81,14 +82,10 @@ export const CustomerList = () => {
             >
               <thead className="table-light">
                 <tr>
-                  <th style={{ width: "200px" }}>Name</th>
-                  <th>Address</th>
-                  <th>Email</th>
-                  <th
-                    colSpan="2"
-                    className="text-center"
-                    style={{ width: "200px" }}
-                  >
+                  <th className="col-7 col-md-2">Name</th>
+                  <th className="d-none d-md-table-cell">Address</th>
+                  <th className="d-none d-md-table-cell">Email</th>
+                  <th colSpan="2" className="text-center col-5 col-md-2">
                     Actions
                   </th>
                 </tr>
@@ -96,10 +93,10 @@ export const CustomerList = () => {
               <tbody>
                 {filteredCustomers.map((c) => (
                   <tr key={c.id}>
-                    <td>{c.name}</td>
-                    <td>{c.address}</td>
-                    <td>{c.email}</td>
-                    <td className="text-center">
+                    <td className="col-7 col-md-2">{c.name}</td>
+                    <td className="d-none d-md-table-cell">{c.address}</td>
+                    <td className="d-none d-md-table-cell">{c.email}</td>
+                    <td className="text-center col-5 col-md-4">
                       <Link to={`${c.id}`}>
                         <Button color="secondary" size="sm">
                           Details

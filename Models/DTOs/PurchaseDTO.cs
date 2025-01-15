@@ -6,8 +6,8 @@ public class PurchaseDTO
     public DateTime PurchaseDate { get; set; }
     public int CustomerId { get; set; }
     public CustomerDTO Customer { get; set; } = null!;
-    public int EmployeeId { get; set; }
-    public EmployeeDTO Employee { get; set; } = null!;
+    public int UserProfileId { get; set; }
+    public UserProfileDTO UserProfile { get; set; }
 
     public ICollection<PurchaseProductDTO> PurchaseProducts { get; set; } = new List<PurchaseProductDTO>();
 
@@ -18,6 +18,7 @@ public class CreatePurchaseDTO
 {
     public int CustomerId { get; set; }
     public int EmployeeId { get; set; }
+    public int UserProfileId { get; set; }
     public ICollection<CreatePurchaseProductDTO> PurchaseProducts { get; set; } = new List<CreatePurchaseProductDTO>();
 }
 

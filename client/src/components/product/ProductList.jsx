@@ -39,9 +39,9 @@ export const ProductList = () => {
           <Table hover responsive bordered>
             <thead className="table-light">
               <tr>
-                <th>Id</th>
-                <th>Name</th>
-                <th colSpan="2" className="text-center">
+                <th className="text-center col-1 col-md-1">Id</th>
+                <th className="text-center col-5 col-md-6">Name</th>
+                <th colSpan="2" className="text-center col-1 col-md-2">
                   Actions
                 </th>
               </tr>

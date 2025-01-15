@@ -149,15 +149,43 @@ namespace TequioDemoTrack.Migrations
                         {
                             Id = "dbc40bc6-0829-4ac5-a3ed-180f5e916a5f",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "fc4b85ba-fa4b-4bf9-9f95-1f900c03cdcd",
+                            ConcurrencyStamp = "b0aab420-ed1b-4395-bd06-c3925844dde0",
                             Email = "admina@strator.comx",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
-                            PasswordHash = "AQAAAAIAAYagAAAAEDub7rEc2aicoPaeAZEDWHKrC77xrVMaM7AIZddVFzyt3KU7EVFXgFidvQbb6z3BiA==",
+                            PasswordHash = "AQAAAAIAAYagAAAAECWStViehVsf6jmgiNDRr0XrCoujglSorqww85lirFgtGMWgFTcDICqKPprwEx5zRw==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "e406eeeb-2711-494a-bcf8-216094d38823",
+                            SecurityStamp = "fa6c16fc-82cd-464a-8edc-01094b080b30",
                             TwoFactorEnabled = false,
                             UserName = "Administrator"
+                        },
+                        new
+                        {
+                            Id = "d7f5e876-91fe-4e0b-a2c9-e6a07500f50e",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "70e43fe2-2fa0-47ab-836f-d525eaa72576",
+                            Email = "jordan@gmail.com",
+                            EmailConfirmed = false,
+                            LockoutEnabled = false,
+                            PasswordHash = "AQAAAAIAAYagAAAAEPNa3ubKgMXttNJEi868X/YGz5DpaCT/EPRfE6QJafsL4oQdD6fj8ND6OCPus2rpEQ==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "6b8cfcdd-ae5c-4831-9e48-6b9268013d3c",
+                            TwoFactorEnabled = false,
+                            UserName = "SmithJordan"
+                        },
+                        new
+                        {
+                            Id = "f7b45b7d-3c74-4dfd-a8f9-20fe7b8cb062",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "68d62bc0-f5de-4673-8bab-2b111256c240",
+                            Email = "taylor@gmail.com",
+                            EmailConfirmed = false,
+                            LockoutEnabled = false,
+                            PasswordHash = "AQAAAAIAAYagAAAAEP3PY+mZ6Heqh+PO186kzM0J7hxY3aKKZKtkMLPIs1yz8W+kAg2Bi1YJR/3afwINsw==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "60b76812-13e2-4cd3-92ab-0a2d64cddcd0",
+                            TwoFactorEnabled = false,
+                            UserName = "JohnsonTaylor"
                         });
                 });
 
@@ -765,17 +793,22 @@ namespace TequioDemoTrack.Migrations
                     b.Property<int>("CustomerId")
                         .HasColumnType("integer");
 
-                    b.Property<int>("EmployeeId")
+                    b.Property<int?>("EmployeeId")
                         .HasColumnType("integer");
 
                     b.Property<DateTime>("PurchaseDate")
                         .HasColumnType("timestamp without time zone");
+
+                    b.Property<int>("UserProfileId")
+                        .HasColumnType("integer");
 
                     b.HasKey("Id");
 
                     b.HasIndex("CustomerId");
 
                     b.HasIndex("EmployeeId");
+
+                    b.HasIndex("UserProfileId");
 
                     b.ToTable("Purchases");
 
@@ -784,211 +817,211 @@ namespace TequioDemoTrack.Migrations
                         {
                             Id = 1,
                             CustomerId = 1,
-                            EmployeeId = 1,
-                            PurchaseDate = new DateTime(2023, 1, 10, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                            PurchaseDate = new DateTime(2023, 1, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            UserProfileId = 3
                         },
                         new
                         {
                             Id = 2,
                             CustomerId = 3,
-                            EmployeeId = 2,
-                            PurchaseDate = new DateTime(2023, 2, 15, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                            PurchaseDate = new DateTime(2023, 2, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            UserProfileId = 2
                         },
                         new
                         {
                             Id = 3,
                             CustomerId = 5,
-                            EmployeeId = 1,
-                            PurchaseDate = new DateTime(2023, 3, 20, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                            PurchaseDate = new DateTime(2023, 3, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            UserProfileId = 3
                         },
                         new
                         {
                             Id = 4,
                             CustomerId = 7,
-                            EmployeeId = 2,
-                            PurchaseDate = new DateTime(2023, 4, 25, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                            PurchaseDate = new DateTime(2023, 4, 25, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            UserProfileId = 2
                         },
                         new
                         {
                             Id = 5,
                             CustomerId = 9,
-                            EmployeeId = 1,
-                            PurchaseDate = new DateTime(2023, 5, 5, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                            PurchaseDate = new DateTime(2023, 5, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            UserProfileId = 3
                         },
                         new
                         {
                             Id = 6,
                             CustomerId = 2,
-                            EmployeeId = 2,
-                            PurchaseDate = new DateTime(2023, 6, 18, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                            PurchaseDate = new DateTime(2023, 6, 18, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            UserProfileId = 2
                         },
                         new
                         {
                             Id = 7,
                             CustomerId = 4,
-                            EmployeeId = 1,
-                            PurchaseDate = new DateTime(2023, 7, 12, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                            PurchaseDate = new DateTime(2023, 7, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            UserProfileId = 3
                         },
                         new
                         {
                             Id = 8,
                             CustomerId = 6,
-                            EmployeeId = 2,
-                            PurchaseDate = new DateTime(2023, 8, 3, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                            PurchaseDate = new DateTime(2023, 8, 3, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            UserProfileId = 2
                         },
                         new
                         {
                             Id = 9,
                             CustomerId = 8,
-                            EmployeeId = 1,
-                            PurchaseDate = new DateTime(2023, 9, 22, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                            PurchaseDate = new DateTime(2023, 9, 22, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            UserProfileId = 3
                         },
                         new
                         {
                             Id = 10,
                             CustomerId = 10,
-                            EmployeeId = 2,
-                            PurchaseDate = new DateTime(2023, 10, 30, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                            PurchaseDate = new DateTime(2023, 10, 30, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            UserProfileId = 2
                         },
                         new
                         {
                             Id = 11,
                             CustomerId = 1,
-                            EmployeeId = 1,
-                            PurchaseDate = new DateTime(2024, 1, 5, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                            PurchaseDate = new DateTime(2024, 1, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            UserProfileId = 3
                         },
                         new
                         {
                             Id = 12,
                             CustomerId = 3,
-                            EmployeeId = 2,
-                            PurchaseDate = new DateTime(2024, 2, 14, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                            PurchaseDate = new DateTime(2024, 2, 14, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            UserProfileId = 2
                         },
                         new
                         {
                             Id = 13,
                             CustomerId = 5,
-                            EmployeeId = 1,
-                            PurchaseDate = new DateTime(2024, 3, 9, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                            PurchaseDate = new DateTime(2024, 3, 9, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            UserProfileId = 3
                         },
                         new
                         {
                             Id = 14,
                             CustomerId = 7,
-                            EmployeeId = 2,
-                            PurchaseDate = new DateTime(2024, 4, 23, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                            PurchaseDate = new DateTime(2024, 4, 23, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            UserProfileId = 2
                         },
                         new
                         {
                             Id = 15,
                             CustomerId = 9,
-                            EmployeeId = 1,
-                            PurchaseDate = new DateTime(2024, 5, 17, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                            PurchaseDate = new DateTime(2024, 5, 17, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            UserProfileId = 3
                         },
                         new
                         {
                             Id = 16,
                             CustomerId = 2,
-                            EmployeeId = 2,
-                            PurchaseDate = new DateTime(2024, 6, 11, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                            PurchaseDate = new DateTime(2024, 6, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            UserProfileId = 2
                         },
                         new
                         {
                             Id = 17,
                             CustomerId = 4,
-                            EmployeeId = 1,
-                            PurchaseDate = new DateTime(2024, 7, 15, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                            PurchaseDate = new DateTime(2024, 7, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            UserProfileId = 3
                         },
                         new
                         {
                             Id = 18,
                             CustomerId = 6,
-                            EmployeeId = 2,
-                            PurchaseDate = new DateTime(2024, 8, 8, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                            PurchaseDate = new DateTime(2024, 8, 8, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            UserProfileId = 2
                         },
                         new
                         {
                             Id = 19,
                             CustomerId = 8,
-                            EmployeeId = 1,
-                            PurchaseDate = new DateTime(2024, 9, 27, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                            PurchaseDate = new DateTime(2024, 9, 27, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            UserProfileId = 3
                         },
                         new
                         {
                             Id = 20,
                             CustomerId = 10,
-                            EmployeeId = 2,
-                            PurchaseDate = new DateTime(2024, 10, 4, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                            PurchaseDate = new DateTime(2024, 10, 4, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            UserProfileId = 2
                         },
                         new
                         {
                             Id = 21,
                             CustomerId = 1,
-                            EmployeeId = 1,
-                            PurchaseDate = new DateTime(2025, 1, 12, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                            PurchaseDate = new DateTime(2025, 1, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            UserProfileId = 3
                         },
                         new
                         {
                             Id = 22,
                             CustomerId = 3,
-                            EmployeeId = 2,
-                            PurchaseDate = new DateTime(2025, 2, 22, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                            PurchaseDate = new DateTime(2025, 2, 22, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            UserProfileId = 2
                         },
                         new
                         {
                             Id = 23,
                             CustomerId = 5,
-                            EmployeeId = 1,
-                            PurchaseDate = new DateTime(2025, 3, 8, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                            PurchaseDate = new DateTime(2025, 3, 8, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            UserProfileId = 3
                         },
                         new
                         {
                             Id = 24,
                             CustomerId = 7,
-                            EmployeeId = 2,
-                            PurchaseDate = new DateTime(2025, 4, 15, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                            PurchaseDate = new DateTime(2025, 4, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            UserProfileId = 2
                         },
                         new
                         {
                             Id = 25,
                             CustomerId = 9,
-                            EmployeeId = 1,
-                            PurchaseDate = new DateTime(2025, 5, 30, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                            PurchaseDate = new DateTime(2025, 5, 30, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            UserProfileId = 3
                         },
                         new
                         {
                             Id = 26,
                             CustomerId = 2,
-                            EmployeeId = 2,
-                            PurchaseDate = new DateTime(2025, 6, 13, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                            PurchaseDate = new DateTime(2025, 6, 13, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            UserProfileId = 2
                         },
                         new
                         {
                             Id = 27,
                             CustomerId = 4,
-                            EmployeeId = 1,
-                            PurchaseDate = new DateTime(2025, 7, 24, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                            PurchaseDate = new DateTime(2025, 7, 24, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            UserProfileId = 3
                         },
                         new
                         {
                             Id = 28,
                             CustomerId = 6,
-                            EmployeeId = 2,
-                            PurchaseDate = new DateTime(2025, 8, 19, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                            PurchaseDate = new DateTime(2025, 8, 19, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            UserProfileId = 2
                         },
                         new
                         {
                             Id = 29,
                             CustomerId = 8,
-                            EmployeeId = 1,
-                            PurchaseDate = new DateTime(2025, 9, 25, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                            PurchaseDate = new DateTime(2025, 9, 25, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            UserProfileId = 3
                         },
                         new
                         {
                             Id = 30,
                             CustomerId = 10,
-                            EmployeeId = 2,
-                            PurchaseDate = new DateTime(2025, 10, 18, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                            PurchaseDate = new DateTime(2025, 10, 18, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            UserProfileId = 2
                         });
                 });
 
@@ -1499,9 +1532,15 @@ namespace TequioDemoTrack.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("boolean");
+
                     b.Property<string>("LastName")
                         .IsRequired()
                         .HasColumnType("text");
+
+                    b.Property<DateTime>("StartDate")
+                        .HasColumnType("timestamp without time zone");
 
                     b.HasKey("Id");
 
@@ -1516,7 +1555,29 @@ namespace TequioDemoTrack.Migrations
                             Address = "101 Main Street",
                             FirstName = "Admina",
                             IdentityUserId = "dbc40bc6-0829-4ac5-a3ed-180f5e916a5f",
-                            LastName = "Strator"
+                            IsActive = false,
+                            LastName = "Strator",
+                            StartDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Address = "202 Oak Avenue",
+                            FirstName = "Jordan",
+                            IdentityUserId = "d7f5e876-91fe-4e0b-a2c9-e6a07500f50e",
+                            IsActive = false,
+                            LastName = "Smith",
+                            StartDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Address = "303 Pine Street",
+                            FirstName = "Taylor",
+                            IdentityUserId = "f7b45b7d-3c74-4dfd-a8f9-20fe7b8cb062",
+                            IsActive = false,
+                            LastName = "Johnson",
+                            StartDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         });
                 });
 
@@ -1614,15 +1675,19 @@ namespace TequioDemoTrack.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("TequioDemoTrack.Models.Employee", "Employee")
+                    b.HasOne("TequioDemoTrack.Models.Employee", null)
                         .WithMany("Purchases")
-                        .HasForeignKey("EmployeeId")
+                        .HasForeignKey("EmployeeId");
+
+                    b.HasOne("TequioDemoTrack.Models.UserProfile", "UserProfile")
+                        .WithMany("Purchases")
+                        .HasForeignKey("UserProfileId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Customer");
 
-                    b.Navigation("Employee");
+                    b.Navigation("UserProfile");
                 });
 
             modelBuilder.Entity("TequioDemoTrack.Models.PurchaseProduct", b =>
@@ -1693,6 +1758,11 @@ namespace TequioDemoTrack.Migrations
             modelBuilder.Entity("TequioDemoTrack.Models.Race", b =>
                 {
                     b.Navigation("Customers");
+                });
+
+            modelBuilder.Entity("TequioDemoTrack.Models.UserProfile", b =>
+                {
+                    b.Navigation("Purchases");
                 });
 #pragma warning restore 612, 618
         }
