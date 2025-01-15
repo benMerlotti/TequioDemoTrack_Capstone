@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { NavLink as RRNavLink } from "react-router-dom";
+import { NavLink as RRNavLink, useNavigate } from "react-router-dom";
 import {
   Button,
   Collapse,
@@ -15,8 +15,13 @@ import { logout } from "../managers/authManager";
 // eslint-disable-next-line react/prop-types
 export default function NavBar({ loggedInUser, setLoggedInUser }) {
   const [open, setOpen] = useState(false);
+  const navigate = useNavigate();
 
   const toggleNavbar = () => setOpen(!open);
+
+  // Check if the user has admin rights (you can adjust the logic based on your authentication setup)
+  // eslint-disable-next-line react/prop-types
+  const isAdmin = loggedInUser?.roles?.includes("Admin");
 
   return (
     <div>
@@ -34,16 +39,20 @@ export default function NavBar({ loggedInUser, setLoggedInUser }) {
                     Customers
                   </NavLink>
                 </NavItem>
-                <NavItem onClick={() => setOpen(false)}>
-                  <NavLink tag={RRNavLink} to="/employees">
-                    Employees
-                  </NavLink>
-                </NavItem>
-                <NavItem onClick={() => setOpen(false)}>
-                  <NavLink tag={RRNavLink} to="/products">
-                    Products
-                  </NavLink>
-                </NavItem>
+                {isAdmin && (
+                  <>
+                    <NavItem onClick={() => setOpen(false)}>
+                      <NavLink tag={RRNavLink} to="/employees">
+                        Ambassadors
+                      </NavLink>
+                    </NavItem>
+                    <NavItem onClick={() => setOpen(false)}>
+                      <NavLink tag={RRNavLink} to="/products">
+                        Products
+                      </NavLink>
+                    </NavItem>
+                  </>
+                )}
                 <NavItem onClick={() => setOpen(false)}>
                   <NavLink tag={RRNavLink} to="/new-purchase">
                     New Purchase
@@ -64,6 +73,7 @@ export default function NavBar({ loggedInUser, setLoggedInUser }) {
                 logout().then(() => {
                   setLoggedInUser(null);
                   setOpen(false);
+                  navigate("/login");
                 });
               }}
             >

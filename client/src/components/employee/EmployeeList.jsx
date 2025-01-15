@@ -22,16 +22,16 @@ export const EmployeeList = () => {
         <CardBody>
           <Row className="mb-4">
             <Col>
-              <h2 className="fw-bold">Employees</h2>
+              <h2 className="fw-bold">Ambassadors</h2>
               <p className="text-muted">
-                View and manage your employees. Add new employees or view
+                View and manage your ambassadors. Add new ambassadors or view
                 details below.
               </p>
             </Col>
             <Col className="text-end">
               <Link to="add-employee">
                 <Button color="primary" className="px-4">
-                  + Add Employee
+                  + Add Ambassador
                 </Button>
               </Link>
             </Col>

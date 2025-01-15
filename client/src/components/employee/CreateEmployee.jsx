@@ -35,7 +35,7 @@ export const CreateEmployee = () => {
   return (
     <Container>
       <Card>
-        <h2>Add Employee</h2>
+        <h2>Add Ambassador</h2>
         <form onSubmit={handleSubmit}>
           <Row>
             <Col>
