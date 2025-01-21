@@ -141,6 +141,7 @@ export const CustomerList = () => {
                         </DropdownToggle>
                         <DropdownMenu>
                           <DropdownItem
+                            className="text-white"
                             tag={Link}
                             to={`${c.id}`}
                             onClick={(event) => event.stopPropagation()} // Prevent row click

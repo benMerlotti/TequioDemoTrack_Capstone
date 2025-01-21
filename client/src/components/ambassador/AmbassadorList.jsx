@@ -203,6 +203,7 @@ export const EmployeeList = () => {
                             {e.isActive ? "Deactivate" : "Activate"}
                           </DropdownItem>
                           <DropdownItem
+                            className="text-white"
                             tag={Link}
                             to={`${e.id}`}
                             onClick={(event) => event.stopPropagation()}

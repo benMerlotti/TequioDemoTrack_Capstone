@@ -80,7 +80,7 @@ export const ProductDetails = () => {
               <i className="bi bi-three-dots me-3"></i>
             </DropdownToggle>
             <DropdownMenu>
-              <DropdownItem tag={Link} to={`edit`}>
+              <DropdownItem className="text-warning" tag={Link} to={`edit`}>
                 Edit
               </DropdownItem>
               <DropdownItem

@@ -57,13 +57,22 @@ public class AmbassadorController : ControllerBase
     [Authorize]
     public IActionResult GetAmbassadorById(int id)
     {
-        UserProfile foundAmbassador = _dbContext
-        .UserProfiles
-        .Include(up => up.Purchases)
-        .ThenInclude(p => p.PurchaseProducts)
-        .ThenInclude(pp => pp.Product)
-        .FirstOrDefault(up => up.Id == id);
-        return Ok(foundAmbassador);
+        return Ok(_dbContext.UserProfiles
+      .Include(up => up.IdentityUser)
+      .Select(up => new UserProfileDTO
+      {
+          Id = up.Id,
+          FirstName = up.FirstName,
+          LastName = up.LastName,
+          Email = up.IdentityUser.Email,
+          Address = up.Address,
+          IsActive = up.IsActive,
+          UserName = up.IdentityUser.UserName,
+          IdentityUserId = up.IdentityUserId,
+          Roles = _dbContext.UserRoles
+          .Where(ur => ur.UserId == up.IdentityUserId)
+          .Select(ur => _dbContext.Roles.SingleOrDefault(r => r.Id == ur.RoleId).Name).ToList()
+      }).FirstOrDefault(up => up.Id == id));
     }
 
     // [HttpPost]
@@ -95,24 +104,35 @@ public class AmbassadorController : ControllerBase
         return Ok(foundUser);
     }
 
-
     [HttpPut("{id}/edit")]
     [Authorize]
-    public IActionResult EditAmbassador(int id, UserProfile userProfile)
+    public IActionResult EditAmbassador(IMapper mapper, int id, EditUserProfileDTO userProfileDto)
     {
         var foundAmbassador = _dbContext.UserProfiles
-        .Include(up => up.IdentityUser)
-        .FirstOrDefault(up => up.Id == id);
+            .Include(up => up.IdentityUser)
+            .FirstOrDefault(up => up.Id == id);
 
-        foundAmbassador.FirstName = userProfile.FirstName;
-        foundAmbassador.LastName = userProfile.LastName;
-        foundAmbassador.IdentityUser.Email = userProfile.IdentityUser.Email;
-        foundAmbassador.Address = userProfile.Address;
+        if (foundAmbassador == null)
+        {
+            return NotFound("Ambassador not found.");
+        }
 
+        // Use AutoMapper to map the DTO to the model
+        mapper.Map(userProfileDto, foundAmbassador);
+
+        // Manually update IdentityUser.Email if necessary
+        if (foundAmbassador.IdentityUser != null)
+        {
+            foundAmbassador.IdentityUser.Email = userProfileDto.Email;
+        }
+
+        // Save changes to the database
         _dbContext.SaveChanges();
 
         return NoContent();
     }
+
+
 
     [HttpDelete("{id}/delete")]
     [Authorize]

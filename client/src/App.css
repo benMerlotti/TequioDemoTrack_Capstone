@@ -35,6 +35,16 @@
   color: white !important;
 }
 
+.dropdown-item {
+  color: white !important; /* Default text color */
+  transition: background-color 0.3s ease; /* Smooth hover transition */
+}
+
+/* Hover state for dropdown items */
+.dropdown-item:hover {
+  background-color: #14141e!important; /* Hover background color */
+}
+
 
 .form-control {
   background-color: #070713 !important;

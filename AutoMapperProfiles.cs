@@ -9,6 +9,8 @@ public class AutoMapperProfiles : Profile
 
         CreateMap<UserProfile, UserProfileDTO>();
         CreateMap<UserProfileDTO, UserProfile>();
+        CreateMap<UserProfile, EditUserProfileDTO>();
+        CreateMap<EditUserProfileDTO, UserProfile>();
 
         CreateMap<Customer, CustomerDTO>();
         CreateMap<CustomerDTO, Customer>();

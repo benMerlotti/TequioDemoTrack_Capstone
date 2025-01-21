@@ -1,13 +1,14 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { Button, FormGroup, Input, Label } from "reactstrap";
+import { Button, Container, FormGroup, Input, Label } from "reactstrap";
 import { editEmployee, getEmployeeById } from "../../managers/abassadorManager";
 
 export const EditEmployee = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const [employee, setEmployee] = useState({
-    name: "",
+    firstName: "",
+    lastName: "",
     email: "",
     address: "",
   });
@@ -29,17 +30,29 @@ export const EditEmployee = () => {
     });
   };
   return (
-    <>
-      <h2>Edit Employee</h2>
+    <Container>
+      <h2>Edit Ambassador</h2>
       <form onSubmit={handleSubmit}>
         <FormGroup>
-          <Label>Name</Label>
+          <Label>First Name</Label>
           <Input
             type="text"
-            value={employee.name}
+            value={employee.firstName}
             onChange={(e) => {
               const employeeCopy = { ...employee };
-              employeeCopy.name = e.target.value;
+              employeeCopy.firstName = e.target.value;
+              setEmployee(employeeCopy);
+            }}
+          />
+        </FormGroup>
+        <FormGroup>
+          <Label>Last Name</Label>
+          <Input
+            type="text"
+            value={employee.lastName}
+            onChange={(e) => {
+              const employeeCopy = { ...employee };
+              employeeCopy.lastName = e.target.value;
               setEmployee(employeeCopy);
             }}
           />
@@ -79,6 +92,6 @@ export const EditEmployee = () => {
           ))}
         </div>
       </form>
-    </>
+    </Container>
   );
 };

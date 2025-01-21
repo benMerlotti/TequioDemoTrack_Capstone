@@ -51,6 +51,10 @@ export const EmployeeDetails = () => {
     });
   };
 
+  const handleEdit = () => {
+    navigate("edit");
+  };
+
   const toggleDropdown = () => {
     setDropdownOpen(!dropdownOpen);
   };
@@ -107,6 +111,9 @@ export const EmployeeDetails = () => {
             <i className="bi bi-three-dots"></i>
           </DropdownToggle>
           <DropdownMenu>
+            <DropdownItem onClick={handleEdit} className="text-warning">
+              Edit
+            </DropdownItem>
             <DropdownItem onClick={handleDelete} className="text-danger">
               Delete
             </DropdownItem>

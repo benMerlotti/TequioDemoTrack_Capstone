@@ -183,6 +183,7 @@ export const MyPurchaseList = ({ loggedInUser }) => {
                         </DropdownToggle>
                         <DropdownMenu>
                           <DropdownItem
+                            className="text-white"
                             tag={Link}
                             to={`/purchases/${p.id}`}
                             onClick={(event) => event.stopPropagation()}
