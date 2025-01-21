@@ -167,6 +167,15 @@ tbody td:hover {
   color: #ffcc00 !important
 }
 
+.custom-toggler {
+  background: none; /* Remove default toggler styles */
+  border: none;
+}
+
+.custom-toggler .fa-bars {
+  font-size: 1.5rem; /* Adjust icon size */
+}
+
 .last-sale{
   color: #ffcc00 !important
 }

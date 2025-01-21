@@ -37,7 +37,10 @@ export default function NavBar({ loggedInUser, setLoggedInUser }) {
         </NavbarBrand>
         {loggedInUser ? (
           <>
-            <NavbarToggler onClick={toggleNavbar} />
+            <NavbarToggler onClick={toggleNavbar} className="custom-toggler">
+              <i className="bi bi-list text-white"></i>
+            </NavbarToggler>
+
             <Collapse isOpen={open} navbar>
               <Nav navbar>
                 <NavItem onClick={() => setOpen(false)}>
