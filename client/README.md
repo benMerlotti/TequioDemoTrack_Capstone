@@ -2,7 +2,7 @@
 
 **Tequio** is a web-based business management application designed to centralize operations for tracking customer demographics, managing employees, monitoring purchases, and organizing products. This project highlights my ability to develop robust, full-stack applications that balance user experience with operational functionality.
 
-![Screenshot of the application](images/Screenshots/Screenshot1.png)
+![Screenshot of the application](public/customers_ss.png)
 
 ---
 
@@ -86,4 +86,8 @@ I’m Ben Merlotti, a creative individual with a passion for building applicatio
 
 Feel free to connect with me on [LinkedIn](https://www.linkedin.com/in/benmerlotti/)
 
-![Screenshot of the application](images/Screenshots/Screenshot2.png)
+![Screenshot of the application](public/customer_ss.png)
+
+![Screenshot of the application](public/product_ss.png)
+
+![Screenshot of the application](public/purchases_ss.png)
