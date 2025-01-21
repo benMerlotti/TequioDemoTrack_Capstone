@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import {
@@ -65,21 +66,22 @@ export const PurchaseDetails = ({ loggedInUser }) => {
             </p>
           </div>
         </div>
-        {loggedInUser.id == purchase.userProfileId && (
-          <Dropdown isOpen={dropdownOpen} toggle={toggleDropdown}>
-            <DropdownToggle
-              tag="button"
-              className="btn btn-light btn-sm p-0 border-0"
-            >
-              <i className="bi bi-three-dots"></i>
-            </DropdownToggle>
-            <DropdownMenu>
-              <DropdownItem onClick={handleDelete} className="text-danger">
-                Delete
-              </DropdownItem>
-            </DropdownMenu>
-          </Dropdown>
-        )}
+        {loggedInUser.id == purchase.userProfileId ||
+          (loggedInUser?.roles?.includes("Admin") && (
+            <Dropdown isOpen={dropdownOpen} toggle={toggleDropdown}>
+              <DropdownToggle
+                tag="button"
+                className="btn btn-light btn-sm p-0 border-0"
+              >
+                <i className="bi bi-three-dots"></i>
+              </DropdownToggle>
+              <DropdownMenu>
+                <DropdownItem onClick={handleDelete} className="text-danger">
+                  Delete
+                </DropdownItem>
+              </DropdownMenu>
+            </Dropdown>
+          ))}
       </div>
 
       <hr style={{ borderTop: "1px solid #ccc", margin: "2rem 0" }} />
