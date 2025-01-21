@@ -24,7 +24,7 @@ export const CreatePurchase = ({ loggedInUser }) => {
   const [newPurchase, setNewPurchase] = useState({
     customerId: 0,
     // eslint-disable-next-line react/prop-types
-    employeeId: loggedInUser.id,
+    userProfileId: loggedInUser.id,
     purchaseProducts: [],
   });
   const [searchTerm, setSearchTerm] = useState("");

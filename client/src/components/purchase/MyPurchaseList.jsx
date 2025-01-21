@@ -74,7 +74,7 @@ export const MyPurchaseList = ({ loggedInUser }) => {
           <Row className="mb-4">
             <Col>
               <h2 className="fw-bold">Your Purchases</h2>
-              <p className="text-muted">
+              <p>
                 View your purchase records. You can add new purchases or check
                 details for each transaction.
               </p>
@@ -161,7 +161,7 @@ export const MyPurchaseList = ({ loggedInUser }) => {
                     </td>
                     <td>{new Date(p.purchaseDate).toLocaleDateString()}</td>
                     <td className="text-center">
-                      <Link to={`${p.id}`}>
+                      <Link to={`/purchases/${p.id}`}>
                         <Button color="secondary" size="sm">
                           Details
                         </Button>

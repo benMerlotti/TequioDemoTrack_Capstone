@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { deleteProduct, getProducts } from "../../managers/productManager";
 import { Link } from "react-router-dom";
-import { Button, Table, Row, Col, Card, CardBody, Container } from "reactstrap";
+import { Button, Row, Col, Card, CardBody, Container } from "reactstrap";
 
 export const ProductList = () => {
   const [products, setProducts] = useState([]);
@@ -10,11 +10,11 @@ export const ProductList = () => {
     getProducts().then(setProducts);
   }, []);
 
-  const handleDelete = (id) => {
-    deleteProduct(id).then(() => {
-      getProducts().then(setProducts);
-    });
-  };
+  // const handleDelete = (id) => {
+  //   deleteProduct(id).then(() => {
+  //     getProducts().then(setProducts);
+  //   });
+  // };
 
   return (
     <Container className="mt-5">
@@ -23,7 +23,7 @@ export const ProductList = () => {
           <Row className="mb-4">
             <Col>
               <h2 className="fw-bold">Products</h2>
-              <p className="text-muted">
+              <p>
                 Manage your product inventory. Add new products or view product
                 details below.
               </p>
@@ -36,41 +36,45 @@ export const ProductList = () => {
               </Link>
             </Col>
           </Row>
-          <Table hover responsive bordered>
-            <thead className="table-light">
-              <tr>
-                <th className="text-center col-1 col-md-1">Id</th>
-                <th className="text-center col-5 col-md-6">Name</th>
-                <th colSpan="2" className="text-center col-1 col-md-2">
-                  Actions
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              {products.map((p) => (
-                <tr key={p.id}>
-                  <td>{p.id}</td>
-                  <td>{p.name}</td>
-                  <td className="text-center">
-                    <Link to={`${p.id}`}>
-                      <Button color="secondary" size="sm">
-                        Details
-                      </Button>
-                    </Link>
-                  </td>
-                  <td className="text-center">
-                    <Button
-                      color="danger"
-                      size="sm"
-                      onClick={() => handleDelete(p.id)}
+          <Row>
+            {products.map((product) => (
+              <Col md="4" sm="6" xs="12" key={product.id} className="mb-4">
+                <div className="d-flex flex-column align-items-center">
+                  {/* Product Card */}
+                  <Card
+                    className="product-card h-100 p-0"
+                    style={{
+                      border: "1px solid white",
+                      cursor: "pointer",
+                      textDecoration: "none",
+                      transition:
+                        "transform 0.2s ease-in-out, background-color 0.2s ease-in-out",
+                      width: "100%",
+                    }}
+                    tag={Link}
+                    to={`${product.id}`}
+                  >
+                    <CardBody
+                      style={{ color: "inherit", textDecoration: "none" }}
+                      className="text-center"
                     >
-                      Delete
-                    </Button>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </Table>
+                      <img
+                        src={product.image}
+                        alt="product-image"
+                        style={{
+                          marginLeft: "0px",
+                          maxWidth: "100%",
+                          height: "auto",
+                        }}
+                      />
+                      <p className="mb-0">{product.name}</p>
+                      <p className="mb-0">{product.pack} Pack</p>
+                    </CardBody>
+                  </Card>
+                </div>
+              </Col>
+            ))}
+          </Row>
         </CardBody>
       </Card>
     </Container>

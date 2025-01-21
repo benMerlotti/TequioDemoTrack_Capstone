@@ -1,4 +1,6 @@
+using System.Security.Claims;
 using AutoMapper;
+using AutoMapper.QueryableExtensions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -28,6 +30,29 @@ public class AmbassadorController : ControllerBase
         .ToList());
     }
 
+    [HttpGet("withroles")]
+    [Authorize(Roles = "Admin")]
+    public IActionResult GetWithRoles()
+    {
+        return Ok(_dbContext.UserProfiles
+        .Include(up => up.IdentityUser)
+        .Select(up => new UserProfileDTO
+        {
+            Id = up.Id,
+            FirstName = up.FirstName,
+            LastName = up.LastName,
+            Email = up.IdentityUser.Email,
+            Address = up.Address,
+            IsActive = up.IsActive,
+            UserName = up.IdentityUser.UserName,
+            IdentityUserId = up.IdentityUserId,
+            Roles = _dbContext.UserRoles
+            .Where(ur => ur.UserId == up.IdentityUserId)
+            .Select(ur => _dbContext.Roles.SingleOrDefault(r => r.Id == ur.RoleId).Name)
+            .ToList()
+        }));
+    }
+
     [HttpGet("{id}")]
     [Authorize]
     public IActionResult GetAmbassadorById(int id)
@@ -36,6 +61,7 @@ public class AmbassadorController : ControllerBase
         .UserProfiles
         .Include(up => up.Purchases)
         .ThenInclude(p => p.PurchaseProducts)
+        .ThenInclude(pp => pp.Product)
         .FirstOrDefault(up => up.Id == id);
         return Ok(foundAmbassador);
     }
@@ -50,21 +76,29 @@ public class AmbassadorController : ControllerBase
 
     //     return Created($"/api/Employee/{newEmployee.Id}", newEmployee);
     // }
-
-    [HttpDelete("{id}/delete")]
+    [HttpPut("{id}/updateStatus")]
     [Authorize]
-    public IActionResult DeleteAmbassador(int id)
+    public IActionResult ToggleActivationAmbassador(int id)
     {
-        var foundAmbassador = _dbContext.UserProfiles.FirstOrDefault(up => up.Id == id);
-        _dbContext.UserProfiles.Remove(foundAmbassador);
-        _dbContext.SaveChanges();
+        UserProfile foundUser = _dbContext.UserProfiles.FirstOrDefault(up => up.Id == id);
 
-        return NoContent();
+
+        if (foundUser.IsActive)
+        {
+            foundUser.IsActive = false;
+        }
+        else
+        {
+            foundUser.IsActive = true;
+        }
+        _dbContext.SaveChanges();
+        return Ok(foundUser);
     }
+
 
     [HttpPut("{id}/edit")]
     [Authorize]
-    public IActionResult EditCustomer(int id, UserProfile userProfile)
+    public IActionResult EditAmbassador(int id, UserProfile userProfile)
     {
         var foundAmbassador = _dbContext.UserProfiles
         .Include(up => up.IdentityUser)
@@ -75,6 +109,17 @@ public class AmbassadorController : ControllerBase
         foundAmbassador.IdentityUser.Email = userProfile.IdentityUser.Email;
         foundAmbassador.Address = userProfile.Address;
 
+        _dbContext.SaveChanges();
+
+        return NoContent();
+    }
+
+    [HttpDelete("{id}/delete")]
+    [Authorize]
+    public IActionResult DeleteAmbassador(int id)
+    {
+        var foundAmbassador = _dbContext.UserProfiles.FirstOrDefault(up => up.Id == id);
+        _dbContext.UserProfiles.Remove(foundAmbassador);
         _dbContext.SaveChanges();
 
         return NoContent();

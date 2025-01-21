@@ -133,9 +133,10 @@ public class TequioDemoTrackDbContext : IdentityDbContext<IdentityUser>
 
         // Seed data for Product
         modelBuilder.Entity<Product>().HasData(
-            new Product { Id = 1, Name = "Tequila Blanco", Price = 25.00m },
-            new Product { Id = 2, Name = "Tequila Reposado", Price = 30.00m },
-            new Product { Id = 3, Name = "Tequila Añejo", Price = 40.00m }
+            new Product { Id = 1, Name = "Sparkling Blanco", Pack = 8, Image = "/Blanco.png", Ingredients = "El Mexicano® Tequila Blanco (Certified Additive-Free, 100% De Agave), Sparkling Water, Natural Lime Flavor, Citric Acid", Price = 39.98m },
+            new Product { Id = 2, Name = "Sparkling Blanco", Pack = 24, Image = "/Blanco.png", Ingredients = "El Mexicano® Tequila Blanco (Certified Additive-Free, 100% De Agave), Sparkling Water, Natural Lime Flavor, Citric Acid", Price = 119.94m },
+            new Product { Id = 3, Name = "Sparkling Repasado", Pack = 8, Image = "/Repasado.png", Ingredients = "El Mexicano® Tequila Repasado (Certified Additive-Free, 100% De Agave), Sparkling Water, Natural Lime Flavor, Citric Acid", Price = 39.98m },
+            new Product { Id = 4, Name = "Sparkling Repasado", Pack = 24, Image = "/Repasado.png", Ingredients = "El Mexicano® Tequila Repasado (Certified Additive-Free, 100% De Agave), Sparkling Water, Natural Lime Flavor, Citric Acid", Price = 119.94m }
   );
 
         // Seed data for Customer

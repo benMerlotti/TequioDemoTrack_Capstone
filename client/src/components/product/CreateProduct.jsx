@@ -15,6 +15,9 @@ export const CreateProduct = () => {
   const navigate = useNavigate();
   const [newProduct, setNewProduct] = useState({
     name: "",
+    pack: 0,
+    ingredients: "",
+    image: "",
     price: 0,
   });
   const [errors, setErrors] = useState("");
@@ -72,6 +75,45 @@ export const CreateProduct = () => {
                 value={newProduct.price}
                 onChange={handlePriceChange}
                 placeholder="Enter price (e.g., 19.99)"
+              />
+            </FormGroup>
+            <FormGroup>
+              <Label>Pack</Label>
+              <Input
+                type="text"
+                value={newProduct.pack}
+                onChange={(e) => {
+                  const productCopy = { ...newProduct };
+                  productCopy.pack = e.target.value;
+                  setNewProduct(productCopy);
+                }}
+                placeholder="Enter pack size"
+              />
+            </FormGroup>
+            <FormGroup>
+              <Label>Ingredients</Label>
+              <Input
+                type="text"
+                value={newProduct.ingredients}
+                onChange={(e) => {
+                  const productCopy = { ...newProduct };
+                  productCopy.ingredients = e.target.value;
+                  setNewProduct(productCopy);
+                }}
+                placeholder="Enter ingredients"
+              />
+            </FormGroup>
+            <FormGroup>
+              <Label>Ingredients</Label>
+              <Input
+                type="text"
+                value={newProduct.image}
+                onChange={(e) => {
+                  const productCopy = { ...newProduct };
+                  productCopy.image = e.target.value;
+                  setNewProduct(productCopy);
+                }}
+                placeholder="Upload image"
               />
             </FormGroup>
           </Row>

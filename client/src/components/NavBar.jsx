@@ -12,6 +12,7 @@ import {
   NavbarToggler,
 } from "reactstrap";
 import { logout } from "../managers/authManager";
+import "../App.css";
 
 // eslint-disable-next-line react/prop-types
 export default function NavBar({ loggedInUser, setLoggedInUser }) {
@@ -26,9 +27,13 @@ export default function NavBar({ loggedInUser, setLoggedInUser }) {
 
   return (
     <div>
-      <Navbar color="light" light fixed="top" expand="lg">
-        <NavbarBrand className="mr-auto" tag={RRNavLink} to="/">
-          Tequio Demo Tracker
+      <Navbar fixed="top" style={{ background: "#04040a" }} expand="md">
+        <NavbarBrand tag={RRNavLink} to="/">
+          <img
+            src="/Tequio_Logo.png"
+            alt="Tequio Logo"
+            style={{ marginLeft: "0px", height: "50px", width: "auto" }}
+          />
         </NavbarBrand>
         {loggedInUser ? (
           <>
@@ -36,46 +41,72 @@ export default function NavBar({ loggedInUser, setLoggedInUser }) {
             <Collapse isOpen={open} navbar>
               <Nav navbar>
                 <NavItem onClick={() => setOpen(false)}>
-                  <NavLink tag={RRNavLink} to="/customers">
+                  <NavLink
+                    tag={RRNavLink}
+                    to="/customers"
+                    className="custom-nav-link"
+                  >
                     Customers
                   </NavLink>
                 </NavItem>
                 {isAdmin && (
                   <>
                     <NavItem onClick={() => setOpen(false)}>
-                      <NavLink tag={RRNavLink} to="/employees">
+                      <NavLink
+                        tag={RRNavLink}
+                        to="/employees"
+                        className="custom-nav-link"
+                      >
                         Ambassadors
                       </NavLink>
                     </NavItem>
                     <NavItem onClick={() => setOpen(false)}>
-                      <NavLink tag={RRNavLink} to="/products">
+                      <NavLink
+                        tag={RRNavLink}
+                        to="/products"
+                        className="custom-nav-link"
+                      >
                         Products
                       </NavLink>
                     </NavItem>
                   </>
                 )}
                 <NavItem onClick={() => setOpen(false)}>
-                  <NavLink tag={RRNavLink} to="/new-purchase">
+                  <NavLink
+                    tag={RRNavLink}
+                    to="/new-purchase"
+                    className="custom-nav-link"
+                  >
                     New Purchase
                   </NavLink>
                 </NavItem>
                 {/* Only show "My Purchases" if the user is not an admin */}
                 {!isAdmin && (
                   <NavItem onClick={() => setOpen(false)}>
-                    <NavLink tag={RRNavLink} to="/my-purchases">
+                    <NavLink
+                      tag={RRNavLink}
+                      to="/my-purchases"
+                      className="custom-nav-link"
+                    >
                       My Purchases
                     </NavLink>
                   </NavItem>
                 )}
                 <NavItem onClick={() => setOpen(false)}>
-                  <NavLink tag={RRNavLink} to="/purchases">
+                  <NavLink
+                    tag={RRNavLink}
+                    to="/purchases"
+                    className="custom-nav-link"
+                  >
                     All Purchases
                   </NavLink>
                 </NavItem>
               </Nav>
             </Collapse>
             <div>
-              <span className="me-3">{loggedInUser.userName}</span>
+              <span className="nav-logged-in-user">
+                {loggedInUser.userName}
+              </span>
               <Button
                 color="primary"
                 onClick={(e) => {

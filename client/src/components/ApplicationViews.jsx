@@ -19,6 +19,7 @@ import { EditEmployee } from "./ambassador/EditAmbassador";
 import { EmployeeDetails } from "./ambassador/AmbassadorDetails";
 import { CreateEmployee } from "./ambassador/CreateAmbassador";
 import { MyPurchaseList } from "./purchase/MyPurchaseList";
+import { Home } from "./home/Home";
 
 // eslint-disable-next-line react/prop-types
 export default function ApplicationViews({ loggedInUser, setLoggedInUser }) {
@@ -28,7 +29,9 @@ export default function ApplicationViews({ loggedInUser, setLoggedInUser }) {
         <Route
           index
           element={
-            <AuthorizedRoute loggedInUser={loggedInUser}></AuthorizedRoute>
+            <AuthorizedRoute loggedInUser={loggedInUser}>
+              <Home />
+            </AuthorizedRoute>
           }
         />
       </Route>

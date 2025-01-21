@@ -40,6 +40,7 @@ public class CustomerController : ControllerBase
         .Include(c => c.Gender)
         .Include(c => c.Purchases)
         .ThenInclude(p => p.PurchaseProducts)
+        .ThenInclude(pp => pp.Product)
         .FirstOrDefault(c => c.Id == id);
         return Ok(foundCustomer);
     }

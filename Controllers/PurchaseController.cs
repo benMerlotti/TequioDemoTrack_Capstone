@@ -39,6 +39,7 @@ public class PurchaseController : ControllerBase
         var purchase = _dbContext.Purchases
             .Include(p => p.Customer)
             .Include(p => p.UserProfile)
+            .ThenInclude(up => up.IdentityUser)
             .Include(p => p.PurchaseProducts)
             .ThenInclude(pp => pp.Product).FirstOrDefault(p => p.Id == id);
 
@@ -64,10 +65,10 @@ public class PurchaseController : ControllerBase
         }
 
         // Check if Employee exists
-        var employeeExists = _dbContext.UserProfiles.Any(up => up.Id == model.EmployeeId);
-        if (!employeeExists)
+        var ambassadorExists = _dbContext.UserProfiles.Any(up => up.Id == model.UserProfileId);
+        if (!ambassadorExists)
         {
-            return NotFound($"Employee with ID {model.EmployeeId} not found.");
+            return NotFound($"Employee with ID {model.UserProfileId} not found.");
         }
 
         // Create a new Purchase object

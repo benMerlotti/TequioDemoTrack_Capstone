@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { Button, FormGroup, Input, Label } from "reactstrap";
+import { Button, Card, FormGroup, Input, Label } from "reactstrap";
 import { editProduct, getProductById } from "../../managers/productManager";
 
 export const EditProduct = () => {
@@ -8,6 +8,9 @@ export const EditProduct = () => {
   const navigate = useNavigate();
   const [product, setProduct] = useState({
     name: "",
+    pack: 0,
+    ingredients: "",
+    image: "",
     price: 0,
   });
   const [errors, setErrors] = useState("");
@@ -28,7 +31,7 @@ export const EditProduct = () => {
     });
   };
   return (
-    <>
+    <Card>
       <h2>Edit Product</h2>
       <form onSubmit={handleSubmit}>
         <FormGroup>
@@ -55,6 +58,45 @@ export const EditProduct = () => {
             }}
           />
         </FormGroup>
+        <FormGroup>
+          <Label>Pack</Label>
+          <Input
+            type="text"
+            value={product.pack}
+            onChange={(e) => {
+              const productCopy = { ...product };
+              productCopy.pack = e.target.value;
+              setProduct(productCopy);
+            }}
+            placeholder="Enter pack size"
+          />
+        </FormGroup>
+        <FormGroup>
+          <Label>Ingredients</Label>
+          <Input
+            type="text"
+            value={product.ingredients}
+            onChange={(e) => {
+              const productCopy = { ...product };
+              productCopy.ingredients = e.target.value;
+              setProduct(productCopy);
+            }}
+            placeholder="Enter ingredients"
+          />
+        </FormGroup>
+        <FormGroup>
+          <Label>Ingredients</Label>
+          <Input
+            type="text"
+            value={product.image}
+            onChange={(e) => {
+              const productCopy = { ...product };
+              productCopy.image = e.target.value;
+              setProduct(productCopy);
+            }}
+            placeholder="Upload image"
+          />
+        </FormGroup>
         <Button type="submit" color="primary">
           Submit
         </Button>
@@ -66,6 +108,6 @@ export const EditProduct = () => {
           ))}
         </div>
       </form>
-    </>
+    </Card>
   );
 };

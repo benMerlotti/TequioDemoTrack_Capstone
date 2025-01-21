@@ -54,6 +54,9 @@ public class ProductController : ControllerBase
         var foundProduct = _dbContext.Products.FirstOrDefault(e => e.Id == id);
 
         foundProduct.Name = product.Name;
+        foundProduct.Image = product.Image;
+        foundProduct.Ingredients = product.Ingredients;
+        foundProduct.Pack = product.Pack;
         foundProduct.Price = product.Price;
 
         _dbContext.SaveChanges();

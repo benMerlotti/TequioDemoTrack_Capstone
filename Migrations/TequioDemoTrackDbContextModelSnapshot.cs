@@ -149,13 +149,13 @@ namespace TequioDemoTrack.Migrations
                         {
                             Id = "dbc40bc6-0829-4ac5-a3ed-180f5e916a5f",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "b0aab420-ed1b-4395-bd06-c3925844dde0",
+                            ConcurrencyStamp = "83e2cd50-69da-4f5b-931d-5ab1aba988ec",
                             Email = "admina@strator.comx",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
-                            PasswordHash = "AQAAAAIAAYagAAAAECWStViehVsf6jmgiNDRr0XrCoujglSorqww85lirFgtGMWgFTcDICqKPprwEx5zRw==",
+                            PasswordHash = "AQAAAAIAAYagAAAAELCjFpQ2EpapUnyJ29tp7HKZqLmb8lMu9k+jCDUuY6+2tBH3MekNJ/8r0cIyaxW/yA==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "fa6c16fc-82cd-464a-8edc-01094b080b30",
+                            SecurityStamp = "4e22b67a-1869-4a64-b97e-411eb5e2322d",
                             TwoFactorEnabled = false,
                             UserName = "Administrator"
                         },
@@ -163,13 +163,13 @@ namespace TequioDemoTrack.Migrations
                         {
                             Id = "d7f5e876-91fe-4e0b-a2c9-e6a07500f50e",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "70e43fe2-2fa0-47ab-836f-d525eaa72576",
+                            ConcurrencyStamp = "bd277f3b-2e77-493a-bbfa-dd9e8c6adbdb",
                             Email = "jordan@gmail.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
-                            PasswordHash = "AQAAAAIAAYagAAAAEPNa3ubKgMXttNJEi868X/YGz5DpaCT/EPRfE6QJafsL4oQdD6fj8ND6OCPus2rpEQ==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEKJNVbQSsdPV9E9+ea+yTNpgHX0T/Ldj+6spRIzT3RhGGuRw7I5QJx+yJen079qhmg==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "6b8cfcdd-ae5c-4831-9e48-6b9268013d3c",
+                            SecurityStamp = "b5c1a673-4f9c-4640-9332-c5086d7e8bae",
                             TwoFactorEnabled = false,
                             UserName = "SmithJordan"
                         },
@@ -177,13 +177,13 @@ namespace TequioDemoTrack.Migrations
                         {
                             Id = "f7b45b7d-3c74-4dfd-a8f9-20fe7b8cb062",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "68d62bc0-f5de-4673-8bab-2b111256c240",
+                            ConcurrencyStamp = "f1507667-962e-42bf-9e14-8dfc64110487",
                             Email = "taylor@gmail.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
-                            PasswordHash = "AQAAAAIAAYagAAAAEP3PY+mZ6Heqh+PO186kzM0J7hxY3aKKZKtkMLPIs1yz8W+kAg2Bi1YJR/3afwINsw==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEC/iOWnI90hVj/zOK0cxWp2n+5V4O0pSiFGKGXku2Lul3H49sndVf1FMAdVxRuz89w==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "60b76812-13e2-4cd3-92ab-0a2d64cddcd0",
+                            SecurityStamp = "0879f2b7-13fc-4874-91d6-c5ef05f68366",
                             TwoFactorEnabled = false,
                             UserName = "JohnsonTaylor"
                         });
@@ -593,52 +593,6 @@ namespace TequioDemoTrack.Migrations
                         });
                 });
 
-            modelBuilder.Entity("TequioDemoTrack.Models.Employee", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Address")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("Email")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("boolean");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Employees");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Address = "123 Agave St, Mexico City",
-                            Email = "juan.perez@example.com",
-                            IsActive = true,
-                            Name = "Juan Perez"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Address = "456 Tequila Rd, Guadalajara",
-                            Email = "maria.lopez@example.com",
-                            IsActive = true,
-                            Name = "Maria Lopez"
-                        });
-                });
-
             modelBuilder.Entity("TequioDemoTrack.Models.Gender", b =>
                 {
                     b.Property<int>("Id")
@@ -750,9 +704,20 @@ namespace TequioDemoTrack.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
+                    b.Property<string>("Image")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Ingredients")
+                        .IsRequired()
+                        .HasColumnType("text");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("text");
+
+                    b.Property<int>("Pack")
+                        .HasColumnType("integer");
 
                     b.Property<decimal>("Price")
                         .HasColumnType("numeric");
@@ -765,20 +730,38 @@ namespace TequioDemoTrack.Migrations
                         new
                         {
                             Id = 1,
-                            Name = "Tequila Blanco",
-                            Price = 25.00m
+                            Image = "/Blanco.png",
+                            Ingredients = "El Mexicano® Tequila Blanco (Certified Additive-Free, 100% De Agave), Sparkling Water, Natural Lime Flavor, Citric Acid",
+                            Name = "Sparkling Blanco",
+                            Pack = 8,
+                            Price = 39.98m
                         },
                         new
                         {
                             Id = 2,
-                            Name = "Tequila Reposado",
-                            Price = 30.00m
+                            Image = "/Blanco.png",
+                            Ingredients = "El Mexicano® Tequila Blanco (Certified Additive-Free, 100% De Agave), Sparkling Water, Natural Lime Flavor, Citric Acid",
+                            Name = "Sparkling Blanco",
+                            Pack = 24,
+                            Price = 119.94m
                         },
                         new
                         {
                             Id = 3,
-                            Name = "Tequila Añejo",
-                            Price = 40.00m
+                            Image = "/Repasado.png",
+                            Ingredients = "El Mexicano® Tequila Repasado (Certified Additive-Free, 100% De Agave), Sparkling Water, Natural Lime Flavor, Citric Acid",
+                            Name = "Sparkling Repasado",
+                            Pack = 8,
+                            Price = 39.98m
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Image = "/Repasado.png",
+                            Ingredients = "El Mexicano® Tequila Repasado (Certified Additive-Free, 100% De Agave), Sparkling Water, Natural Lime Flavor, Citric Acid",
+                            Name = "Sparkling Repasado",
+                            Pack = 24,
+                            Price = 119.94m
                         });
                 });
 
@@ -793,9 +776,6 @@ namespace TequioDemoTrack.Migrations
                     b.Property<int>("CustomerId")
                         .HasColumnType("integer");
 
-                    b.Property<int?>("EmployeeId")
-                        .HasColumnType("integer");
-
                     b.Property<DateTime>("PurchaseDate")
                         .HasColumnType("timestamp without time zone");
 
@@ -805,8 +785,6 @@ namespace TequioDemoTrack.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("CustomerId");
-
-                    b.HasIndex("EmployeeId");
 
                     b.HasIndex("UserProfileId");
 
@@ -1675,10 +1653,6 @@ namespace TequioDemoTrack.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("TequioDemoTrack.Models.Employee", null)
-                        .WithMany("Purchases")
-                        .HasForeignKey("EmployeeId");
-
                     b.HasOne("TequioDemoTrack.Models.UserProfile", "UserProfile")
                         .WithMany("Purchases")
                         .HasForeignKey("UserProfileId")
@@ -1726,11 +1700,6 @@ namespace TequioDemoTrack.Migrations
                 });
 
             modelBuilder.Entity("TequioDemoTrack.Models.Customer", b =>
-                {
-                    b.Navigation("Purchases");
-                });
-
-            modelBuilder.Entity("TequioDemoTrack.Models.Employee", b =>
                 {
                     b.Navigation("Purchases");
                 });

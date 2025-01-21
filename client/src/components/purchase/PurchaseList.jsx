@@ -1,7 +1,7 @@
+/* eslint-disable react/prop-types */
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import {
-  Table,
   Button,
   Row,
   Col,
@@ -11,16 +11,24 @@ import {
   FormGroup,
   InputGroup,
   InputGroupText,
+  Dropdown,
+  DropdownToggle,
+  DropdownMenu,
+  DropdownItem,
 } from "reactstrap";
 import { deletePurchase, getPurchases } from "../../managers/purchaseManager";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import { downloadCSV } from "../../managers/utilFunctions";
 
 export const PurchaseList = ({ loggedInUser }) => {
   const [purchases, setPurchases] = useState([]);
   const [filteredByDate, setFilteredByDate] = useState([]);
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
+  const [dropdownOpen, setDropdownOpen] = useState(null);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     getPurchases().then((data) => {
@@ -29,7 +37,12 @@ export const PurchaseList = ({ loggedInUser }) => {
     });
   }, []);
 
-  const handleDelete = (id) => {
+  const handleRowClick = (id) => {
+    navigate(`/purchases/${id}`);
+  };
+
+  const handleDelete = (id, event) => {
+    event.stopPropagation(); // Prevent row click event
     deletePurchase(id).then(() => {
       getPurchases().then((data) => {
         setPurchases(data);
@@ -58,6 +71,11 @@ export const PurchaseList = ({ loggedInUser }) => {
     setFilteredByDate(purchases);
   };
 
+  const toggleDropdown = (id, event) => {
+    event.stopPropagation(); // Prevent row click event
+    setDropdownOpen(dropdownOpen === id ? null : id);
+  };
+
   return (
     <Container className="mt-5">
       <Card className="p-1">
@@ -65,17 +83,29 @@ export const PurchaseList = ({ loggedInUser }) => {
           <Row className="mb-4">
             <Col>
               <h2 className="fw-bold">Purchases</h2>
-              <p className="text-muted">
+              <p>
                 View all purchase records. You can add new purchases or check
                 details for each transaction.
               </p>
             </Col>
+
             <Col className="text-end">
               <Link to="/new-purchase">
                 <Button color="primary" className="px-4">
                   + New Purchase
                 </Button>
               </Link>
+              <span
+                className="ms-3"
+                onClick={() => downloadCSV(filteredByDate)}
+                style={{
+                  cursor: "pointer",
+                  color: "#007bff",
+                  textDecoration: "underline",
+                }}
+              >
+                Download CSV
+              </span>
             </Col>
           </Row>
           <Row className="mb-4">
@@ -121,61 +151,71 @@ export const PurchaseList = ({ loggedInUser }) => {
             </Col>
           </Row>
           <div style={{ maxHeight: "400px", overflowY: "auto" }}>
-            <Table
-              hover
-              responsive
-              bordered
-              style={{ tableLayout: "fixed", width: "100%" }}
-            >
-              <thead className="table-light">
+            <table>
+              <thead>
                 <tr>
                   <th className="col-2 col-md-1">Id</th>
                   <th className="d-none d-md-table-cell">Buyer</th>
                   <th className="d-none d-md-table-cell">Price</th>
-                  <th>Date</th>
-                  <th
-                    colSpan={loggedInUser.roles?.includes("Admin") && "2"}
-                    className="text-center col-5 col-md-2"
-                  >
-                    Actions
-                  </th>
+                  <th className="col-2 col-md-2">Date</th>
                 </tr>
               </thead>
               <tbody>
                 {filteredByDate.map((p) => (
-                  <tr key={p.id}>
+                  <tr
+                    key={p.id}
+                    style={{ cursor: "pointer" }}
+                    onClick={() => handleRowClick(p.id)}
+                  >
                     <td className="col-2 col-md-1">{p.id}</td>
                     <td className="d-none d-md-table-cell">
-                      <Link to={`/customers/${p.customer?.id}`}>
+                      <Link
+                        to={`/customers/${p.customer?.id}`}
+                        onClick={(event) => event.stopPropagation()}
+                      >
                         {p.customer?.name}
                       </Link>
                     </td>
                     <td className="d-none d-md-table-cell">
                       ${p.totalPrice.toFixed(2)}
                     </td>
-                    <td>{new Date(p.purchaseDate).toLocaleDateString()}</td>
-                    <td className="text-center">
-                      <Link to={`${p.id}`}>
-                        <Button color="secondary" size="sm">
-                          Details
-                        </Button>
-                      </Link>
+                    <td className="col-2 col-md-2">
+                      {new Date(p.purchaseDate).toLocaleDateString()}
                     </td>
-                    {loggedInUser.roles?.includes("Admin") && (
-                      <td className="text-center">
-                        <Button
-                          onClick={() => handleDelete(p.id)}
-                          color="danger"
-                          size="sm"
+                    <td className="text-center">
+                      <Dropdown
+                        isOpen={dropdownOpen === p.id}
+                        toggle={(event) => toggleDropdown(p.id, event)}
+                      >
+                        <DropdownToggle
+                          tag="button"
+                          className="btn btn-light btn-sm p-0 border-0"
                         >
-                          Delete
-                        </Button>
-                      </td>
-                    )}
+                          <i className="bi bi-three-dots"></i>
+                        </DropdownToggle>
+                        <DropdownMenu>
+                          <DropdownItem
+                            tag={Link}
+                            to={`${p.id}`}
+                            onClick={(event) => event.stopPropagation()}
+                          >
+                            Details
+                          </DropdownItem>
+                          {loggedInUser.roles?.includes("Admin") && (
+                            <DropdownItem
+                              onClick={(event) => handleDelete(p.id, event)}
+                              className="text-danger"
+                            >
+                              Delete
+                            </DropdownItem>
+                          )}
+                        </DropdownMenu>
+                      </Dropdown>
+                    </td>
                   </tr>
                 ))}
               </tbody>
-            </Table>
+            </table>
           </div>
         </CardBody>
       </Card>

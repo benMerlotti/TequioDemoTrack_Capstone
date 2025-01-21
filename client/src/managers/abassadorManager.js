@@ -4,6 +4,10 @@ export const getEmployees = () => {
     return fetch(`${_apiUrl}`).then((r) => r.json())
 }
 
+export const getEmployeesWithRoles = () => {
+    return fetch(`${_apiUrl}/withroles`).then((r) => r.json())
+}
+
 export const getEmployeeById = (id) => {
     return fetch(`${_apiUrl}/${id}`).then((r) => r.json())
 }
@@ -25,6 +29,14 @@ export const editEmployee = (id, newEmployee) => {
             "Content-Type": "application/json",
           },
           body: JSON.stringify(newEmployee)
+    });
+}
+export const toggleAmbassadorStatus = (id) => {
+    return fetch(`${_apiUrl}/${id}/updateStatus`, {
+        method: "PUT",
+        headers:{
+            "Content-Type": "application/json",
+          }
     });
 }
 
