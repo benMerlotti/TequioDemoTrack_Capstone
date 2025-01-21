@@ -1,9 +1,7 @@
 /* eslint-disable react/prop-types */
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import {
-  Table,
-  Button,
   Row,
   Col,
   Card,
@@ -12,6 +10,10 @@ import {
   FormGroup,
   InputGroup,
   InputGroupText,
+  Dropdown,
+  DropdownToggle,
+  DropdownMenu,
+  DropdownItem,
 } from "reactstrap";
 import { deletePurchase, getPurchases } from "../../managers/purchaseManager";
 import DatePicker from "react-datepicker";
@@ -22,10 +24,12 @@ export const MyPurchaseList = ({ loggedInUser }) => {
   const [filteredByDate, setFilteredByDate] = useState([]);
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
+  const [dropdownOpen, setDropdownOpen] = useState(null);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     getPurchases().then((data) => {
-      // Filter purchases based on the logged-in user's ID
       const userPurchases = data.filter(
         (purchase) => purchase.userProfileId === loggedInUser.id
       );
@@ -34,12 +38,16 @@ export const MyPurchaseList = ({ loggedInUser }) => {
     });
   }, [loggedInUser.id]);
 
-  const handleDelete = (id) => {
+  const handleRowClick = (id) => {
+    navigate(`/purchases/${id}`);
+  };
+
+  const handleDelete = (id, event) => {
+    event.stopPropagation(); // Prevent row click event
     deletePurchase(id).then(() => {
       getPurchases().then((data) => {
-        // Filter purchases again after deletion
         const userPurchases = data.filter(
-          (purchase) => purchase.userProfile.Id === loggedInUser.id
+          (purchase) => purchase.userProfileId === loggedInUser.id
         );
         setPurchases(userPurchases);
         setFilteredByDate(userPurchases);
@@ -67,13 +75,18 @@ export const MyPurchaseList = ({ loggedInUser }) => {
     setFilteredByDate(purchases);
   };
 
+  const toggleDropdown = (id, event) => {
+    event.stopPropagation(); // Prevent row click event
+    setDropdownOpen(dropdownOpen === id ? null : id);
+  };
+
   return (
     <Container className="mt-5">
       <Card className="p-1">
         <CardBody className="mx-0">
           <Row className="mb-4">
             <Col>
-              <h2 className="fw-bold">Your Purchases</h2>
+              <h2 className="fw-bold">Your Sales</h2>
               <p>
                 View your purchase records. You can add new purchases or check
                 details for each transaction.
@@ -81,9 +94,7 @@ export const MyPurchaseList = ({ loggedInUser }) => {
             </Col>
             <Col className="text-end">
               <Link to="/new-purchase">
-                <Button color="primary" className="px-4">
-                  + New Purchase
-                </Button>
+                <button className="btn btn-primary px-4">+ New Purchase</button>
               </Link>
             </Col>
           </Row>
@@ -117,42 +128,41 @@ export const MyPurchaseList = ({ loggedInUser }) => {
               </FormGroup>
             </Col>
             <Col md="4">
-              <Button
-                color="primary"
-                className="me-3"
+              <button
+                className="btn btn-primary me-3"
                 onClick={handleDateFilter}
               >
                 Filter
-              </Button>
-              <Button color="secondary" onClick={handleClearFilter}>
+              </button>
+              <button className="btn btn-secondary" onClick={handleClearFilter}>
                 Clear Filter
-              </Button>
+              </button>
             </Col>
           </Row>
           <div style={{ maxHeight: "400px", overflowY: "auto" }}>
-            <Table
-              hover
-              responsive
-              bordered
-              style={{ tableLayout: "fixed", width: "100%" }}
-            >
-              <thead className="table-light">
+            <table style={{ tableLayout: "fixed", width: "100%" }}>
+              <thead>
                 <tr>
                   <th className="col-2 col-md-1">Id</th>
                   <th className="d-none d-md-table-cell">Buyer</th>
                   <th className="d-none d-md-table-cell">Price</th>
                   <th>Date</th>
-                  <th colSpan="2" className="text-center col-5 col-md-2">
-                    Actions
-                  </th>
+                  <th className="text-end col-1">Actions</th>
                 </tr>
               </thead>
               <tbody>
                 {filteredByDate.map((p) => (
-                  <tr key={p.id}>
+                  <tr
+                    key={p.id}
+                    style={{ cursor: "pointer" }}
+                    onClick={() => handleRowClick(p.id)}
+                  >
                     <td className="col-2 col-md-1">{p.id}</td>
                     <td className="d-none d-md-table-cell">
-                      <Link to={`/customers/${p.customer?.id}`}>
+                      <Link
+                        to={`/customers/${p.customer?.id}`}
+                        onClick={(event) => event.stopPropagation()}
+                      >
                         {p.customer?.name}
                       </Link>
                     </td>
@@ -160,26 +170,38 @@ export const MyPurchaseList = ({ loggedInUser }) => {
                       ${p.totalPrice.toFixed(2)}
                     </td>
                     <td>{new Date(p.purchaseDate).toLocaleDateString()}</td>
-                    <td className="text-center">
-                      <Link to={`/purchases/${p.id}`}>
-                        <Button color="secondary" size="sm">
-                          Details
-                        </Button>
-                      </Link>
-                    </td>
-                    <td className="text-center">
-                      <Button
-                        onClick={() => handleDelete(p.id)}
-                        color="danger"
-                        size="sm"
+                    <td className="text-end">
+                      <Dropdown
+                        isOpen={dropdownOpen === p.id}
+                        toggle={(event) => toggleDropdown(p.id, event)}
                       >
-                        Delete
-                      </Button>
+                        <DropdownToggle
+                          tag="button"
+                          className="btn btn-light btn-sm p-0 border-0"
+                        >
+                          <i className="bi bi-three-dots"></i>
+                        </DropdownToggle>
+                        <DropdownMenu>
+                          <DropdownItem
+                            tag={Link}
+                            to={`/purchases/${p.id}`}
+                            onClick={(event) => event.stopPropagation()}
+                          >
+                            Details
+                          </DropdownItem>
+                          <DropdownItem
+                            onClick={(event) => handleDelete(p.id, event)}
+                            className="text-danger"
+                          >
+                            Delete
+                          </DropdownItem>
+                        </DropdownMenu>
+                      </Dropdown>
                     </td>
                   </tr>
                 ))}
               </tbody>
-            </Table>
+            </table>
           </div>
         </CardBody>
       </Card>

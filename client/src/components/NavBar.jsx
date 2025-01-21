@@ -88,7 +88,7 @@ export default function NavBar({ loggedInUser, setLoggedInUser }) {
                       to="/my-purchases"
                       className="custom-nav-link"
                     >
-                      My Purchases
+                      My Sales
                     </NavLink>
                   </NavItem>
                 )}

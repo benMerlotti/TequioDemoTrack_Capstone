@@ -17,7 +17,7 @@ import {
   deletePurchase,
 } from "../../managers/purchaseManager";
 
-export const PurchaseDetails = () => {
+export const PurchaseDetails = ({ loggedInUser }) => {
   const [purchase, setPurchase] = useState(null);
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const { id } = useParams();
@@ -65,21 +65,21 @@ export const PurchaseDetails = () => {
             </p>
           </div>
         </div>
-
-        {/* Dropdown for three dots */}
-        <Dropdown isOpen={dropdownOpen} toggle={toggleDropdown}>
-          <DropdownToggle
-            tag="button"
-            className="btn btn-light btn-sm p-0 border-0"
-          >
-            <i className="bi bi-three-dots"></i>
-          </DropdownToggle>
-          <DropdownMenu>
-            <DropdownItem onClick={handleDelete} className="text-danger">
-              Delete
-            </DropdownItem>
-          </DropdownMenu>
-        </Dropdown>
+        {loggedInUser.id == purchase.userProfileId && (
+          <Dropdown isOpen={dropdownOpen} toggle={toggleDropdown}>
+            <DropdownToggle
+              tag="button"
+              className="btn btn-light btn-sm p-0 border-0"
+            >
+              <i className="bi bi-three-dots"></i>
+            </DropdownToggle>
+            <DropdownMenu>
+              <DropdownItem onClick={handleDelete} className="text-danger">
+                Delete
+              </DropdownItem>
+            </DropdownMenu>
+          </Dropdown>
+        )}
       </div>
 
       <hr style={{ borderTop: "1px solid #ccc", margin: "2rem 0" }} />
