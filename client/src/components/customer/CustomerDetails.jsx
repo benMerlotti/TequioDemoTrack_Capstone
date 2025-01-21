@@ -58,7 +58,7 @@ export const CustomerDetails = () => {
   };
 
   const toggleShowMore = () => {
-    setShowMore(!showMore); // Toggle the "more" content visibility
+    setShowMore(!showMore);
   };
 
   if (!customer) {
@@ -102,7 +102,7 @@ export const CustomerDetails = () => {
               className="fw-bold"
               style={{ cursor: "pointer" }}
             >
-              ...more
+              {showMore ? "Show Less" : "...more"}
             </p>
           </div>
         </div>
@@ -123,20 +123,31 @@ export const CustomerDetails = () => {
         </Dropdown>
       </div>
 
-      {/* Conditionally render "more" content */}
-      {showMore && (
-        <div style={{ marginBottom: "1rem" }}>
-          <div style={{ display: "flex", gap: "1rem" }}>
-            <p className="fw-bold m-0">Demographics: </p>
-            <p>
-              {customer.ageGroup?.group}, {customer.gender?.genderValue},{" "}
-              {customer.race?.raceValue}
-            </p>
-          </div>
+      {/* More Content */}
+      <div
+        className={`fade-in-content ${showMore ? "visible" : ""}`}
+        style={{
+          opacity: showMore ? 1 : 0,
+          transform: showMore ? "translateY(0)" : "translateY(-10px)",
+          transition: "opacity .9s ease, transform .9s ease",
+        }}
+      >
+        <div style={{ display: "flex", gap: "1rem" }}>
+          <p className="fw-bold m-0">Demographics: </p>
+          <p>
+            {customer.ageGroup?.group}, {customer.gender?.genderValue},{" "}
+            {customer.race?.raceValue}
+          </p>
         </div>
-      )}
+      </div>
 
-      <hr style={{ borderTop: "1px solid #ccc", margin: "2rem 0" }} />
+      <hr
+        style={{
+          borderTop: "1px solid #ccc",
+          marginTop: ".1rem",
+          marginBottom: "3rem",
+        }}
+      />
 
       <Row>
         {/* Purchases Table */}
@@ -148,7 +159,7 @@ export const CustomerDetails = () => {
                   display: "flex",
                   gap: "1rem",
                   alignItems: "center",
-                  marginBottom: "1rem",
+                  marginBottom: "3rem",
                 }}
               >
                 <h3 className="fw-bold text-start">Purchases</h3>
