@@ -160,7 +160,7 @@ export const EmployeeList = () => {
                   <th>Name</th>
                   <th className="d-none d-lg-table-cell col-3">Address</th>
                   <th className="d-none d-lg-table-cell col-3">Email</th>
-                  <th>Status</th>
+                  <th className="text-center">Status</th>
                 </tr>
               </thead>
               <tbody>
@@ -173,7 +173,13 @@ export const EmployeeList = () => {
                     <td>{`${e.firstName} ${e.lastName}`}</td>
                     <td className="d-none d-lg-table-cell">{e.address}</td>
                     <td className="d-none d-lg-table-cell">{e.email}</td>
-                    <td>{e.isActive ? "Active" : "Inactive"}</td>
+                    <td className="text-center">
+                      {e.isActive ? (
+                        <i className="bi bi-check-circle-fill text-success"></i> // Active icon
+                      ) : (
+                        <i className="bi bi-x-circle-fill text-danger"></i> // Inactive icon
+                      )}
+                    </td>
                     <td className="text-center">
                       <Dropdown
                         isOpen={dropdownOpen === e.id}

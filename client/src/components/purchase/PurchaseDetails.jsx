@@ -20,8 +20,6 @@ import {
 export const PurchaseDetails = ({ loggedInUser }) => {
   const [purchase, setPurchase] = useState(null);
   const [dropdownOpen, setDropdownOpen] = useState(false);
-  const [test, setTest] = useState(false);
-  const [test2, setTest2] = useState(false);
   const { id } = useParams();
   const navigate = useNavigate();
 
