@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 import { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import {
   Spinner,
   Container,
@@ -76,6 +76,9 @@ export const PurchaseDetails = ({ loggedInUser }) => {
                 <i className="bi bi-three-dots"></i>
               </DropdownToggle>
               <DropdownMenu>
+                <DropdownItem tag={Link} to={"edit"} className="text-warning">
+                  Edit
+                </DropdownItem>
                 <DropdownItem onClick={handleDelete} className="text-danger">
                   Delete
                 </DropdownItem>
