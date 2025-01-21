@@ -41,6 +41,10 @@ export const CustomerDetails = () => {
     });
   };
 
+  const handleEdit = () => {
+    navigate("edit");
+  };
+
   const handleSearch = (event) => {
     const term = event.target.value;
     setSearchTerm(term);
@@ -116,6 +120,9 @@ export const CustomerDetails = () => {
             <i className="bi bi-three-dots"></i>
           </DropdownToggle>
           <DropdownMenu>
+            <DropdownItem onClick={handleEdit} className="text-warning">
+              Edit
+            </DropdownItem>
             <DropdownItem onClick={handleDelete} className="text-danger">
               Delete
             </DropdownItem>

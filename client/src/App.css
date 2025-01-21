@@ -29,6 +29,12 @@
   color: white !important;
 }
 
+.dropdown-menu {
+  background-color: #070713 !important;
+  border-color: white !important;
+  color: white !important;
+}
+
 
 .form-control {
   background-color: #070713 !important;
