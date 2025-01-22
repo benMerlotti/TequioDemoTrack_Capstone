@@ -20,6 +20,7 @@ import { EmployeeDetails } from "./ambassador/AmbassadorDetails";
 import { CreateEmployee } from "./ambassador/CreateAmbassador";
 import { MyPurchaseList } from "./purchase/MyPurchaseList";
 import { DashboardWrapper } from "./home/DashboardWrapper";
+import { CustomerMain } from "./customer/CustomerMain";
 
 // eslint-disable-next-line react/prop-types
 export default function ApplicationViews({ loggedInUser, setLoggedInUser }) {
@@ -125,7 +126,7 @@ export default function ApplicationViews({ loggedInUser, setLoggedInUser }) {
       <Route path="customers">
         <Route
           index
-          element={<CustomerList setLoggedInUser={setLoggedInUser} />}
+          element={<CustomerMain setLoggedInUser={setLoggedInUser} />}
         />
         <Route
           path=":id"

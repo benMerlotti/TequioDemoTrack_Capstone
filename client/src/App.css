@@ -215,6 +215,25 @@ tbody td:hover {
   overflow-y: auto;
 }
 
+.customer-options{
+  font-size: .8rem;
+  border: 1px solid white;
+  padding: .6rem;
+  border-radius: 50px;
+}
+
+.customer-options:hover{
+  color:#070713;
+  background-color: #ffffff;
+  cursor: pointer;
+  transition: color 0.8s ease !important;
+  transition: background-color 0.8s ease !important;
+}
+
+.customer-options.active-tab {
+  background-color: white;
+  color: #070713;
+}
 
 
 @keyframes fadeIn {
