@@ -147,7 +147,6 @@ export const MyPurchaseList = ({ loggedInUser }) => {
                   <th className="d-none d-md-table-cell">Buyer</th>
                   <th className="d-none d-md-table-cell">Price</th>
                   <th>Date</th>
-                  <th className="text-end col-1">Actions</th>
                 </tr>
               </thead>
               <tbody>
