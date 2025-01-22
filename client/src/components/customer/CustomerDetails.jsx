@@ -76,13 +76,13 @@ export const CustomerDetails = () => {
 
   return (
     <Container className="p-3">
-      <div className="d-flex justify-content-between align-items-center">
-        <div className="text-start">
+      <div className="d-flex flex-column flex-md-row justify-content-between align-items-start">
+        <div className="text-start w-100">
           <p className="m-0">Customer Details</p>
-          <div style={{ display: "flex", gap: "1rem", alignItems: "center" }}>
-            <h1 className="customer-name fw-bold display-1">{customer.name}</h1>
+          <div className="d-flex flex-wrap gap-2 align-items-center">
+            <h1 className="customer-name fw-bold display-4">{customer.name}</h1>
           </div>
-          <div style={{ display: "flex", gap: "1rem" }}>
+          <div className="d-flex flex-wrap gap-3">
             <p className="m-0">Purchases:</p>
             <p className="total-sales">{customer.purchases.length}</p>
             <p>Last Purchase:</p>
@@ -96,7 +96,7 @@ export const CustomerDetails = () => {
                 : "No purchases yet"}
             </p>
           </div>
-          <div style={{ display: "flex", gap: "1rem" }}>
+          <div className="d-flex flex-wrap gap-3">
             <p className="m-0">Email:</p>
             <p className="total-sales">{customer.email}</p>
             <p className="m-0">Address:</p>
@@ -112,22 +112,24 @@ export const CustomerDetails = () => {
         </div>
 
         {/* Dropdown for three dots */}
-        <Dropdown isOpen={dropdownOpen} toggle={toggleDropdown}>
-          <DropdownToggle
-            tag="button"
-            className="btn btn-light btn-sm p-0 border-0"
-          >
-            <i className="bi bi-three-dots"></i>
-          </DropdownToggle>
-          <DropdownMenu>
-            <DropdownItem onClick={handleEdit} className="text-warning">
-              Edit
-            </DropdownItem>
-            <DropdownItem onClick={handleDelete} className="text-danger">
-              Delete
-            </DropdownItem>
-          </DropdownMenu>
-        </Dropdown>
+        <div className="mt-3 mt-md-0">
+          <Dropdown isOpen={dropdownOpen} toggle={toggleDropdown}>
+            <DropdownToggle
+              tag="button"
+              className="btn btn-light btn-sm p-0 border-0"
+            >
+              <i className="bi bi-three-dots"></i>
+            </DropdownToggle>
+            <DropdownMenu>
+              <DropdownItem onClick={handleEdit} className="text-warning">
+                Edit
+              </DropdownItem>
+              <DropdownItem onClick={handleDelete} className="text-danger">
+                Delete
+              </DropdownItem>
+            </DropdownMenu>
+          </Dropdown>
+        </div>
       </div>
 
       {/* More Content */}
@@ -139,7 +141,7 @@ export const CustomerDetails = () => {
           transition: "opacity .9s ease, transform .9s ease",
         }}
       >
-        <div style={{ display: "flex", gap: "1rem" }}>
+        <div className="d-flex flex-wrap gap-2">
           <p className="fw-bold m-0">Demographics: </p>
           <p>
             {customer.ageGroup?.group}, {customer.gender?.genderValue},{" "}

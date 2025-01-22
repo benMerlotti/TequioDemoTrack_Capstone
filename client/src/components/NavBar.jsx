@@ -1,8 +1,6 @@
-/* eslint-disable react/prop-types */
 import { useState } from "react";
 import { NavLink as RRNavLink, useNavigate } from "react-router-dom";
 import {
-  Button,
   Collapse,
   Nav,
   NavLink,
@@ -10,19 +8,23 @@ import {
   Navbar,
   NavbarBrand,
   NavbarToggler,
+  Dropdown,
+  DropdownToggle,
+  DropdownMenu,
+  DropdownItem,
+  Button,
 } from "reactstrap";
 import { logout } from "../managers/authManager";
 import "../App.css";
 
-// eslint-disable-next-line react/prop-types
 export default function NavBar({ loggedInUser, setLoggedInUser }) {
   const [open, setOpen] = useState(false);
+  const [dropdownOpen, setDropdownOpen] = useState(false);
   const navigate = useNavigate();
 
   const toggleNavbar = () => setOpen(!open);
+  const toggleDropdown = () => setDropdownOpen(!dropdownOpen);
 
-  // Check if the user has admin rights (you can adjust the logic based on your authentication setup)
-  // eslint-disable-next-line react/prop-types
   const isAdmin = loggedInUser?.roles?.includes("Admin");
 
   return (
@@ -83,7 +85,6 @@ export default function NavBar({ loggedInUser, setLoggedInUser }) {
                     New Purchase
                   </NavLink>
                 </NavItem>
-                {/* Only show "My Purchases" if the user is not an admin */}
                 {!isAdmin && (
                   <NavItem onClick={() => setOpen(false)}>
                     <NavLink
@@ -106,24 +107,31 @@ export default function NavBar({ loggedInUser, setLoggedInUser }) {
                 </NavItem>
               </Nav>
             </Collapse>
-            <div>
-              <span className="nav-logged-in-user">
-                {loggedInUser.userName}
-              </span>
-              <Button
-                color="primary"
-                onClick={(e) => {
-                  e.preventDefault();
-                  setOpen(false);
-                  logout().then(() => {
-                    setLoggedInUser(null);
-                    setOpen(false);
-                    navigate("/login");
-                  });
-                }}
-              >
-                Logout
-              </Button>
+            <div className="d-flex align-items-center">
+              <Dropdown isOpen={dropdownOpen} toggle={toggleDropdown}>
+                <DropdownToggle
+                  tag="button"
+                  className="btn btn-light btn-sm p-0 border-0 d-flex align-items-center"
+                >
+                  <i className="bi bi-person-circle text-white me-2 fs-3"></i>
+                  <span className="text-white">{loggedInUser.userName}</span>
+                </DropdownToggle>
+                <DropdownMenu>
+                  <DropdownItem
+                    onClick={(e) => {
+                      e.preventDefault();
+                      setOpen(false);
+                      logout().then(() => {
+                        setLoggedInUser(null);
+                        navigate("/login");
+                      });
+                    }}
+                    className="text-danger"
+                  >
+                    Log Out
+                  </DropdownItem>
+                </DropdownMenu>
+              </Dropdown>
             </div>
           </>
         ) : (

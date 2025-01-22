@@ -51,13 +51,13 @@ export const PurchaseDetails = ({ loggedInUser }) => {
 
   return (
     <Container className="p-3">
-      <div className="d-flex justify-content-between align-items-center">
-        <div className="text-start">
+      <div className="d-flex flex-column flex-md-row justify-content-between align-items-start">
+        <div className="text-start w-100">
           <p className="m-0">Purchase Details</p>
-          <div style={{ display: "flex", gap: "1rem", alignItems: "center" }}>
-            <h1 className="purchase-name fw-bold display-1">{purchase.id}</h1>
+          <div className="d-flex flex-wrap gap-2 align-items-center">
+            <h1 className="purchase-name fw-bold display-4">{purchase.id}</h1>
           </div>
-          <div style={{ display: "flex", gap: "1rem" }}>
+          <div className="d-flex flex-wrap gap-3">
             <p>Customer:</p>
             <p className="total-sales m-0">{purchase.customer.name}</p>
             <p>Ambassador:</p>
@@ -66,24 +66,28 @@ export const PurchaseDetails = ({ loggedInUser }) => {
             </p>
           </div>
         </div>
+
+        {/* Dropdown for Edit/Delete */}
         {(loggedInUser.id == purchase.userProfileId ||
           loggedInUser?.roles?.includes("Admin")) && (
-          <Dropdown isOpen={dropdownOpen} toggle={toggleDropdown}>
-            <DropdownToggle
-              tag="button"
-              className="btn btn-light btn-sm p-0 border-0"
-            >
-              <i className="bi bi-three-dots"></i>
-            </DropdownToggle>
-            <DropdownMenu>
-              <DropdownItem tag={Link} to={"edit"} className="text-warning">
-                Edit
-              </DropdownItem>
-              <DropdownItem onClick={handleDelete} className="text-danger">
-                Delete
-              </DropdownItem>
-            </DropdownMenu>
-          </Dropdown>
+          <div className="mt-3 mt-md-0">
+            <Dropdown isOpen={dropdownOpen} toggle={toggleDropdown}>
+              <DropdownToggle
+                tag="button"
+                className="btn btn-light btn-sm p-0 border-0"
+              >
+                <i className="bi bi-three-dots"></i>
+              </DropdownToggle>
+              <DropdownMenu>
+                <DropdownItem tag={Link} to={"edit"} className="text-warning">
+                  Edit
+                </DropdownItem>
+                <DropdownItem onClick={handleDelete} className="text-danger">
+                  Delete
+                </DropdownItem>
+              </DropdownMenu>
+            </Dropdown>
+          </div>
         )}
       </div>
 
