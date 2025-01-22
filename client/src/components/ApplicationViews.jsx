@@ -19,7 +19,7 @@ import { EditEmployee } from "./ambassador/EditAmbassador";
 import { EmployeeDetails } from "./ambassador/AmbassadorDetails";
 import { CreateEmployee } from "./ambassador/CreateAmbassador";
 import { MyPurchaseList } from "./purchase/MyPurchaseList";
-import { Home } from "./home/Home";
+import { DashboardWrapper } from "./home/DashboardWrapper";
 
 // eslint-disable-next-line react/prop-types
 export default function ApplicationViews({ loggedInUser, setLoggedInUser }) {
@@ -30,7 +30,7 @@ export default function ApplicationViews({ loggedInUser, setLoggedInUser }) {
           index
           element={
             <AuthorizedRoute loggedInUser={loggedInUser}>
-              <Home />
+              <DashboardWrapper loggedInUser={loggedInUser} />
             </AuthorizedRoute>
           }
         />

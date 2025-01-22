@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using TequioDemoTrack.Data;
 
 [ApiController]
@@ -22,4 +23,24 @@ public class LocationController : ControllerBase
         .Locations
         .ToList());
     }
+
+    [HttpGet("top-locations")]
+    [Authorize(Roles = "Admin")]
+    public IActionResult GetTopLocations()
+    {
+        var topLocations = _dbContext.Customers
+            .Include(c => c.Location)
+            .GroupBy(c => c.Location)
+            .Select(group => new
+            {
+                Location = group.Key,
+                Count = group.Count()
+            })
+            .OrderByDescending(l => l.Count)
+            .Take(5) // Get the top 5
+            .ToList();
+
+        return Ok(topLocations);
+    }
+
 }

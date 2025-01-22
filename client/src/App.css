@@ -29,6 +29,16 @@
   color: white !important;
 }
 
+.list-group{
+  background-color: #070713 !important;
+  color: white !important;
+}
+
+.list-group-item{
+  background-color: #070713 !important;
+  color: white !important;
+}
+
 .dropdown-menu {
   background-color: #070713 !important;
   border-color: white !important;
@@ -197,6 +207,15 @@ tbody td:hover {
 .fade-in {
   animation: fadeIn 3s ease-in-out;
 }
+
+.admin-dashboard .dashboard-content {
+  flex: 1;
+  padding: 1rem;
+  margin-top: 56px; /* Offset for NavBar height */
+  overflow-y: auto;
+}
+
+
 
 @keyframes fadeIn {
   from {

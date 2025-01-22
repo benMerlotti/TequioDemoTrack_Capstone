@@ -31,7 +31,16 @@ export const EmployeeList = () => {
   // Fetch and initialize data with sorting
   useEffect(() => {
     getEmployeesWithRoles().then((data) => {
-      const sortedData = data.sort((a, b) => b.isActive - a.isActive);
+      // Exclude users with the "Admin" role
+      const nonAdminEmployees = data.filter(
+        (employee) => !employee.roles.includes("Admin")
+      );
+
+      // Sort by active status
+      const sortedData = nonAdminEmployees.sort(
+        (a, b) => b.isActive - a.isActive
+      );
+
       setEmployees(sortedData);
       setFilteredEmployees(sortedData);
     });

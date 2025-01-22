@@ -30,9 +30,9 @@ export const MyPurchaseList = ({ loggedInUser }) => {
 
   useEffect(() => {
     getPurchases().then((data) => {
-      const userPurchases = data.filter(
-        (purchase) => purchase.userProfileId === loggedInUser.id
-      );
+      const userPurchases = data
+        .filter((purchase) => purchase.userProfileId === loggedInUser.id)
+        .sort((a, b) => new Date(b.purchaseDate) - new Date(a.purchaseDate));
       setPurchases(userPurchases);
       setFilteredByDate(userPurchases);
     });
