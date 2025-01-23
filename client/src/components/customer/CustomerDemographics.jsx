@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Doughnut, Bar } from "react-chartjs-2";
 import {
   Chart as ChartJS,
@@ -9,6 +9,8 @@ import {
   LinearScale,
   BarElement,
 } from "chart.js";
+import { getCustomers } from "../../managers/customerManager";
+import { getGenders } from "../../managers/demoManager";
 
 ChartJS.register(
   ArcElement,
@@ -20,13 +22,43 @@ ChartJS.register(
 );
 
 export const CustomerDemographics = () => {
+  const [genders, setGenders] = useState([]);
+  const [maleCustomers, setMaleCustomers] = useState(0);
+  const [femaleCustomers, setFemaleCustomers] = useState(0);
+  const [nonBinaryCustomers, setNonBinaryCustomers] = useState(0);
+
+  useEffect(() => {
+    // Fetch gender data from API
+    getGenders().then((data) => {
+      if (data && data.length > 0) {
+        // Parse the gender data
+        setGenders(data.map((item) => item.genderValue));
+
+        // Count customers by gender
+        const maleCount =
+          data.find((item) => item.genderValue === "Male")?.customers.length ||
+          0;
+        const femaleCount =
+          data.find((item) => item.genderValue === "Female")?.customers
+            .length || 0;
+        const nonBinaryCount =
+          data.find((item) => item.genderValue === "Non-binary")?.customers
+            .length || 0;
+
+        setMaleCustomers(maleCount);
+        setFemaleCustomers(femaleCount);
+        setNonBinaryCustomers(nonBinaryCount);
+      }
+    });
+  }, []); // Runs once on component mount
+
   // Data for Doughnut Chart
   const genderData = {
     labels: ["Male", "Female", "Other"],
     datasets: [
       {
         label: "Customer Demographics",
-        data: [45, 50, 5], // Example data
+        data: [maleCustomers, femaleCustomers, nonBinaryCustomers], // Example data
         backgroundColor: ["blue", "pink", "gray"], // Colors for the segments
         borderColor: ["#000", "#000", "#000"], // Optional: border for segments
         borderWidth: 1, // Optional: width of the border
