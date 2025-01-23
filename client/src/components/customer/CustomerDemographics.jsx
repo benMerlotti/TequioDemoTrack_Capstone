@@ -9,8 +9,7 @@ import {
   LinearScale,
   BarElement,
 } from "chart.js";
-import { getCustomers } from "../../managers/customerManager";
-import { getGenders } from "../../managers/demoManager";
+import { getAgeGroups, getGenders } from "../../managers/demoManager";
 
 ChartJS.register(
   ArcElement,
@@ -27,14 +26,16 @@ export const CustomerDemographics = () => {
   const [femaleCustomers, setFemaleCustomers] = useState(0);
   const [nonBinaryCustomers, setNonBinaryCustomers] = useState(0);
 
+  const [ageGroups, setAgeGroups] = useState([]);
+  const [maleCounts, setMaleCounts] = useState([]);
+  const [femaleCounts, setFemaleCounts] = useState([]);
+  const [nonBinaryCounts, setNonBinaryCounts] = useState([]);
+
   useEffect(() => {
-    // Fetch gender data from API
+    // Fetch gender data
     getGenders().then((data) => {
       if (data && data.length > 0) {
-        // Parse the gender data
         setGenders(data.map((item) => item.genderValue));
-
-        // Count customers by gender
         const maleCount =
           data.find((item) => item.genderValue === "Male")?.customers.length ||
           0;
@@ -50,7 +51,32 @@ export const CustomerDemographics = () => {
         setNonBinaryCustomers(nonBinaryCount);
       }
     });
-  }, []); // Runs once on component mount
+
+    // Fetch age group data
+    getAgeGroups().then((data) => {
+      if (data && data.length > 0) {
+        setAgeGroups(data.map((group) => group.group));
+
+        // Count customers by gender for each age group
+        const maleData = data.map(
+          (group) =>
+            group.customers.filter((cust) => cust.genderId === 1).length
+        );
+        const femaleData = data.map(
+          (group) =>
+            group.customers.filter((cust) => cust.genderId === 2).length
+        );
+        const nonBinaryData = data.map(
+          (group) =>
+            group.customers.filter((cust) => cust.genderId === 3).length
+        );
+
+        setMaleCounts(maleData);
+        setFemaleCounts(femaleData);
+        setNonBinaryCounts(nonBinaryData);
+      }
+    });
+  }, []);
 
   // Data for Doughnut Chart
   const genderData = {
@@ -58,10 +84,10 @@ export const CustomerDemographics = () => {
     datasets: [
       {
         label: "Customer Demographics",
-        data: [maleCustomers, femaleCustomers, nonBinaryCustomers], // Example data
-        backgroundColor: ["blue", "pink", "gray"], // Colors for the segments
-        borderColor: ["#000", "#000", "#000"], // Optional: border for segments
-        borderWidth: 1, // Optional: width of the border
+        data: [maleCustomers, femaleCustomers, nonBinaryCustomers],
+        backgroundColor: ["#1724b3", "#b31762", "white"],
+        borderColor: ["#000", "#000", "#000"],
+        borderWidth: 1,
       },
     ],
   };
@@ -71,21 +97,41 @@ export const CustomerDemographics = () => {
     plugins: {
       legend: {
         display: true,
-        position: "right", // Position of the legend
+        position: "bottom",
+        labels: {
+          boxWidth: 20, // Adjust the width of the colored box
+          boxHeight: 20, // Optional: Adjust the height of the box (Chart.js 3.7+)
+          color: "white", // Optional: Text color
+          font: {
+            size: 14, // Optional: Font size
+          },
+        },
       },
     },
+    cutout: "75%",
   };
 
-  // Data for Bar Chart
+  // Data for Stacked Bar Chart
   const ageData = {
-    labels: ["18-24", "25-34", "35-44", "45-54", "55+"],
+    labels: ageGroups, // Dynamically populated
     datasets: [
       {
-        label: "Customer Age Groups",
-        data: [30, 50, 40, 20, 10], // Example data
-        backgroundColor: "rgba(75, 192, 192, 0.6)", // Bars color
-        borderColor: "rgba(75, 192, 192, 1)",
-        borderWidth: 1,
+        label: "Male",
+        data: maleCounts, // Male counts per age group
+        backgroundColor: "#1724b3",
+        barThickness: 35,
+      },
+      {
+        label: "Female",
+        data: femaleCounts, // Female counts per age group
+        backgroundColor: "#b31762",
+        barThickness: 35,
+      },
+      {
+        label: "Non-binary",
+        data: nonBinaryCounts, // Non-binary counts per age group
+        backgroundColor: "white",
+        barThickness: 35,
       },
     ],
   };
@@ -94,7 +140,11 @@ export const CustomerDemographics = () => {
     responsive: true,
     plugins: {
       legend: {
-        display: false, // Hide legend for bar chart
+        display: false, // Show legend
+        position: "bottom",
+        labels: {
+          color: "white",
+        },
       },
     },
     scales: {
@@ -102,14 +152,24 @@ export const CustomerDemographics = () => {
         title: {
           display: true,
           text: "Age Groups",
+          color: "white",
         },
+        ticks: {
+          color: "white",
+        },
+        stacked: true, // Enable stacking
       },
       y: {
         title: {
           display: true,
           text: "Number of Customers",
+          color: "white",
+        },
+        ticks: {
+          color: "white",
         },
         beginAtZero: true,
+        stacked: true, // Enable stacking
       },
     },
   };
@@ -126,14 +186,21 @@ export const CustomerDemographics = () => {
       />
       <div style={{ display: "flex", justifyContent: "space-around" }}>
         {/* Doughnut Chart */}
-        <div style={{ width: "30%" }}>
-          <h3>Gender Distribution</h3>
+        <div
+          style={{
+            width: "30%",
+            display: "flex",
+            justifyContent: "center",
+            flexDirection: "column",
+          }}
+        >
+          <h3>Customer's Gender</h3>
           <Doughnut data={genderData} options={genderOptions} />
         </div>
 
-        {/* Bar Chart */}
+        {/* Stacked Bar Chart */}
         <div style={{ width: "45%" }}>
-          <h3>Age Groups</h3>
+          <h3 className="mb-5">Customer's Age</h3>
           <Bar data={ageData} options={ageOptions} />
         </div>
       </div>
