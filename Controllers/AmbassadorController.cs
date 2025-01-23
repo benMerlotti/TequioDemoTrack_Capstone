@@ -75,16 +75,6 @@ public class AmbassadorController : ControllerBase
       }).FirstOrDefault(up => up.Id == id));
     }
 
-    // [HttpPost]
-    // [Authorize]
-    // public IActionResult CreateAmbassador(IMapper mapper, CreateUserProfileDTO employee)
-    // {
-    //     var newEmployee = mapper.Map<Employee>(employee);
-    //     _dbContext.Employees.Add(newEmployee);
-    //     _dbContext.SaveChanges();
-
-    //     return Created($"/api/Employee/{newEmployee.Id}", newEmployee);
-    // }
     [HttpPut("{id}/updateStatus")]
     [Authorize]
     public IActionResult ToggleActivationAmbassador(int id)
@@ -144,4 +134,41 @@ public class AmbassadorController : ControllerBase
 
         return NoContent();
     }
+
+    [HttpGet("pending-activations")]
+    // [Authorize]
+    public IActionResult GetPendingActivations()
+    {
+        try
+        {
+            // Get the date 30 days ago
+            var cutoffDate = DateTime.UtcNow.AddDays(-30);
+
+            // Fetch details of inactive users registered within the past 30 days
+            var pendingUsers = _dbContext.UserProfiles
+                .Where(up => !up.IsActive && up.StartDate >= cutoffDate)
+                .Select(up => new
+                {
+                    up.Id,
+                    up.FirstName,
+                    up.LastName,
+                    up.Address,
+                    up.StartDate,
+                    up.IdentityUserId,
+                    Email = _dbContext.Users
+                        .Where(u => u.Id == up.IdentityUserId)
+                        .Select(u => u.Email)
+                        .FirstOrDefault() // Include email from ASPNETUsers
+                })
+                .ToList();
+
+            return Ok(pendingUsers);
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(500, "An error occurred while fetching pending activations.");
+        }
+    }
+
+
 }

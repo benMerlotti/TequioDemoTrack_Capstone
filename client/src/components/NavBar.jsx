@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { NavLink as RRNavLink, useNavigate } from "react-router-dom";
 import {
   Collapse,
@@ -16,16 +16,30 @@ import {
 } from "reactstrap";
 import { logout } from "../managers/authManager";
 import "../App.css";
+import { UserContext } from "../App";
+import { getPendingActivations } from "../managers/abassadorManager";
 
 export default function NavBar({ loggedInUser, setLoggedInUser }) {
   const [open, setOpen] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [activationDropdownOpen, setActivationDropdownOpen] = useState(false);
+
   const navigate = useNavigate();
 
   const toggleNavbar = () => setOpen(!open);
   const toggleDropdown = () => setDropdownOpen(!dropdownOpen);
+  const toggleActivationDropdown = () =>
+    setActivationDropdownOpen(!activationDropdownOpen);
 
   const isAdmin = loggedInUser?.roles?.includes("Admin");
+
+  const { pendingUsers, setPendingUsers } = useContext(UserContext); // Access pending users and fetch function
+
+  useEffect(() => {
+    if (isAdmin) {
+      getPendingActivations().then(setPendingUsers); // Fetch pending users on mount
+    }
+  }, [isAdmin]);
 
   return (
     <div>
@@ -107,7 +121,51 @@ export default function NavBar({ loggedInUser, setLoggedInUser }) {
                 </NavItem>
               </Nav>
             </Collapse>
-            <div className="d-flex align-items-center">
+
+            {/* Admin Actions */}
+            <div className="d-flex align-items-center gap-4">
+              {/* Pending Activations Dropdown */}
+              {isAdmin && (
+                <Dropdown
+                  nav
+                  isOpen={activationDropdownOpen}
+                  toggle={toggleActivationDropdown}
+                  className="me-3 d-flex align-items-center"
+                >
+                  <DropdownToggle
+                    nav
+                    caret
+                    className="text-white"
+                    style={{ color: "white" }}
+                  >
+                    Activations{" "}
+                    {pendingUsers.length > 0 && (
+                      <span className="badge bg-danger">
+                        {pendingUsers.length}
+                      </span>
+                    )}
+                  </DropdownToggle>
+                  <DropdownMenu>
+                    {pendingUsers.length > 0 ? (
+                      pendingUsers.map((user) => (
+                        <DropdownItem
+                          key={user.id}
+                          tag={RRNavLink}
+                          to={`/admin/user/${user.id}`}
+                        >
+                          {user.firstName} {user.lastName} ({user.email})
+                        </DropdownItem>
+                      ))
+                    ) : (
+                      <DropdownItem disabled>
+                        No pending activations
+                      </DropdownItem>
+                    )}
+                  </DropdownMenu>
+                </Dropdown>
+              )}
+
+              {/* Admin Username Dropdown */}
               <Dropdown isOpen={dropdownOpen} toggle={toggleDropdown}>
                 <DropdownToggle
                   tag="button"

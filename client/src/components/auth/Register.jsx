@@ -3,7 +3,7 @@ import { register } from "../../managers/authManager";
 import { Link, useNavigate } from "react-router-dom";
 import { Button, FormFeedback, FormGroup, Input, Label } from "reactstrap";
 
-export default function Register({ setLoggedInUser }) {
+export default function Register() {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [userName, setUserName] = useState("");
@@ -20,26 +20,40 @@ export default function Register({ setLoggedInUser }) {
   const handleSubmit = (e) => {
     e.preventDefault();
 
+    // Check if passwords match
     if (password !== confirmPassword) {
       setPasswordMismatch(true);
-    } else {
-      const newUser = {
-        firstName,
-        lastName,
-        userName,
-        email,
-        address,
-        password,
-      };
-      register(newUser).then((user) => {
-        if (user) {
-          setLoggedInUser(user);
-          navigate("/");
-        } else {
-          setRegistrationFailure(true);
-        }
-      });
+      return; // Exit early if passwords don't match
     }
+
+    const newUser = {
+      firstName,
+      lastName,
+      userName,
+      email,
+      address,
+      password,
+    };
+
+    register(newUser)
+      .then((message) => {
+        if (message) {
+          // Display success message and redirect
+          alert(
+            message ||
+              "Registration successful! Please log in after activation."
+          );
+          navigate("/login");
+        }
+      })
+      .catch((error) => {
+        console.error("Registration error:", error);
+        setRegistrationFailure(true);
+        alert(
+          error.message ||
+            "An error occurred during registration. Please try again."
+        );
+      });
   };
 
   return (
@@ -50,9 +64,7 @@ export default function Register({ setLoggedInUser }) {
         <Input
           type="text"
           value={firstName}
-          onChange={(e) => {
-            setFirstName(e.target.value);
-          }}
+          onChange={(e) => setFirstName(e.target.value)}
         />
       </FormGroup>
       <FormGroup>
@@ -60,9 +72,7 @@ export default function Register({ setLoggedInUser }) {
         <Input
           type="text"
           value={lastName}
-          onChange={(e) => {
-            setLastName(e.target.value);
-          }}
+          onChange={(e) => setLastName(e.target.value)}
         />
       </FormGroup>
       <FormGroup>
@@ -70,9 +80,7 @@ export default function Register({ setLoggedInUser }) {
         <Input
           type="email"
           value={email}
-          onChange={(e) => {
-            setEmail(e.target.value);
-          }}
+          onChange={(e) => setEmail(e.target.value)}
         />
       </FormGroup>
       <FormGroup>
@@ -80,9 +88,7 @@ export default function Register({ setLoggedInUser }) {
         <Input
           type="text"
           value={userName}
-          onChange={(e) => {
-            setUserName(e.target.value);
-          }}
+          onChange={(e) => setUserName(e.target.value)}
         />
       </FormGroup>
       <FormGroup>
@@ -90,9 +96,7 @@ export default function Register({ setLoggedInUser }) {
         <Input
           type="text"
           value={address}
-          onChange={(e) => {
-            setAddress(e.target.value);
-          }}
+          onChange={(e) => setAddress(e.target.value)}
         />
       </FormGroup>
       <FormGroup>

@@ -11,14 +11,27 @@ export default function Login({ setLoggedInUser }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    login(email, password).then((user) => {
-      if (!user) {
-        setFailedLogin(true);
-      } else {
-        setLoggedInUser(user);
-        navigate("/");
-      }
-    });
+
+    login(email, password)
+      .then((user) => {
+        if (!user) {
+          setFailedLogin(true); // Generic failure for unexpected null user
+        } else {
+          setLoggedInUser(user); // Log in the user
+          navigate("/"); // Redirect to home
+        }
+      })
+      .catch((error) => {
+        if (error.message === "Your account is inactive.") {
+          alert(
+            "Admin has not yet activated your account. Please try again later."
+          );
+        } else {
+          alert(
+            error.message || "Login failed. Please check your credentials."
+          );
+        }
+      });
   };
 
   return (

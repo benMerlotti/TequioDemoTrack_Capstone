@@ -9,7 +9,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace TequioDemoTrack.Migrations
 {
     /// <inheritdoc />
-    public partial class Initia : Migration
+    public partial class intial : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -372,9 +372,9 @@ namespace TequioDemoTrack.Migrations
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
                 values: new object[,]
                 {
-                    { "d7f5e876-91fe-4e0b-a2c9-e6a07500f50e", 0, "bd277f3b-2e77-493a-bbfa-dd9e8c6adbdb", "jordan@gmail.com", false, false, null, null, null, "AQAAAAIAAYagAAAAEKJNVbQSsdPV9E9+ea+yTNpgHX0T/Ldj+6spRIzT3RhGGuRw7I5QJx+yJen079qhmg==", null, false, "b5c1a673-4f9c-4640-9332-c5086d7e8bae", false, "SmithJordan" },
-                    { "dbc40bc6-0829-4ac5-a3ed-180f5e916a5f", 0, "83e2cd50-69da-4f5b-931d-5ab1aba988ec", "admina@strator.comx", false, false, null, null, null, "AQAAAAIAAYagAAAAELCjFpQ2EpapUnyJ29tp7HKZqLmb8lMu9k+jCDUuY6+2tBH3MekNJ/8r0cIyaxW/yA==", null, false, "4e22b67a-1869-4a64-b97e-411eb5e2322d", false, "Administrator" },
-                    { "f7b45b7d-3c74-4dfd-a8f9-20fe7b8cb062", 0, "f1507667-962e-42bf-9e14-8dfc64110487", "taylor@gmail.com", false, false, null, null, null, "AQAAAAIAAYagAAAAEC/iOWnI90hVj/zOK0cxWp2n+5V4O0pSiFGKGXku2Lul3H49sndVf1FMAdVxRuz89w==", null, false, "0879f2b7-13fc-4874-91d6-c5ef05f68366", false, "JohnsonTaylor" }
+                    { "d7f5e876-91fe-4e0b-a2c9-e6a07500f50e", 0, "95fcd0f0-aa36-4d66-bccf-05624986f339", "jordan@gmail.com", false, false, null, null, null, "AQAAAAIAAYagAAAAEMSoh4PRmeXxAaaFwd9jw9C51btce0z/OmUpzOvKDUlHO9YHuQv/by8p6te1EyS3lA==", null, false, "9249f3d1-1bca-42bd-81f7-aafa501a1617", false, "SmithJordan" },
+                    { "dbc40bc6-0829-4ac5-a3ed-180f5e916a5f", 0, "1bf76715-faa1-440f-8b6f-bdd1bdf1b55f", "admina@strator.comx", false, false, null, null, null, "AQAAAAIAAYagAAAAEH9hF/GiYHtuVCqSE8ZnXF19z7s7AlWCrnkzdY7tHLW/v0BtlIWku6JM94ISAwPIWg==", null, false, "89183072-0c98-4b35-b23c-cef47f73dd1a", false, "Administrator" },
+                    { "f7b45b7d-3c74-4dfd-a8f9-20fe7b8cb062", 0, "16c0a99b-9f4e-4bb7-8f16-a958663b2786", "taylor@gmail.com", false, false, null, null, null, "AQAAAAIAAYagAAAAEM0RcbH72P6K2LI5rW7nZC2Hns6/+blFVuS9XQeJomXcwrIzsZn3w8Ou3VHXEgR/eg==", null, false, "ac74f04e-ab4a-48fd-8813-793e6dd1da8f", false, "JohnsonTaylor" }
                 });
 
             migrationBuilder.InsertData(

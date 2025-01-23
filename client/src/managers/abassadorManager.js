@@ -12,6 +12,12 @@ export const getEmployeeById = (id) => {
     return fetch(`${_apiUrl}/${id}`).then((r) => r.json())
 }
 
+export const getPendingActivations = () => {
+    return fetch(`${_apiUrl}/pending-activations`).then((r) => r.json())
+
+};
+
+
 export const createEmployee = (newEmployee) => {
     return fetch(`${_apiUrl}`, {
         method: "POST",

@@ -1,7 +1,8 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import {
   deleteEmployee,
   getEmployeesWithRoles,
+  getPendingActivations,
   toggleAmbassadorStatus,
 } from "../../managers/abassadorManager";
 import { Link, useNavigate } from "react-router-dom";
@@ -18,6 +19,7 @@ import {
   DropdownMenu,
   DropdownItem,
 } from "reactstrap";
+import { UserContext } from "../../App";
 
 export const EmployeeList = () => {
   const [employees, setEmployees] = useState([]);
@@ -25,6 +27,7 @@ export const EmployeeList = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [dropdownOpen, setDropdownOpen] = useState(null);
   const [showActiveOnly, setShowActiveOnly] = useState(false);
+  const { pendingUsers, setPendingUsers } = useContext(UserContext);
 
   const navigate = useNavigate();
 
@@ -103,6 +106,9 @@ export const EmployeeList = () => {
   const handleToggleActivation = (id, event) => {
     event.stopPropagation(); // Prevent row click event
     toggleAmbassadorStatus(id).then(() => {
+      getPendingActivations().then(setPendingUsers);
+
+      // Refresh the employee list
       getEmployeesWithRoles().then((data) => {
         const sortedData = data.sort((a, b) => b.isActive - a.isActive);
         setEmployees(sortedData);
@@ -146,21 +152,13 @@ export const EmployeeList = () => {
                 {showActiveOnly ? "Show All" : "Show Active"}
               </Button>
             </Col>
-            <Col className="text-end">
-              <Link to="add-employee">
-                <Button color="primary" className="px-4">
-                  <i className="bi bi-person-plus me-2"></i>
-                  Add Ambassador
-                </Button>
-              </Link>
-            </Col>
           </Row>
 
           <div
             style={{
               maxHeight: "400px",
               overflowY: "auto",
-              minHeight: "200px",
+              minHeight: "400px",
             }}
           >
             <table>

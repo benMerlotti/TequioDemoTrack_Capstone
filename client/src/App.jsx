@@ -1,13 +1,20 @@
-import { useEffect, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { tryGetLoggedInUser } from "./managers/authManager";
 import { Spinner } from "reactstrap";
 import NavBar from "./components/NavBar";
 import ApplicationViews from "./components/ApplicationViews";
+import { getPendingActivations } from "./managers/abassadorManager";
+export const UserContext = createContext();
 
 function App() {
   const [loggedInUser, setLoggedInUser] = useState();
+  const [pendingUsers, setPendingUsers] = useState([]);
+
+  useEffect(() => {
+    getPendingActivations().then(setPendingUsers);
+  }, []);
 
   useEffect(() => {
     // user will be null if not authenticated
@@ -23,11 +30,13 @@ function App() {
 
   return (
     <>
-      <NavBar loggedInUser={loggedInUser} setLoggedInUser={setLoggedInUser} />
-      <ApplicationViews
-        loggedInUser={loggedInUser}
-        setLoggedInUser={setLoggedInUser}
-      />
+      <UserContext.Provider value={{ pendingUsers, setPendingUsers }}>
+        <NavBar loggedInUser={loggedInUser} setLoggedInUser={setLoggedInUser} />
+        <ApplicationViews
+          loggedInUser={loggedInUser}
+          setLoggedInUser={setLoggedInUser}
+        />
+      </UserContext.Provider>
     </>
   );
 }

@@ -32,27 +32,48 @@ public class AuthController : ControllerBase
         {
             string encodedCreds = authHeader.Substring(6).Trim();
             string creds = Encoding
-            .GetEncoding("iso-8859-1")
-            .GetString(Convert.FromBase64String(encodedCreds));
+                .GetEncoding("iso-8859-1")
+                .GetString(Convert.FromBase64String(encodedCreds));
 
             // Get email and password
             int separator = creds.IndexOf(':');
             string email = creds.Substring(0, separator);
             string password = creds.Substring(separator + 1);
 
-            var user = _dbContext.Users.Where(u => u.Email == email).FirstOrDefault();
-            var userRoles = _dbContext.UserRoles.Where(ur => ur.UserId == user.Id).ToList();
+            // Fetch the ASPNETUsers record
+            var user = _dbContext.Users.FirstOrDefault(u => u.Email == email);
+            if (user == null)
+            {
+                return new UnauthorizedResult();
+            }
+
+            // Fetch the corresponding UserProfile using identityUserId
+            var userProfile = _dbContext.UserProfiles
+                .FirstOrDefault(up => up.IdentityUserId == user.Id);
+            if (userProfile == null)
+            {
+                return new UnauthorizedResult();
+            }
+
+            // Check if the user is active
+            if (!userProfile.IsActive)
+            {
+                return StatusCode(403, "Your account is inactive. Please contact the administrator.");
+            }
+
+            // Verify password
             var hasher = new PasswordHasher<IdentityUser>();
             var result = hasher.VerifyHashedPassword(user, user.PasswordHash, password);
-            if (user != null && result == PasswordVerificationResult.Success)
+            if (result == PasswordVerificationResult.Success)
             {
-                var claims = new List<Claim>
-                {
-                    new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
-                    new Claim(ClaimTypes.Name, user.UserName.ToString()),
-                    new Claim(ClaimTypes.Email, user.Email)
+                var userRoles = _dbContext.UserRoles.Where(ur => ur.UserId == user.Id).ToList();
 
-                };
+                var claims = new List<Claim>
+            {
+                new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
+                new Claim(ClaimTypes.Name, user.UserName.ToString()),
+                new Claim(ClaimTypes.Email, user.Email)
+            };
 
                 foreach (var userRole in userRoles)
                 {
@@ -63,8 +84,8 @@ public class AuthController : ControllerBase
                 var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
 
                 HttpContext.SignInAsync(
-                CookieAuthenticationDefaults.AuthenticationScheme,
-                new ClaimsPrincipal(claimsIdentity)).Wait();
+                    CookieAuthenticationDefaults.AuthenticationScheme,
+                    new ClaimsPrincipal(claimsIdentity)).Wait();
 
                 return Ok();
             }
@@ -75,6 +96,35 @@ public class AuthController : ControllerBase
         {
             return StatusCode(500);
         }
+    }
+
+    [HttpGet("Me")]
+    [Authorize]
+    public IActionResult Me()
+    {
+        var identityUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+        var profile = _dbContext.UserProfiles.SingleOrDefault(up => up.IdentityUserId == identityUserId);
+
+        if (profile == null)
+        {
+            return NotFound("User profile not found.");
+        }
+
+        var roles = User.FindAll(ClaimTypes.Role).Select(r => r.Value).ToList();
+
+        var userDto = new UserProfileDTO
+        {
+            Id = profile.Id,
+            FirstName = profile.FirstName,
+            LastName = profile.LastName,
+            Address = profile.Address,
+            IdentityUserId = identityUserId,
+            UserName = User.FindFirstValue(ClaimTypes.Name),
+            Email = User.FindFirstValue(ClaimTypes.Email),
+            Roles = roles
+        };
+
+        return Ok(userDto);
     }
 
     [HttpGet]
@@ -93,72 +143,60 @@ public class AuthController : ControllerBase
         }
     }
 
-    [HttpGet("Me")]
-    [Authorize]
-    public IActionResult Me()
-    {
-        var identityUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-        var profile = _dbContext.UserProfiles.SingleOrDefault(up => up.IdentityUserId == identityUserId);
-        var roles = User.FindAll(ClaimTypes.Role).Select(r => r.Value).ToList();
-        if (profile != null)
-        {
-            var userDto = new UserProfileDTO
-            {
-                Id = profile.Id,
-                FirstName = profile.FirstName,
-                LastName = profile.LastName,
-                Address = profile.Address,
-                IdentityUserId = identityUserId,
-                UserName = User.FindFirstValue(ClaimTypes.Name),
-                Email = User.FindFirstValue(ClaimTypes.Email),
-                Roles = roles
-            };
-
-            return Ok(userDto);
-        }
-        return NotFound();
-    }
 
     [HttpPost("register")]
     public async Task<IActionResult> Register(RegistrationDTO registration)
     {
-        var user = new IdentityUser
+        try
         {
-            UserName = registration.UserName,
-            Email = registration.Email
-        };
-
-        var password = Encoding
-            .GetEncoding("iso-8859-1")
-            .GetString(Convert.FromBase64String(registration.Password));
-
-        var result = await _userManager.CreateAsync(user, password);
-        if (result.Succeeded)
-        {
-            _dbContext.UserProfiles.Add(new UserProfile
+            // Create IdentityUser
+            var user = new IdentityUser
             {
-                FirstName = registration.FirstName,
-                LastName = registration.LastName,
-                Address = registration.Address,
-                IdentityUserId = user.Id,
-            });
-            _dbContext.SaveChanges();
+                UserName = registration.UserName,
+                Email = registration.Email
+            };
 
-            var claims = new List<Claim>
+            // Decode Base64 password
+            var password = Encoding
+                .GetEncoding("iso-8859-1")
+                .GetString(Convert.FromBase64String(registration.Password));
+
+            // Attempt to create user
+            var result = await _userManager.CreateAsync(user, password);
+            if (result.Succeeded)
+            {
+                // Add UserProfile with isActive set to false
+                _dbContext.UserProfiles.Add(new UserProfile
                 {
-                    new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
-                    new Claim(ClaimTypes.Name, user.UserName.ToString()),
-                    new Claim(ClaimTypes.Email, user.Email)
+                    FirstName = registration.FirstName,
+                    LastName = registration.LastName,
+                    Address = registration.Address,
+                    IdentityUserId = user.Id,
+                    IsActive = false, // Newly registered users are inactive
+                    StartDate = DateTime.UtcNow // Registration timestamp
+                });
 
-                };
-            var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+                await _dbContext.SaveChangesAsync();
 
-            HttpContext.SignInAsync(
-            CookieAuthenticationDefaults.AuthenticationScheme,
-            new ClaimsPrincipal(claimsIdentity)).Wait();
+                // Return success message
+                return Ok("Registration successful. Please wait for activation.");
+            }
 
-            return Ok();
+            // Collect and return errors if registration failed
+            var errors = string.Join(", ", result.Errors.Select(e => e.Description));
+            return BadRequest($"Registration failed. Errors: {errors}");
         }
-        return StatusCode(500);
+        catch (Exception ex)
+        {
+            // Log the exception and return server error
+            Console.WriteLine($"Error during registration: {ex.Message}");
+            return StatusCode(500, "An error occurred during registration.");
+        }
     }
+
+
+
+
+
+
 }

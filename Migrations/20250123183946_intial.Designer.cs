@@ -12,8 +12,8 @@ using TequioDemoTrack.Data;
 namespace TequioDemoTrack.Migrations
 {
     [DbContext(typeof(TequioDemoTrackDbContext))]
-    [Migration("20250120215525_Initia")]
-    partial class Initia
+    [Migration("20250123183946_intial")]
+    partial class intial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -152,13 +152,13 @@ namespace TequioDemoTrack.Migrations
                         {
                             Id = "dbc40bc6-0829-4ac5-a3ed-180f5e916a5f",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "83e2cd50-69da-4f5b-931d-5ab1aba988ec",
+                            ConcurrencyStamp = "1bf76715-faa1-440f-8b6f-bdd1bdf1b55f",
                             Email = "admina@strator.comx",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
-                            PasswordHash = "AQAAAAIAAYagAAAAELCjFpQ2EpapUnyJ29tp7HKZqLmb8lMu9k+jCDUuY6+2tBH3MekNJ/8r0cIyaxW/yA==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEH9hF/GiYHtuVCqSE8ZnXF19z7s7AlWCrnkzdY7tHLW/v0BtlIWku6JM94ISAwPIWg==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "4e22b67a-1869-4a64-b97e-411eb5e2322d",
+                            SecurityStamp = "89183072-0c98-4b35-b23c-cef47f73dd1a",
                             TwoFactorEnabled = false,
                             UserName = "Administrator"
                         },
@@ -166,13 +166,13 @@ namespace TequioDemoTrack.Migrations
                         {
                             Id = "d7f5e876-91fe-4e0b-a2c9-e6a07500f50e",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "bd277f3b-2e77-493a-bbfa-dd9e8c6adbdb",
+                            ConcurrencyStamp = "95fcd0f0-aa36-4d66-bccf-05624986f339",
                             Email = "jordan@gmail.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
-                            PasswordHash = "AQAAAAIAAYagAAAAEKJNVbQSsdPV9E9+ea+yTNpgHX0T/Ldj+6spRIzT3RhGGuRw7I5QJx+yJen079qhmg==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEMSoh4PRmeXxAaaFwd9jw9C51btce0z/OmUpzOvKDUlHO9YHuQv/by8p6te1EyS3lA==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "b5c1a673-4f9c-4640-9332-c5086d7e8bae",
+                            SecurityStamp = "9249f3d1-1bca-42bd-81f7-aafa501a1617",
                             TwoFactorEnabled = false,
                             UserName = "SmithJordan"
                         },
@@ -180,13 +180,13 @@ namespace TequioDemoTrack.Migrations
                         {
                             Id = "f7b45b7d-3c74-4dfd-a8f9-20fe7b8cb062",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "f1507667-962e-42bf-9e14-8dfc64110487",
+                            ConcurrencyStamp = "16c0a99b-9f4e-4bb7-8f16-a958663b2786",
                             Email = "taylor@gmail.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
-                            PasswordHash = "AQAAAAIAAYagAAAAEC/iOWnI90hVj/zOK0cxWp2n+5V4O0pSiFGKGXku2Lul3H49sndVf1FMAdVxRuz89w==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEM0RcbH72P6K2LI5rW7nZC2Hns6/+blFVuS9XQeJomXcwrIzsZn3w8Ou3VHXEgR/eg==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "0879f2b7-13fc-4874-91d6-c5ef05f68366",
+                            SecurityStamp = "ac74f04e-ab4a-48fd-8813-793e6dd1da8f",
                             TwoFactorEnabled = false,
                             UserName = "JohnsonTaylor"
                         });
