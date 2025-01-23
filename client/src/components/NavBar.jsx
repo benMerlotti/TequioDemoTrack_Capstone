@@ -151,7 +151,7 @@ export default function NavBar({ loggedInUser, setLoggedInUser }) {
                         <DropdownItem
                           key={user.id}
                           tag={RRNavLink}
-                          to={`/admin/user/${user.id}`}
+                          to={`/employees/${user.id}`}
                         >
                           {user.firstName} {user.lastName} ({user.email})
                         </DropdownItem>

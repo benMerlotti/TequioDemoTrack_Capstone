@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import {
   Spinner,
@@ -16,13 +16,17 @@ import {
 import {
   getEmployeeById,
   deleteEmployee,
+  toggleAmbassadorStatus,
+  getPendingActivations,
 } from "../../managers/abassadorManager";
+import { UserContext } from "../../App";
 
 export const EmployeeDetails = () => {
   const [employee, setEmployee] = useState(null);
   const [filteredPurchases, setFilteredPurchases] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [dropdownOpen, setDropdownOpen] = useState(false);
+  const { pendingUsers, setPendingUsers } = useContext(UserContext);
   const { id } = useParams();
   const navigate = useNavigate();
 
@@ -67,6 +71,17 @@ export const EmployeeDetails = () => {
     return total;
   };
 
+  const handleToggleActivation = (id, event) => {
+    event.stopPropagation(); // Prevent row click event
+    toggleAmbassadorStatus(id).then(() => {
+      getPendingActivations().then(setPendingUsers);
+
+      getEmployeeById(id).then((data) => {
+        setEmployee(data);
+      });
+    });
+  };
+
   if (!employee) {
     return (
       <div className="text-center mt-5">
@@ -85,6 +100,11 @@ export const EmployeeDetails = () => {
             <h1 className="employee-name fw-bold display-1">
               {employee.firstName} {employee.lastName}
             </h1>
+            {employee.isActive ? (
+              <i className="bi bi-check-circle-fill text-success"></i> // Active icon
+            ) : (
+              <i className="bi bi-x-circle-fill text-danger"></i> // Inactive icon
+            )}
           </div>
           <div style={{ display: "flex", gap: "1rem" }}>
             <p>Sales:</p>
@@ -111,7 +131,13 @@ export const EmployeeDetails = () => {
             <i className="bi bi-three-dots"></i>
           </DropdownToggle>
           <DropdownMenu>
-            <DropdownItem onClick={handleEdit} className="text-warning">
+            <DropdownItem
+              onClick={(event) => handleToggleActivation(employee.id, event)}
+              className={employee.isActive ? "text-warning" : "text-success"}
+            >
+              {employee.isActive ? "Deactivate" : "Activate"}
+            </DropdownItem>
+            <DropdownItem onClick={handleEdit} className="text-white">
               Edit
             </DropdownItem>
             <DropdownItem onClick={handleDelete} className="text-danger">
