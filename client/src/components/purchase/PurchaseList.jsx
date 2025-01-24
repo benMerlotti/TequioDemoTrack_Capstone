@@ -150,7 +150,13 @@ export const PurchaseList = ({ loggedInUser }) => {
               </Button>
             </Col>
           </Row>
-          <div style={{ maxHeight: "400px", overflowY: "auto" }}>
+          <div
+            style={{
+              maxHeight: "400px",
+              minHeight: "400px",
+              overflowY: "auto",
+            }}
+          >
             <table>
               <thead>
                 <tr>
