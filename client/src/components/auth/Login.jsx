@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { login } from "../../managers/authManager";
@@ -8,6 +9,7 @@ export default function Login({ setLoggedInUser }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [failedLogin, setFailedLogin] = useState(false);
+  const [warningMessage, setWarningMessage] = useState(""); // State for warning message
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -23,11 +25,11 @@ export default function Login({ setLoggedInUser }) {
       })
       .catch((error) => {
         if (error.message === "Your account is inactive.") {
-          alert(
+          setWarningMessage(
             "Admin has not yet activated your account. Please try again later."
-          );
+          ); // Set the warning message
         } else {
-          alert(
+          setWarningMessage(
             error.message || "Login failed. Please check your credentials."
           );
         }
@@ -45,6 +47,7 @@ export default function Login({ setLoggedInUser }) {
           value={email}
           onChange={(e) => {
             setFailedLogin(false);
+            setWarningMessage(""); // Clear the warning message
             setEmail(e.target.value);
           }}
         />
@@ -57,11 +60,17 @@ export default function Login({ setLoggedInUser }) {
           value={password}
           onChange={(e) => {
             setFailedLogin(false);
+            setWarningMessage(""); // Clear the warning message
             setPassword(e.target.value);
           }}
         />
         <FormFeedback>Login failed.</FormFeedback>
       </FormGroup>
+
+      {/* Conditionally render the warning message */}
+      {warningMessage && (
+        <p style={{ color: "red", marginBottom: "10px" }}>{warningMessage}</p>
+      )}
 
       <Button color="primary" onClick={handleSubmit}>
         Login
