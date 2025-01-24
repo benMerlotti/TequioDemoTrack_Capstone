@@ -26,7 +26,7 @@ export const EmployeeDetails = () => {
   const [filteredPurchases, setFilteredPurchases] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [dropdownOpen, setDropdownOpen] = useState(false);
-  const { pendingUsers, setPendingUsers } = useContext(UserContext);
+  const { setPendingUsers } = useContext(UserContext);
   const { id } = useParams();
   const navigate = useNavigate();
 

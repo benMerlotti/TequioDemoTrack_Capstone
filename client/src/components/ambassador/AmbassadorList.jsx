@@ -27,7 +27,7 @@ export const EmployeeList = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [dropdownOpen, setDropdownOpen] = useState(null);
   const [showActiveOnly, setShowActiveOnly] = useState(false);
-  const { pendingUsers, setPendingUsers } = useContext(UserContext);
+  const { setPendingUsers } = useContext(UserContext);
 
   const navigate = useNavigate();
 
