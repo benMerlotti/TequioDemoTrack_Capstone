@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using TequioDemoTrack.Data;
@@ -11,9 +12,11 @@ using TequioDemoTrack.Data;
 namespace TequioDemoTrack.Migrations
 {
     [DbContext(typeof(TequioDemoTrackDbContext))]
-    partial class TequioDemoTrackDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250128231814_newcustomers")]
+    partial class newcustomers
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

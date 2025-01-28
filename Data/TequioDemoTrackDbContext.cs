@@ -2,8 +2,31 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using TequioDemoTrack.Models;
 using Microsoft.AspNetCore.Identity;
+using Bogus;
+using System.Collections.Generic;
 
 namespace TequioDemoTrack.Data;
+
+public class DataGenerator
+{
+    public List<Customer> GenerateCustomers(int numberOfCustomers)
+    {
+        var customerId = 1;
+        var faker = new Faker<Customer>()
+        .RuleFor(c => c.Id, f => customerId++)
+        .RuleFor(c => c.Name, f => f.Name.FullName())
+        .RuleFor(c => c.Email, f => f.Internet.Email())
+        .RuleFor(c => c.Address, f => f.Address.FullAddress())
+        .RuleFor(c => c.AgeGroupId, f => f.Random.Int(1, 6))
+        .RuleFor(c => c.GenderId, f => f.Random.Int(1, 3)) // Consistent with others
+        .RuleFor(c => c.RaceId, f => f.Random.Int(1, 4))
+        .RuleFor(c => c.LocationId, f => f.Random.Int(1, 10));
+
+
+        return faker.Generate(numberOfCustomers);
+    }
+}
+
 public class TequioDemoTrackDbContext : IdentityDbContext<IdentityUser>
 {
     private readonly IConfiguration _configuration;
@@ -139,29 +162,12 @@ public class TequioDemoTrackDbContext : IdentityDbContext<IdentityUser>
             new Product { Id = 4, Name = "Sparkling Repasado", Pack = 24, Image = "/Repasado.png", Ingredients = "El Mexicano® Tequila Repasado (Certified Additive-Free, 100% De Agave), Sparkling Water, Natural Lime Flavor, Citric Acid", Price = 119.94m }
   );
 
-        // Seed data for Customer
-        modelBuilder.Entity<Customer>().HasData(
-    new Customer { Id = 1, Name = "John Doe", Email = "john.doe@example.com", Address = "123 Main St, Downtown LA", AgeGroupId = 1, GenderId = 1, RaceId = 1, LocationId = 1 },
-    new Customer { Id = 2, Name = "Jane Smith", Email = "jane.smith@example.com", Address = "456 Elm St, Hollywood", AgeGroupId = 2, GenderId = 2, RaceId = 2, LocationId = 2 },
-    new Customer { Id = 3, Name = "Mark Brown", Email = "mark.brown@example.com", Address = "789 Oak St, Beverly Hills", AgeGroupId = 3, GenderId = 1, RaceId = 3, LocationId = 3 },
-    new Customer { Id = 4, Name = "Emily Davis", Email = "emily.davis@example.com", Address = "111 Maple Ave, Santa Monica", AgeGroupId = 4, GenderId = 2, RaceId = 4, LocationId = 4 },
-    new Customer { Id = 5, Name = "Michael Wilson", Email = "michael.wilson@example.com", Address = "222 Pine St, Venice", AgeGroupId = 5, GenderId = 3, RaceId = 1, LocationId = 5 },
-    new Customer { Id = 6, Name = "Sarah Johnson", Email = "sarah.johnson@example.com", Address = "333 Cedar Rd, Pasadena", AgeGroupId = 6, GenderId = 2, RaceId = 2, LocationId = 6 },
-    new Customer { Id = 7, Name = "David Lee", Email = "david.lee@example.com", Address = "444 Birch Ln, Westwood", AgeGroupId = 1, GenderId = 3, RaceId = 3, LocationId = 7 },
-    new Customer { Id = 8, Name = "Jessica White", Email = "jessica.white@example.com", Address = "555 Willow Dr, Silver Lake", AgeGroupId = 2, GenderId = 1, RaceId = 4, LocationId = 8 },
-    new Customer { Id = 9, Name = "James Miller", Email = "james.miller@example.com", Address = "666 Vine St, Echo Park", AgeGroupId = 3, GenderId = 3, RaceId = 1, LocationId = 9 },
-    new Customer { Id = 10, Name = "Laura Moore", Email = "laura.moore@example.com", Address = "777 Redwood St, Culver City", AgeGroupId = 4, GenderId = 2, RaceId = 2, LocationId = 10 },
-    new Customer { Id = 11, Name = "Robert Clark", Email = "robert.clark@example.com", Address = "888 Laurel St, Downtown LA", AgeGroupId = 5, GenderId = 1, RaceId = 3, LocationId = 1 },
-    new Customer { Id = 12, Name = "Linda Martinez", Email = "linda.martinez@example.com", Address = "999 Cherry Ave, Hollywood", AgeGroupId = 6, GenderId = 2, RaceId = 4, LocationId = 2 },
-    new Customer { Id = 13, Name = "Charles Garcia", Email = "charles.garcia@example.com", Address = "123 Cypress Ln, Beverly Hills", AgeGroupId = 1, GenderId = 3, RaceId = 1, LocationId = 3 },
-    new Customer { Id = 14, Name = "Sophia Rodriguez", Email = "sophia.rodriguez@example.com", Address = "456 Magnolia Blvd, Santa Monica", AgeGroupId = 2, GenderId = 1, RaceId = 2, LocationId = 4 },
-    new Customer { Id = 15, Name = "Daniel Hall", Email = "daniel.hall@example.com", Address = "789 Dogwood St, Venice", AgeGroupId = 3, GenderId = 3, RaceId = 3, LocationId = 5 },
-    new Customer { Id = 16, Name = "Olivia Lopez", Email = "olivia.lopez@example.com", Address = "111 Fir St, Pasadena", AgeGroupId = 4, GenderId = 2, RaceId = 4, LocationId = 6 },
-    new Customer { Id = 17, Name = "Paul Hernandez", Email = "paul.hernandez@example.com", Address = "222 Ash St, Westwood", AgeGroupId = 5, GenderId = 1, RaceId = 1, LocationId = 7 },
-    new Customer { Id = 18, Name = "Anna King", Email = "anna.king@example.com", Address = "333 Palm Ave, Silver Lake", AgeGroupId = 6, GenderId = 2, RaceId = 2, LocationId = 8 },
-    new Customer { Id = 19, Name = "Steven Wright", Email = "steven.wright@example.com", Address = "444 Fir Ln, Echo Park", AgeGroupId = 1, GenderId = 3, RaceId = 3, LocationId = 9 },
-    new Customer { Id = 20, Name = "Megan Scott", Email = "megan.scott@example.com", Address = "555 Oak Blvd, Culver City", AgeGroupId = 2, GenderId = 1, RaceId = 4, LocationId = 10 }
-);
+        // Generate fake customers using Bogus
+        var dataGenerator = new DataGenerator();
+        var fakeCustomers = dataGenerator.GenerateCustomers(1000); // Generate 100 fake customers
+
+        // Seed the generated data into the database
+        modelBuilder.Entity<Customer>().HasData(fakeCustomers.ToArray());
 
 
 
