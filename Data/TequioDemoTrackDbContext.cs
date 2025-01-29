@@ -7,25 +7,8 @@ using System.Collections.Generic;
 
 namespace TequioDemoTrack.Data;
 
-public class DataGenerator
-{
-    public List<Customer> GenerateCustomers(int numberOfCustomers)
-    {
-        var customerId = 1;
-        var faker = new Faker<Customer>()
-        .RuleFor(c => c.Id, f => customerId++)
-        .RuleFor(c => c.Name, f => f.Name.FullName())
-        .RuleFor(c => c.Email, f => f.Internet.Email())
-        .RuleFor(c => c.Address, f => f.Address.FullAddress())
-        .RuleFor(c => c.AgeGroupId, f => f.Random.Int(1, 6))
-        .RuleFor(c => c.GenderId, f => f.Random.Int(1, 3)) // Consistent with others
-        .RuleFor(c => c.RaceId, f => f.Random.Int(1, 4))
-        .RuleFor(c => c.LocationId, f => f.Random.Int(1, 10));
 
 
-        return faker.Generate(numberOfCustomers);
-    }
-}
 
 public class TequioDemoTrackDbContext : IdentityDbContext<IdentityUser>
 {
@@ -49,6 +32,19 @@ public class TequioDemoTrackDbContext : IdentityDbContext<IdentityUser>
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
+
+        modelBuilder.Entity<Customer>()
+     .Property(c => c.Id)
+     .ValueGeneratedOnAdd(); // Enables auto-increment for the primary key
+
+        // Repeat for other entities if needed
+        modelBuilder.Entity<Purchase>()
+            .Property(p => p.Id)
+            .ValueGeneratedOnAdd();
+
+        modelBuilder.Entity<PurchaseProduct>()
+            .Property(pp => pp.Id)
+            .ValueGeneratedOnAdd();
 
         modelBuilder.Entity<IdentityRole>().HasData(new IdentityRole
         {
@@ -94,6 +90,7 @@ public class TequioDemoTrackDbContext : IdentityDbContext<IdentityUser>
             IdentityUserId = "dbc40bc6-0829-4ac5-a3ed-180f5e916a5f",
             FirstName = "Admina",
             LastName = "Strator",
+            IsActive = true,
             Address = "101 Main Street",
         },
         new UserProfile
@@ -161,113 +158,100 @@ public class TequioDemoTrackDbContext : IdentityDbContext<IdentityUser>
             new Product { Id = 3, Name = "Sparkling Repasado", Pack = 8, Image = "/Repasado.png", Ingredients = "El Mexicano® Tequila Repasado (Certified Additive-Free, 100% De Agave), Sparkling Water, Natural Lime Flavor, Citric Acid", Price = 39.98m },
             new Product { Id = 4, Name = "Sparkling Repasado", Pack = 24, Image = "/Repasado.png", Ingredients = "El Mexicano® Tequila Repasado (Certified Additive-Free, 100% De Agave), Sparkling Water, Natural Lime Flavor, Citric Acid", Price = 119.94m }
   );
-
-        // Generate fake customers using Bogus
-        var dataGenerator = new DataGenerator();
-        var fakeCustomers = dataGenerator.GenerateCustomers(1000); // Generate 100 fake customers
-
-        // Seed the generated data into the database
-        modelBuilder.Entity<Customer>().HasData(fakeCustomers.ToArray());
-
-
-
-        // Seed data for Purchases
-        modelBuilder.Entity<Purchase>().HasData(
-            new Purchase { Id = 1, CustomerId = 1, UserProfileId = 3, PurchaseDate = new DateTime(2023, 1, 10) },
-            new Purchase { Id = 2, CustomerId = 3, UserProfileId = 2, PurchaseDate = new DateTime(2023, 2, 15) },
-            new Purchase { Id = 3, CustomerId = 5, UserProfileId = 3, PurchaseDate = new DateTime(2023, 3, 20) },
-            new Purchase { Id = 4, CustomerId = 7, UserProfileId = 2, PurchaseDate = new DateTime(2023, 4, 25) },
-            new Purchase { Id = 5, CustomerId = 9, UserProfileId = 3, PurchaseDate = new DateTime(2023, 5, 5) },
-            new Purchase { Id = 6, CustomerId = 2, UserProfileId = 2, PurchaseDate = new DateTime(2023, 6, 18) },
-            new Purchase { Id = 7, CustomerId = 4, UserProfileId = 3, PurchaseDate = new DateTime(2023, 7, 12) },
-            new Purchase { Id = 8, CustomerId = 6, UserProfileId = 2, PurchaseDate = new DateTime(2023, 8, 3) },
-            new Purchase { Id = 9, CustomerId = 8, UserProfileId = 3, PurchaseDate = new DateTime(2023, 9, 22) },
-            new Purchase { Id = 10, CustomerId = 10, UserProfileId = 2, PurchaseDate = new DateTime(2023, 10, 30) },
-            new Purchase { Id = 11, CustomerId = 1, UserProfileId = 3, PurchaseDate = new DateTime(2024, 1, 5) },
-            new Purchase { Id = 12, CustomerId = 3, UserProfileId = 2, PurchaseDate = new DateTime(2024, 2, 14) },
-            new Purchase { Id = 13, CustomerId = 5, UserProfileId = 3, PurchaseDate = new DateTime(2024, 3, 9) },
-            new Purchase { Id = 14, CustomerId = 7, UserProfileId = 2, PurchaseDate = new DateTime(2024, 4, 23) },
-            new Purchase { Id = 15, CustomerId = 9, UserProfileId = 3, PurchaseDate = new DateTime(2024, 5, 17) },
-            new Purchase { Id = 16, CustomerId = 2, UserProfileId = 2, PurchaseDate = new DateTime(2024, 6, 11) },
-            new Purchase { Id = 17, CustomerId = 4, UserProfileId = 3, PurchaseDate = new DateTime(2024, 7, 15) },
-            new Purchase { Id = 18, CustomerId = 6, UserProfileId = 2, PurchaseDate = new DateTime(2024, 8, 8) },
-            new Purchase { Id = 19, CustomerId = 8, UserProfileId = 3, PurchaseDate = new DateTime(2024, 9, 27) },
-            new Purchase { Id = 20, CustomerId = 10, UserProfileId = 2, PurchaseDate = new DateTime(2024, 10, 4) },
-            new Purchase { Id = 21, CustomerId = 1, UserProfileId = 3, PurchaseDate = new DateTime(2025, 1, 12) },
-            new Purchase { Id = 22, CustomerId = 3, UserProfileId = 2, PurchaseDate = new DateTime(2025, 2, 22) },
-            new Purchase { Id = 23, CustomerId = 5, UserProfileId = 3, PurchaseDate = new DateTime(2025, 3, 8) },
-            new Purchase { Id = 24, CustomerId = 7, UserProfileId = 2, PurchaseDate = new DateTime(2025, 4, 15) },
-            new Purchase { Id = 25, CustomerId = 9, UserProfileId = 3, PurchaseDate = new DateTime(2025, 5, 30) },
-            new Purchase { Id = 26, CustomerId = 2, UserProfileId = 2, PurchaseDate = new DateTime(2025, 6, 13) },
-            new Purchase { Id = 27, CustomerId = 4, UserProfileId = 3, PurchaseDate = new DateTime(2025, 7, 24) },
-            new Purchase { Id = 28, CustomerId = 6, UserProfileId = 2, PurchaseDate = new DateTime(2025, 8, 19) },
-            new Purchase { Id = 29, CustomerId = 8, UserProfileId = 3, PurchaseDate = new DateTime(2025, 9, 25) },
-            new Purchase { Id = 30, CustomerId = 10, UserProfileId = 2, PurchaseDate = new DateTime(2025, 10, 18) }
-);
-
-        modelBuilder.Entity<PurchaseProduct>().HasData(
-            new PurchaseProduct { Id = 1, PurchaseId = 1, ProductId = 1, Quantity = 2 },
-    new PurchaseProduct { Id = 2, PurchaseId = 1, ProductId = 3, Quantity = 1 },
-    new PurchaseProduct { Id = 3, PurchaseId = 2, ProductId = 2, Quantity = 3 },
-    new PurchaseProduct { Id = 4, PurchaseId = 2, ProductId = 1, Quantity = 1 },
-    new PurchaseProduct { Id = 5, PurchaseId = 3, ProductId = 3, Quantity = 2 },
-    new PurchaseProduct { Id = 6, PurchaseId = 3, ProductId = 2, Quantity = 1 },
-    new PurchaseProduct { Id = 7, PurchaseId = 4, ProductId = 1, Quantity = 3 },
-    new PurchaseProduct { Id = 8, PurchaseId = 4, ProductId = 2, Quantity = 2 },
-    new PurchaseProduct { Id = 9, PurchaseId = 5, ProductId = 3, Quantity = 1 },
-    new PurchaseProduct { Id = 10, PurchaseId = 5, ProductId = 1, Quantity = 4 },
-    new PurchaseProduct { Id = 11, PurchaseId = 6, ProductId = 2, Quantity = 2 },
-    new PurchaseProduct { Id = 12, PurchaseId = 6, ProductId = 3, Quantity = 3 },
-    new PurchaseProduct { Id = 13, PurchaseId = 7, ProductId = 1, Quantity = 1 },
-    new PurchaseProduct { Id = 14, PurchaseId = 7, ProductId = 2, Quantity = 3 },
-    new PurchaseProduct { Id = 15, PurchaseId = 8, ProductId = 3, Quantity = 2 },
-    new PurchaseProduct { Id = 16, PurchaseId = 8, ProductId = 1, Quantity = 5 },
-    new PurchaseProduct { Id = 17, PurchaseId = 9, ProductId = 2, Quantity = 4 },
-    new PurchaseProduct { Id = 18, PurchaseId = 9, ProductId = 3, Quantity = 1 },
-    new PurchaseProduct { Id = 19, PurchaseId = 10, ProductId = 1, Quantity = 2 },
-    new PurchaseProduct { Id = 20, PurchaseId = 10, ProductId = 2, Quantity = 3 },
-    new PurchaseProduct { Id = 21, PurchaseId = 11, ProductId = 3, Quantity = 1 },
-    new PurchaseProduct { Id = 22, PurchaseId = 11, ProductId = 2, Quantity = 2 },
-    new PurchaseProduct { Id = 23, PurchaseId = 12, ProductId = 1, Quantity = 3 },
-    new PurchaseProduct { Id = 24, PurchaseId = 12, ProductId = 3, Quantity = 2 },
-    new PurchaseProduct { Id = 25, PurchaseId = 13, ProductId = 2, Quantity = 4 },
-    new PurchaseProduct { Id = 26, PurchaseId = 13, ProductId = 1, Quantity = 1 },
-    new PurchaseProduct { Id = 27, PurchaseId = 14, ProductId = 3, Quantity = 3 },
-    new PurchaseProduct { Id = 28, PurchaseId = 14, ProductId = 2, Quantity = 2 },
-    new PurchaseProduct { Id = 29, PurchaseId = 15, ProductId = 1, Quantity = 2 },
-    new PurchaseProduct { Id = 30, PurchaseId = 15, ProductId = 3, Quantity = 1 },
-    new PurchaseProduct { Id = 31, PurchaseId = 16, ProductId = 2, Quantity = 5 },
-    new PurchaseProduct { Id = 32, PurchaseId = 16, ProductId = 1, Quantity = 3 },
-    new PurchaseProduct { Id = 33, PurchaseId = 17, ProductId = 3, Quantity = 2 },
-    new PurchaseProduct { Id = 34, PurchaseId = 17, ProductId = 2, Quantity = 4 },
-    new PurchaseProduct { Id = 35, PurchaseId = 18, ProductId = 1, Quantity = 3 },
-    new PurchaseProduct { Id = 36, PurchaseId = 18, ProductId = 3, Quantity = 2 },
-    new PurchaseProduct { Id = 37, PurchaseId = 19, ProductId = 2, Quantity = 4 },
-    new PurchaseProduct { Id = 38, PurchaseId = 19, ProductId = 1, Quantity = 1 },
-    new PurchaseProduct { Id = 39, PurchaseId = 20, ProductId = 3, Quantity = 5 },
-    new PurchaseProduct { Id = 40, PurchaseId = 20, ProductId = 2, Quantity = 3 },
-    new PurchaseProduct { Id = 41, PurchaseId = 21, ProductId = 1, Quantity = 1 },
-    new PurchaseProduct { Id = 42, PurchaseId = 21, ProductId = 3, Quantity = 2 },
-    new PurchaseProduct { Id = 43, PurchaseId = 22, ProductId = 2, Quantity = 5 },
-    new PurchaseProduct { Id = 44, PurchaseId = 22, ProductId = 1, Quantity = 2 },
-    new PurchaseProduct { Id = 45, PurchaseId = 23, ProductId = 3, Quantity = 3 },
-    new PurchaseProduct { Id = 46, PurchaseId = 23, ProductId = 2, Quantity = 1 },
-    new PurchaseProduct { Id = 47, PurchaseId = 24, ProductId = 1, Quantity = 4 },
-    new PurchaseProduct { Id = 48, PurchaseId = 24, ProductId = 3, Quantity = 2 },
-    new PurchaseProduct { Id = 49, PurchaseId = 25, ProductId = 2, Quantity = 3 },
-    new PurchaseProduct { Id = 50, PurchaseId = 25, ProductId = 1, Quantity = 1 },
-    new PurchaseProduct { Id = 51, PurchaseId = 26, ProductId = 3, Quantity = 2 },
-    new PurchaseProduct { Id = 52, PurchaseId = 26, ProductId = 2, Quantity = 4 },
-    new PurchaseProduct { Id = 53, PurchaseId = 27, ProductId = 1, Quantity = 3 },
-    new PurchaseProduct { Id = 54, PurchaseId = 27, ProductId = 3, Quantity = 2 },
-    new PurchaseProduct { Id = 55, PurchaseId = 28, ProductId = 2, Quantity = 5 },
-    new PurchaseProduct { Id = 56, PurchaseId = 28, ProductId = 1, Quantity = 4 },
-    new PurchaseProduct { Id = 57, PurchaseId = 29, ProductId = 3, Quantity = 3 },
-    new PurchaseProduct { Id = 58, PurchaseId = 29, ProductId = 2, Quantity = 2 },
-    new PurchaseProduct { Id = 59, PurchaseId = 30, ProductId = 1, Quantity = 1 },
-    new PurchaseProduct { Id = 60, PurchaseId = 30, ProductId = 3, Quantity = 5 }
-);
-
-
     }
+
+    public void SeedDynamicData()
+    {
+        var dataGenerator = new DataGenerator();
+
+        // Seed Customers
+        if (!Customers.Any())
+        {
+            var fakeCustomers = dataGenerator.GenerateCustomers(1000);
+            Customers.AddRange(fakeCustomers);
+            SaveChanges(); // Ensure Customers are saved before proceeding
+        }
+
+        // Seed UserProfiles
+        if (!UserProfiles.Any())
+        {
+            var userProfileFaker = new Faker<UserProfile>()
+                .RuleFor(up => up.FirstName, f => f.Name.FirstName())
+                .RuleFor(up => up.LastName, f => f.Name.LastName())
+                .RuleFor(up => up.Address, f => f.Address.FullAddress());
+
+            UserProfiles.AddRange(userProfileFaker.Generate(100));
+            SaveChanges(); // Ensure UserProfiles are saved before proceeding
+        }
+
+        // Seed Purchases
+        if (!Purchases.Any())
+        {
+            var existingCustomers = Customers.ToList();
+            var existingUserProfiles = UserProfiles.ToList();
+
+            if (!existingCustomers.Any() || !existingUserProfiles.Any())
+            {
+                Console.WriteLine("Error: Customers or UserProfiles list is empty.");
+                return;
+            }
+
+            var fakePurchases = dataGenerator.GeneratePurchases(100, 5, existingCustomers, existingUserProfiles);
+            Purchases.AddRange(fakePurchases);
+
+            var fakePurchaseProducts = fakePurchases.SelectMany(p => p.PurchaseProducts).ToList();
+            PurchaseProducts.AddRange(fakePurchaseProducts);
+        }
+
+        SaveChanges();
+    }
+
+
+}
+
+public class DataGenerator
+{
+    public List<Customer> GenerateCustomers(int numberOfCustomers)
+    {
+        var faker = new Faker<Customer>()
+        .RuleFor(c => c.Name, f => f.Name.FullName())
+        .RuleFor(c => c.Email, f => f.Internet.Email())
+        .RuleFor(c => c.Address, f => f.Address.FullAddress())
+        .RuleFor(c => c.AgeGroupId, f => f.Random.Int(1, 6))
+        .RuleFor(c => c.GenderId, f => f.Random.Int(1, 3)) // Consistent with others
+        .RuleFor(c => c.RaceId, f => f.Random.Int(1, 4))
+        .RuleFor(c => c.LocationId, f => f.Random.Int(1, 10));
+
+
+        return faker.Generate(numberOfCustomers);
+    }
+
+    public List<Purchase> GeneratePurchases(int numberOfPurchases, int maxProductsPerPurchase, List<Customer> existingCustomers, List<UserProfile> existingUserProfiles)
+    {
+
+        // Generate fake Purchases
+        var fakerPurchase = new Faker<Purchase>()
+            .RuleFor(p => p.PurchaseDate, f => f.Date.Past(1)) // Purchase date within the past year
+            .RuleFor(p => p.CustomerId, f => f.PickRandom(existingCustomers).Id) // Select CustomerId from existing customers
+            .RuleFor(p => p.Customer, f => f.PickRandom(existingCustomers)) // Select Customer object
+            .RuleFor(p => p.UserProfileId, f => f.PickRandom(existingUserProfiles).Id) // Select UserProfileId from existing profiles
+            .RuleFor(p => p.UserProfile, f => f.PickRandom(existingUserProfiles)); // Select UserProfile object
+
+        var purchases = fakerPurchase.Generate(numberOfPurchases);
+
+        // Generate PurchaseProducts for each Purchase
+        foreach (var purchase in purchases)
+        {
+            var fakerPurchaseProduct = new Faker<PurchaseProduct>()
+                .RuleFor(pp => pp.PurchaseId, f => purchase.Id) // Link to Purchase
+                .RuleFor(pp => pp.Purchase, f => purchase) // Set Purchase object
+                .RuleFor(pp => pp.ProductId, f => f.Random.Int(1, 4)) // Random ProductId between 1 and 4
+                .RuleFor(pp => pp.Quantity, f => f.Random.Int(1, 10)); // Random quantity
+
+            purchase.PurchaseProducts = fakerPurchaseProduct.Generate(new Faker().Random.Int(1, maxProductsPerPurchase)).ToList();
+        }
+
+        return purchases;
+    }
+
 }

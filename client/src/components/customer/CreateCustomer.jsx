@@ -51,17 +51,20 @@ export const CreateCustomer = () => {
     getLocations().then(setLocations);
   }, []);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    createCustomer(newCustomer).then((res) => {
-      if (res.errors) {
-        setErrors(res.errors);
-      } else {
-        navigate("/customers");
-      }
-    });
+    const res = await createCustomer(newCustomer);
+
+    if (res.errors) {
+      setErrors(res.errors);
+    } else {
+      // Use the `id` returned from the backend
+      const createdCustomerId = res.id; // Adjust this to match your backend response format
+      navigate(`/customers/${createdCustomerId}`);
+    }
   };
+
   return (
     <Container className="w-100 mt-5">
       <Card className="w-100">

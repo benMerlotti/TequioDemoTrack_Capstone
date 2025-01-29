@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;
 using TequioDemoTrack.Data;
 using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -62,6 +63,27 @@ builder.Services.AddNpgsql<TequioDemoTrackDbContext>(builder.Configuration["Tequ
 
 
 var app = builder.Build();
+
+using (var scope = app.Services.CreateScope())
+{
+    var dbContext = scope.ServiceProvider.GetRequiredService<TequioDemoTrackDbContext>();
+
+    // Apply migrations
+    dbContext.Database.Migrate();
+
+    Console.WriteLine("Starting data seeding...");
+    try
+    {
+        dbContext.SeedDynamicData();
+        Console.WriteLine("Data seeding completed.");
+    }
+    catch (Exception ex)
+    {
+        Console.WriteLine($"Data seeding failed: {ex.Message}");
+    }
+}
+
+
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
