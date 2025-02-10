@@ -1,6 +1,6 @@
 # Tequio Business Management Platform
 
-**Tequio** is a web-based business management application designed to centralize operations for tracking customer demographics, managing employees, monitoring purchases, and organizing products. This project highlights my ability to develop robust, full-stack applications that balance user experience with operational functionality.
+**TequioDemoTrack** is a web-based business management application designed to centralize operations for tracking customer demographics, managing employees, monitoring purchases, and organizing products. This project highlights my ability to develop robust, full-stack applications that balance user experience with operational functionality.
 
 ![Screenshot of the application](client/public/customers_ss.png)
 
